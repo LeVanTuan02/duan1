@@ -1,5 +1,158 @@
+:root {
+    --primary-color: #4d8a54;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
+@font-face {
+    font-family: 'UTM Bebas';
+    src: url(../fonts/UTM\ Bebas.ttf);
+}
+
+html {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+}
+
+.grid {
+    width: 1200px;
+    max-width: 100%;
+    margin: auto;
+    padding: 0px 15px;
+}
+
+/* *
+======================================= HEADER ======================================== */
+.header__top-wrap {
+    background-color: var(--primary-color);
+}
+
+.header__top {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__top-list {
+    display: flex;
+    align-items: center;
+    font-size: 12.8px;
+    color: rgba(255,255,255,0.8);
+    list-style-type: none;
+    margin: 0px -10px;
+}
+
+.header__top-list-item {
+    padding: 0px 10px;
+    position: relative;
+}
+
+.header__top-list-item-link {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    transition: all 0.25s linear;
+}
+
+.header__top-list-item-link:hover,
+.header__top-list-item-icon:hover {
+    color: #fff;
+}
+
+.header__top-list-item-icon {
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: all 0.25s linear;
+}
+
+.header__top-list-item-icon-size-M {
+    font-size: 17px;
+}
+
+.header__top-list-item-icon-heart {
+    margin-right: -4px;
+}
+
+.header__top-list-item-search {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.8);
+    padding-left: 4px;
+    border-radius: 50%;
+}
+
+.header__top-list-item--separator::after {
+    content: "";
+    width: 1px;
+    height: 80%;
+    background-color: rgba(255,255,255,0.2);
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    justify-content: space-between;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.header__menu-wrap.fixed {
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 15%);
+}
+
+.header__menu-logo-link ~ .header__menu-list {
+    justify-content: flex-end;
+}
+
+.header__menu-list {
+    flex: 2;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0px -13px;
+}
+
+.header__menu-list-item-link {
+    text-decoration: none;
+    color: rgba(102,102,102,0.85);
+    font-size: 12.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0px 13px;
+    transition: all 0.3s linear;
+    letter-spacing: 0.02em;
+}
+
+.header__menu-list-item-link:hover {
+    color: rgba(17,17,17,0.85);
+}
+
+.header__menu-logo-link {
+    padding: 12px;
+    display: inline-block;
+    height: 100%;
+}
+
+.header__menu-logo {
+    max-width: 100%;
+    display: block;
+    max-height: 100%;
+}
+/* *
+======================================= END HEADER =================================*/
