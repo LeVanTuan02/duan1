@@ -16,6 +16,22 @@ $(document).ready(function() {
         prevArrow: '<button class="content__cate-btn content__cate-btn-pre"><i class="fas fa-chevron-left"></i></button>',
         nextArrow: '<button class="content__cate-btn content__cate-btn-next"><i class="fas fa-chevron-right"></i></button>'
     });
+
+    // feedback
+    $('.content__feedback-list').slick({
+        autoplay: true,
+        dots: true,
+        prevArrow: '<button class="content__feedback-list-btn content__feedback-list-btn-pre"><i class="fas fa-chevron-left"></i></button>',
+        nextArrow: '<button class="content__feedback-list-btn content__feedback-list-btn-next"><i class="fas fa-chevron-right"></i></button>'
+    });
+
+    // slider bottom
+    $('.content__slider-bottom').slick({
+        slidesToShow: 5,
+        autoplay: true,
+        prevArrow: '<button class="content__slider-bottom-btn content__slider-bottom-btn-pre"><i class="fas fa-chevron-left"></i></button>',
+        nextArrow: '<button class="content__slider-bottom-btn content__slider-bottom-btn-next"><i class="fas fa-chevron-right"></i></button>'
+    });
 });
 
 // event handlers
