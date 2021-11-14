@@ -1,0 +1,150 @@
+.on {
+  width: 1080px;
+  height: auto;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25.6px;
+  margin: 0px auto;
+  padding: 20px 0px;
+}
+.on .left .td {
+  color: #222222;
+  font-size: 18.4px;
+  font-weight: 700;
+  line-height: 22.08px;
+  text-transform: uppercase;
+  width: 568px;
+  text-decoration: none;
+}
+.on .left .tt {
+  color: #111111;
+  display: inline;
+  font-size: 18.4px;
+  line-height: 22.08px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.on .right {
+  line-height: 25.6px;
+  width: 482px;
+  height: 49px;
+}
+
+.on select {
+  width: 264px;
+  height: 39px;
+  align-items: center;
+  background-color: #ffffff;
+  background-position: right 6.984px top 50%;
+  background-size: auto 16px;
+  border-color: #dddddd;
+  border-style: solid;
+  border-width: 1.06667px;
+  color: #333333;
+  display: inline-block;
+  font-size: 15.52px;
+  line-height: 24.832px;
+  margin: 5px 0px 0px 15px;
+  padding: 0px 21.728px 0px 11.64px;
+}
+
+.content .product_1 {
+  margin: 0px auto;
+  width: 1080px;
+  display: grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  grid-gap:16px;
+}
+.product_1 .content_pro {
+  font-size: 14.4px;
+  line-height: 23.04px;
+  padding: 10.08px 10px 20.16px;
+  text-align: center;
+}
+.product_1 img {
+  display: inline-block;
+  line-height: 25.6px;
+  border: 0.5px solid #e2dcdc;
+}
+
+.product_1 .content_pro a {
+  color: #4d8a54;
+  display: inline-block;
+
+  font-size: 14.4px;
+  font-weight: 700;
+  line-height: 18.72px;
+  margin: 1.44px 0px;
+  text-align: center;
+  text-decoration: none;
+}
+.product_1 .content_pro span {
+  color: #e4b95b;
+  display: inline;
+  font-size: 14.4px;
+  font-weight: 700;
+  line-height: 14.4px;
+  text-align: center;
+}
+.product_1 button {
+  width: 245px;
+  height: 30px;
+  background-color: #4d8a54;
+  font-size: 13.6px;
+  font-weight: 700;
+  line-height: 19px;
+  padding: 5.44px 0px 6.8px;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+}
+.product_1 button a {
+  color: #ffffff;
+  text-decoration: none;
+}
+/* Hver */
+.cha {
+  position: relative;
+  width: fit-content;
+  overflow: hidden;
+}
+.content_con {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+  transform: translateY(90px);
+  transition: ease-in-out 1s;
+
+  animation-name: fadeOut;
+  animation-duration: 1s;
+}
+.cha .img {
+  transition: 0.5s all ease-in-out;
+}
+.cha:hover .content_con {
+  transform: translateY(-5px);
+  transition: ease-in-out 1s;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes fadeIn {
+  /* định nghĩa  animation*/
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* ============================================ */
