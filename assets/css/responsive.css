@@ -1,0 +1,82 @@
+/* pc low resolution */
+@media (min-width: 1024px) and (max-width: 1240px) {
+    .grid {
+        width: 984px;
+    }
+}
+
+/* tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .content__menu-item {
+        width: 33.3334%;
+    }
+}
+
+/* tablet - mobile */
+@media (max-width: 1024px) {
+    .hide-on-mobile-tablet {
+        display: none;
+    }
+
+    .slider__list-item-link {
+        padding-top: 40%;
+    }
+
+    .content__title {
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+
+    .content__time-wrap > .grid {
+        padding: 0;
+    }
+
+    .header__menu-mobile-icon-bar,
+    .header__menu-mobile-icon-list {
+        display: flex;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .content__about-item-list-item-title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .content__menu-item {
+        width: 50%;
+    }
+
+    .content__about-item,
+    .content__time-text,
+    .content__time-image-wrap {
+        width: 100%;
+    }
+
+    .content__time-image-wrap {
+        padding: 0px;
+    }
+
+    .content__time-image {
+        padding-top: 60%;
+    }
+
+    .content__news-item,
+    .footer__item {
+        width: 100%;
+        margin-bottom: 32px;
+    }
+
+    .footer__item {
+        padding: 0;
+    }
+
+    .content__time-text-title {
+        font-size: 20px;
+    }
+
+    .header__menu {
+        height: 70px;
+    }
+}

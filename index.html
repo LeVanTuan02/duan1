@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,7 @@
     <div class="container">
         <!-- HEADER -->
         <header class="header">
-            <div class="header__top-wrap">
+            <div class="header__top-wrap hide-on-mobile-tablet">
                 <div class="header__top grid">
                     <ul class="header__top-list">
                         <li class="header__top-list-item header__top-list-item--separator">
@@ -51,13 +52,18 @@
 
                     <ul class="header__top-list">
                         <li class="header__top-list-item header__top-list-item--separator">
-                            <a href="" class="header__top-list-item-link">
-                                <div class="header__top-list-item-search">
-                                    <div class="header__top-list-item-icon header__top-list-item-icon-size-M">
-                                        <i class="fas fa-search"></i>
-                                    </div>
+                            <div class="header__top-list-item-search">
+                                <div class="header__top-list-item-icon header__top-list-item-icon-size-M">
+                                    <i class="fas fa-search"></i>
                                 </div>
-                            </a>
+                            </div>
+
+                            <form class="header__top-list-item-form" method="POST">
+                                <input type="text" class="header__top-list-item-form-control input" placeholder="Tìm kiếm...">
+                                <button class="header__top-list-item-form-btn btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
                         </li>
                         <li class="header__top-list-item header__top-list-item--separator">
                             <a href="" class="header__top-list-item-link">Đăng nhập</a>
@@ -65,7 +71,7 @@
                         <li class="header__top-list-item header__top-list-item--separator">
                             <a href="" class="header__top-list-item-link">Đăng ký</a>
                         </li>
-                        <li class="header__top-list-item">
+                        <li class="header__top-list-item header__top-list-item-heart">
                             <div class="header__top-list-item-icon header__top-list-item-icon-size-M header__top-list-item-icon-heart">
                                 <i class="fas fa-heart"></i>
                             </div>
@@ -81,7 +87,12 @@
 
             <div class="header__menu-wrap">
                 <div class="header__menu grid">
-                    <ul class="header__menu-list">
+                    <div class="header__menu-mobile-icon-bar">
+                        <div class="header__menu-mobile-icon">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                    </div>
+                    <ul class="header__menu-list hide-on-mobile-tablet">
                         <li class="header__menu-list-item">
                             <a href="" class="header__menu-list-item-link">Trang chủ</a>
                         </li>
@@ -97,7 +108,7 @@
                         <img src="./assets/images/logo.png" alt="" class="header__menu-logo">
                     </a>
     
-                    <ul class="header__menu-list">
+                    <ul class="header__menu-list hide-on-mobile-tablet">
                         <li class="header__menu-list-item">
                             <a href="" class="header__menu-list-item-link">Tin tức</a>
                         </li>
@@ -108,8 +119,126 @@
                             <a href="" class="header__menu-list-item-link">Đặt bàn</a>
                         </li>
                     </ul>
+
+                    <ul class="header__menu-mobile-icon-list">
+                        <li class="header__menu-mobile-icon">
+                            <i class="fas fa-heart"></i>
+                        </li>
+                        <li class="header__menu-mobile-icon">
+                            <i class="fas fa-shopping-basket"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
+
+            <!-- menu mobile -->
+            <section class="menu__mobile">
+                <div class="menu__mobile-overlay"></div>
+
+                <div class="menu__mobile-inner">
+                    <ul class="menu__mobile-list">
+                        <li class="menu__mobile-item menu__mobile-item-search">
+                            <form action="" class="menu__mobile-item-form">
+                                <input type="text" class="menu__mobile-item-form-control input" placeholder="Tìm kiếm...">
+                                <button class="menu__mobile-item-form-btn btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </li>
+
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Trang chủ</a>
+                        </li>
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Giới thiệu</a>
+                        </li>
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Thực đơn</a>
+                        </li>
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Tin tức</a>
+                        </li>
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Liên hệ</a>
+                        </li>
+                        <li class="menu__mobile-item">
+                            <a href="" class="menu__mobile-item-link">Đặt bàn</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu__mobile-btn-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </section>
+            <!-- end menu mobile -->
+
+            <!-- danh sách yêu thích -->
+            <section class="wishlist">
+                <div class="wishlist__overlay"></div>
+    
+                <div class="wishlist__content">
+                    <header class="wishlist__header">
+                        <h2 class="wishlist__header-title">Danh sách yêu thích</h2>
+                        <button class="wishlist__header-icon">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </header>
+    
+                    <div class="wishlist__body">
+                        <ul class="wishlist__body-list">
+                    <li class="wishlist__body-list-item">
+                        <a href="/site/hang-hoa/chi-tiet.php?ma_hh=49" class="wishlist__body-list-item-image-link">
+                            <img src="https://store.tuandemo.com/images/B%C3%9AN-B%C3%92-HUE-30k.jpg" alt="" class="wishlist__body-list-item-image">
+                        </a>
+            
+                        <div class="wishlist__body-list-item-info">
+                            <a href="/site/hang-hoa/chi-tiet.php?ma_hh=49" class="wishlist__body-list-item-title">BÚN BÒ HUẾ</a>
+                            <span class="wishlist__body-list-item-price">30,000₫</span>
+                            <span class="wishlist__body-list-item-time">14/11/2021 - 19:41:53</span>
+                        </div>
+            
+                        <div class="wishlist__body-icon-delete" onclick="return deleteProductWishlist(49, event);">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </li>
+                
+                    <li class="wishlist__body-list-item">
+                        <a href="/site/hang-hoa/chi-tiet.php?ma_hh=54" class="wishlist__body-list-item-image-link">
+                            <img src="https://store.tuandemo.com/images/soda-chanh-t%C6%B0%C6%A1i-20k.jpg" alt="" class="wishlist__body-list-item-image">
+                        </a>
+            
+                        <div class="wishlist__body-list-item-info">
+                            <a href="/site/hang-hoa/chi-tiet.php?ma_hh=54" class="wishlist__body-list-item-title">SODA CHANH TƯƠI</a>
+                            <span class="wishlist__body-list-item-price">20,000₫</span>
+                            <span class="wishlist__body-list-item-time">14/11/2021 - 19:41:56</span>
+                        </div>
+            
+                        <div class="wishlist__body-icon-delete" onclick="return deleteProductWishlist(54, event);">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </li>
+                
+                    <li class="wishlist__body-list-item">
+                        <a href="/site/hang-hoa/chi-tiet.php?ma_hh=62" class="wishlist__body-list-item-image-link">
+                            <img src="https://store.tuandemo.com/images/SINH-TO-MANG-CAU-25k.jpg" alt="" class="wishlist__body-list-item-image">
+                        </a>
+            
+                        <div class="wishlist__body-list-item-info">
+                            <a href="/site/hang-hoa/chi-tiet.php?ma_hh=62" class="wishlist__body-list-item-title">SINH TỐ MÃNG CẦU</a>
+                            <span class="wishlist__body-list-item-price">25,000₫</span>
+                            <span class="wishlist__body-list-item-time">14/11/2021 - 19:41:58</span>
+                        </div>
+            
+                        <div class="wishlist__body-icon-delete" onclick="return deleteProductWishlist(62, event);">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </li>
+                </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- danh sách yêu thích -->
         </header>
         <!-- END HEADER -->
 
