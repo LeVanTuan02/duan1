@@ -35,6 +35,30 @@
     .header__menu-mobile-icon-list {
         display: flex;
     }
+
+    /* contact + cart + checkout */
+    .content__book-form-col,
+    .content__contact-item,
+    .content__cart-item,
+    .content__customer-info,
+    .content__cart-review {
+        width: 100%;
+    }
+
+    .content__contact-item-title {
+        font-size: 20px;
+    }
+
+    .content__contact,
+    .content__cart-item,
+    .content__customer-info {
+        margin-bottom: 32px;
+    }
+
+    .content__contact-item {
+        min-height: 350px;
+    }
+    /* end contact */
 }
 
 /* mobile */
