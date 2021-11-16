@@ -5,7 +5,7 @@
 
     function category_insert($cate_name, $cate_image) {
         $sql = "INSERT INTO category(cate_name, cate_image)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?)";
         pdo_execute($sql, $cate_name, $cate_image);
     }
 

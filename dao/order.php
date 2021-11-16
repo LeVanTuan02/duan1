@@ -5,7 +5,7 @@
 
     function order_insert($user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at) {
         $sql = "INSERT INTO order(user_id, custommer_name, address, phone, total_price, message, status, created_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         pdo_execute($sql, $user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at);
     }
 

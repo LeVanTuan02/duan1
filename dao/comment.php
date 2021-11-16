@@ -4,8 +4,8 @@
     require_once 'pdo.php';
 
     function comment_insert($content, $product_id, $user_id, $comment_parent_id,  $created_at) {
-        $sql = "INSERT INTO comment(content, product_id, user_id, comment_parent_id,  created_at )
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO comment(content, product_id, user_id, comment_parent_id,  created_at)
+        VALUES(?, ?, ?, ?, ?)";
         pdo_execute($sql, $content, $product_id, $user_id, $comment_parent_id,  $created_at);
     }
 

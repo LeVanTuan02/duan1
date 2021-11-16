@@ -5,7 +5,7 @@
 
     function contact_insert($name, $content, $email, $phone, $created_at) {
         $sql = "INSERT INTO contact(name, content, email, phone,  created_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?, ?, ?)";
         pdo_execute($sql, $name, $content, $email, $phone, $created_at);
     }
 

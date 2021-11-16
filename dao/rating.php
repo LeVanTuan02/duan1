@@ -5,7 +5,7 @@
 
     function rating_insert($product_id, $user_id, $rating_number ) {
         $sql = "INSERT INTO rating(product_id, user_id, rating_number )
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?)";
         pdo_execute($sql, $product_id, $user_id, $rating_number);
     }
 
