@@ -1303,6 +1303,13 @@ textarea.content__contact-item-form-control {
     border-radius: 18px;
 }
 
+.content__contact-item-form-message {
+    display: block;
+    font-size: 14.4px;
+    color: #ff0000;
+    padding-left: 12px;
+}
+
 .content__contact-item-form-btn {
     margin-top: 12px;
     height: 40px;
