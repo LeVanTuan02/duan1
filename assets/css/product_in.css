@@ -1,0 +1,126 @@
+.content_con {
+  width: 1080px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px auto;
+  margin-top: 40px;
+}
+
+.content_con .content_on {
+  width: 540px;
+  height: 510px;
+  flex-basis: 50%;
+  line-height: 25.6px;
+  padding: 0px 15px;
+}
+.content_con .content_between {
+  line-height: 25.6px;
+  padding: 10px 15px 30px;
+}
+.content_con .content_between nav a {
+  color: #111111;
+  display: inline;
+  font-size: 13.6px;
+  line-height: 16.32px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.content_con .content_between h1 {
+  color: #555555;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 31.2px;
+  margin: 0px 0px 12px;
+}
+.content_con .content_between span {
+  color: #e4b95b;
+  display: inline;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.content_con .content_between .info {
+  line-height: 25.6px;
+  margin: 0px 0px 20.8px;
+}
+.content_con .content_between .status {
+  color: #7a9c59;
+
+  font-size: 12.8px;
+  font-weight: 700;
+  line-height: 16.64px;
+  margin: 0px 0px 12.8px;
+}
+
+.content_con .content_between form .minus {
+  width: 23px;
+  height: 40px;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border-color: #dddddd;
+  border-style: solid none solid solid;
+  border-width: 1px 0px 1px 1px;
+  color: #666666;
+  font-size: 15.52px;
+  letter-spacing: 0.4656px;
+  line-height: 36.248px;
+  padding: 0px 7.76px;
+  text-align: center;
+  text-shadow: #ffffff 1px 1px 1px;
+}
+.content_con .content_between form .text {
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  border-color: #dddddd;
+  border-style: solid;
+  border-width: 1px;
+  color: #333333;
+  line-height: 25.6px;
+  text-align: center;
+}
+.content_con .content_between form .plus {
+  width: 26px;
+  height: 40px;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border-color: #dddddd;
+  border-style: solid solid solid none;
+  border-width: 1px 1px 1px 0px;
+  color: #666666;
+
+  font-size: 15.52px;
+  letter-spacing: 0.4656px;
+  line-height: 36.248px;
+  padding: 0px 7.76px;
+  text-align: center;
+  text-shadow: #ffffff 1px 1px 1px;
+}
+.content_con .content_between form .submit {
+  border: none;
+  align-items: flex-start;
+  background-color: #e67e22;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 1px;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.48px;
+  line-height: 38.4px;
+  margin: 0px 0px 16px;
+  padding: 0px 19.2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.content_con .content_under {
+  width: 120px;
+  height: 510px;
+  flex-basis: 16.6667%;
+  font-size: 14.4px;
+  line-height: 23.04px;
+  padding: 0px 15px 30px;
+}
