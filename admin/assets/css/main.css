@@ -539,6 +539,20 @@ main{
     margin-top: 32px;
 }
 
+.content__dashboard {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.content__dashboard .content__table-wrap {
+    width: 50%;
+}
+
+.content__dashboard .content__table-wrap + .content__table-wrap {
+    margin-top: 0;
+}
+
 .content__table-heading-wrap {
     display: flex;
     justify-content: space-between;
@@ -638,6 +652,31 @@ table td:not(table td:first-child){
 thead th:first-child,
 table td:first-child{
     padding-right: 13px;
+}
+
+.content__table-table tfoot {
+    text-align: center;
+    border-top: 1px solid #EBEDF3;
+    color: #3F4254;
+    font-size: 18px;
+}
+
+.content__table-table tfoot tr td {
+    padding-top: 20px;
+}
+
+tfoot .content__table-text-success {
+    font-weight: 500;
+}
+
+.content__table-ship {
+    margin-top: 12px;
+}
+
+.content__table-table.content__table-ship td {
+    padding: 12px 0;
+    color: #000;
+    border-bottom: 1px solid #EBEDF3;
 }
 
 .content__table-img{

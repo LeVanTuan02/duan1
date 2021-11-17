@@ -57,4 +57,19 @@
         return pdo_query_value($sql, $product_name) > 0;
     }
 
+    // thống kê số lượng sản phẩm theo danh mục
+    function analytics_quantity_product_by_cate() {
+        $sql = "SELECT c.cate_name, c.id, COUNT(*) AS totalProduct FROM product p JOIN category c ON p.cate_id = c.id GROUP BY c.id ORDER BY c.id DESC";
+        return pdo_query($sql);
+    }
+
+    // thống kê giá sản phẩm theo danh mục
+    function analytics_price_product_by_cate() {
+        $sql = "SELECT c.cate_name, c.id, MAX(price) AS maxPrice, MIN(price) AS minPrice, AVG(price) AS avgPrice
+        FROM ((product p JOIN category c ON p.cate_id = c.id) LEFT JOIN attribute a ON p.id = a.product_id)
+        GROUP BY c.id
+        ORDER BY c.id DESC";
+        return pdo_query($sql);
+    }
+
 ?>

@@ -539,6 +539,20 @@ main{
     margin-top: 32px;
 }
 
+.content__dashboard {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.content__dashboard .content__table-wrap {
+    width: 50%;
+}
+
+.content__dashboard .content__table-wrap + .content__table-wrap {
+    margin-top: 0;
+}
+
 .content__table-heading-wrap {
     display: flex;
     justify-content: space-between;
