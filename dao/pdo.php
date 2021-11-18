@@ -1,7 +1,7 @@
 <?php
 
     function pdo_get_connection() {
-        $conn = new PDO('mysql:host=localhost;dbname=duanmau;charset=utf8', 'root', '');
+        $conn = new PDO('mysql:host=localhost;dbname=duan_1;charset=utf8', 'root', '');
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
     }

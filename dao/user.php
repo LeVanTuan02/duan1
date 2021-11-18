@@ -5,7 +5,7 @@
 
     function user_insert($username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $token, $created_at) {
         $sql = "INSERT INTO user(username, password, email, phone, fullName, address, avatar, active, role, token, created_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         pdo_execute($sql, $username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $token, $created_at);
     }
 

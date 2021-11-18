@@ -5,7 +5,7 @@
 
     function order_detail_insert($order_id, $product_id, $product_size, $quantity, $price) {
         $sql = "INSERT INTO order_detail(order_id, product_id, product_size, quantity, price)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?, ?, ?)";
         pdo_execute($sql, $order_id, $product_id, $product_size, $quantity, $price);
     }
 

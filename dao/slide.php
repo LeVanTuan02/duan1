@@ -5,7 +5,7 @@
 
     function slide_insert($title, $slide_image, $url) {
         $sql = "INSERT INTO settings(title, slide_image, url)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
+        VALUES(?, ?, ?)";
         pdo_execute($sql, $title, $slide_image, $url);
     }
 

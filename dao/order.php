@@ -1,17 +1,16 @@
-@
 <?php
 
     require_once 'pdo.php';
 
-    function order_insert($user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at) {
-        $sql = "INSERT INTO order(user_id, custommer_name, address, phone, total_price, message, status, created_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
-        pdo_execute($sql, $user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at);
+    function order_insert($user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at) {
+        $sql = "INSERT INTO order(user_id, customer_name, address, phone, total_price, message, status, created_at)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        pdo_execute($sql, $user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at);
     }
 
-    function order_update($user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at, $id) {
+    function order_update($user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at, $id) {
         $sql = "UPDATE order SET user_id = ?, customer_name = ?, address = ?, phone = ?, total_price = ?, message = ?, status = ?, created_at = ? WHERE id = ?";
-        pdo_execute($sql, $user_id, $custommer_name, $address, $phone, $total_price, $message, $status, $created_at, $id);
+        pdo_execute($sql, $user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at, $id);
     }
 
     function order_delete($id) {
