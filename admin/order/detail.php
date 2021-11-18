@@ -9,10 +9,23 @@
                         <!-- <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-unselect-all">Bỏ chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button> -->
-                        <a href="" class="content__header-item-btn">Xác nhận ĐH</a>
-                        <a href="" class="content__header-item-btn">Hủy ĐH</a>
-                        <a href="" class="content__header-item-btn">Đang giao hàng</a>
-                        <a href="" class="content__header-item-btn">Đã giao hàng</a>
+                        <a onclick="return confirm('Bạn có chắc muốn xác nhận đơn hàng này không?') ?
+                        window.location.href = '?update_stt&status=1&id=<?=$id;?>' : false;
+                        " class="content__header-item-btn">Xác nhận ĐH</a>
+
+                        <a onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?') ?
+                        window.location.href = '?update_stt&status=4&id=<?=$id;?>' : false;
+                        " class="content__header-item-btn">Hủy ĐH</a>
+
+                        <a onclick="return confirm('Bạn có chắc muốn cập nhật trạng thái đang giao hàng không?') ?
+                        window.location.href = '?update_stt&status=2&id=<?=$id;?>' : false;
+                        " class="content__header-item-btn">Đang giao hàng</a>
+
+                        <a onclick="return confirm('Bạn có chắc muốn cập nhật trạng thái đã giao hàng không?') ?
+                        window.location.href = '?update_stt&status=3&id=<?=$id;?>' : false;
+                        " class="content__header-item-btn">Đã giao hàng</a>
+
+                        <a href="<?=$ADMIN_URL;?>/order" class="content__header-item-btn">DS hóa đơn</a>
                     </div>
                 </div>
             </header>
@@ -31,6 +44,7 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Sản phẩm</th>
+                                <th>Size</th>
                                 <th>Đơn giá</th>
                                 <th>Số lượng</th>
                                 <th>Thành tiền</th>
@@ -38,68 +52,60 @@
                         </thead>
 
                         <tbody class="content__table-body">
+                            <?php
+                                $totalPrice = 0;
+                                foreach ($listOrderDetail as $item) { 
+                                    $totalPrice += $item['quantity'] * $item['price'];
+                            ?>
                             <tr>
                                 <td>1</td>
                                 <td class="content__table-cell-flex">
                                     <div class="content__table-img">
-                                        <img src="" class="content__table-avatar" alt="">
+                                        <img src="<?=$IMG_URL . '/' . $item['product_image'];?>" class="content__table-avatar" alt="">
                                     </div>
 
                                     <div class="content__table-info">
-                                        <span class="content__table-name">Trà chanh</span>
+                                        <a href="" target="_blank" class="content__table-name"><?=$item['product_name'];?></a>
                                     </div>
                                 </td>
                                 <td>
-                                    200,000 VNĐ
-                                </td>
-                                <td>1</td>
-                                <td>200,000 VNĐ</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td class="content__table-cell-flex">
-                                    <div class="content__table-img">
-                                        <img src="" class="content__table-avatar" alt="">
-                                    </div>
-
-                                    <div class="content__table-info">
-                                        <span class="content__table-name">Trà chanh</span>
-                                    </div>
+                                    <?=$item['product_size'];?>
                                 </td>
                                 <td>
-                                    200,000 VNĐ
+                                    <?=number_format($item['price'], 0, '', ',');?> VNĐ
                                 </td>
-                                <td>1</td>
-                                <td>200,000 VNĐ</td>
+                                <td><?=$item['quantity'];?></td>
+                                <td><?=number_format($item['price'] * $item['quantity'], 0, '', ',');?> VNĐ</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td class="content__table-cell-flex">
-                                    <div class="content__table-img">
-                                        <img src="" class="content__table-avatar" alt="">
-                                    </div>
-
-                                    <div class="content__table-info">
-                                        <span class="content__table-name">Trà chanh</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    200,000 VNĐ
-                                </td>
-                                <td>1</td>
-                                <td>200,000 VNĐ</td>
-                            </tr>
+                            <?php } ?>
                         </tbody>
 
                         <tfoot>
                             <tr>
-                                <td colspan="5">
-                                    Tổng tiền: 500,000 VNĐ
+                                <td colspan="6">
+                                    Tổng tiền: <?=number_format($totalPrice, 0, '', ',');?> VNĐ
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5">
-                                    <span class="content__table-text-success">Đơn hàng mới</span>
+                                <td colspan="6">
+                                <?php
+                                    switch($orderInfo['status']) {
+                                        case 0:
+                                            echo '<span class="content__table-stt-active">Đơn hàng mới</span>';
+                                            break;
+                                        case 1:
+                                            echo '<span class="content__table-stt-active">Đã xác nhận</span>';
+                                            break;
+                                        case 2:
+                                            echo '<span class="content__table-stt-active">Đang giao hàng</span>';
+                                            break;
+                                        case 3:
+                                            echo '<span class="content__table-stt-active">Đã giao hàng</span>';
+                                            break;
+                                        case 4:
+                                            echo '<span class="content__table-stt-locked">Đã hủy</span>';
+                                    }
+                                ?>
                                 </td>
                             </tr>
                         </tfoot>
@@ -117,23 +123,23 @@
                         <tbody class="content__table-body">
                             <tr>
                                 <td>Họ và tên:</td>
-                                <td>Lê Văn Tuân</td>
+                                <td><?=$orderInfo['customer_name'];?></td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ:</td>
-                                <td>SN 5, ngách 25/22 Phú Minh</td>
+                                <td><?=$orderInfo['address'];?></td>
                             </tr>
                             <tr>
                                 <td>Số điện thoại:</td>
-                                <td>0347888888</td>
+                                <td><?=$orderInfo['phone'];?></td>
                             </tr>
                             <tr>
                                 <td>Thời gian đặt:</td>
-                                <td>17/11/2021 19:34</td>
+                                <td><?=date_format(date_create($orderInfo['created_at']), 'd/m/Y H:i')?></td>
                             </tr>
                             <tr>
                                 <td>Tin nhắn từ khách hàng:</td>
-                                <td>Ship nhanh nhanh giúp em nhek</td>
+                                <td><?=$orderInfo['message'];?></td>
                             </tr>
                         </tbody>
                     </table>

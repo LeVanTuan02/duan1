@@ -25,10 +25,10 @@
                     </div>
 
                     <?php
-                        // if (empty($listComment)) {
-                        //     echo '<div class="alert alert-success">Chưa có bình luận nào</div>';
-                        //     die();
-                        // }
+                        if (empty($listOrder)) {
+                            echo '<div class="alert alert-success">Chưa có đơn hàng nào</div>';
+                            die();
+                        }
                     ?>
 
                     <table class="content__table-table">
@@ -38,8 +38,8 @@
                                     <input type="checkbox" data-id="<?=$item['id'];?>">
                                 </th>
                                 <th>Mã đơn hàng</th>
+                                <th>Tên khách hàng</th>
                                 <th>Ngày đặt</th>
-                                <th>Số lượng sản phẩm</th>
                                 <th>Tổng giá trị đơn hàng</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
@@ -47,32 +47,53 @@
                         </thead>
 
                         <tbody>
+                            <?php foreach ($listOrder as $item): ?>
                             <tr>
                                 <td>
                                     <input type="checkbox" data-id="">
                                 </td>
                                 <td>
-                                    DH1
+                                    DH<?=$item['id'];?>
                                 </td>
                                 <td>
-                                    <span class="content__table-text-success">
-                                        17/11/2021 19:00
+                                    <span class="content__table-text-black">
+                                        <?=$item['customer_name'];?>
                                     </span>
                                 </td>
                                 <td>
-                                    100
+                                    <span class="content__table-text-success">
+                                        <?=date_format(date_create($item['created_at']), 'd/m/Y H:i');?>
+                                    </span>
                                 </td>
                                 <td>
-                                    100,000 VNĐ
+                                    <?=number_format($item['total_price'], 0, '', ',');?> VNĐ
                                 </td>
                                 <td>
-                                    <span class="content__table-stt-active">Đơn hàng mới</span>
+                                    <?php
+                                        switch($item['status']) {
+                                            case 0:
+                                                echo '<span class="content__table-stt-active">Đơn hàng mới</span>';
+                                                break;
+                                            case 1:
+                                                echo '<span class="content__table-stt-active">Đã xác nhận</span>';
+                                                break;
+                                            case 2:
+                                                echo '<span class="content__table-stt-active">Đang giao hàng</span>';
+                                                break;
+                                            case 3:
+                                                echo '<span class="content__table-stt-active">Đã giao hàng</span>';
+                                                break;
+                                            case 4:
+                                                echo '<span class="content__table-stt-locked">Đã hủy</span>';
+                                        }
+                                    ?>
                                     <!-- <span class="content__table-stt-locked">Hết hàng</span> -->
                                 </td>
                                 <td>
-                                    <a href="" class="content__table-stt-active">Chi tiết</a>
+                                    <a href="<?=$ADMIN_URL;?>/order/?detail&id=<?=$item['id'];?>" class="content__table-stt-active">Chi tiết</a>
                                 </td>
                             </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
 

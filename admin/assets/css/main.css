@@ -745,6 +745,7 @@ tbody tr td:first-child
     color: #3F4254;
     font-weight: 600;
     display: block;
+    text-decoration: none;
 }
 
 .content__table-action{
