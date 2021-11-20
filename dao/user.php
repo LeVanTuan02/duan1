@@ -2,7 +2,6 @@
 <?php
 
     require_once 'pdo.php';
-    require_once '../../global.php';
 
     function user_insert($SMTP_UNAME, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at) {
         $sql = "INSERT INTO user(username, password, email, phone, fullName, address, avatar, active, role, created_at)
