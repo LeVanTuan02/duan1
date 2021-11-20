@@ -13,6 +13,9 @@
         // thống kê user
         $userAnalytics = analytics_user();
 
+        // thống kê doanh thu
+        $priceAnalytics = analytics_price();
+
         // thống kê kh đky theo tháng
         $userRegAnalytics = analytics_user_reg();
         $VIEW_PAGE = "chart.php";

@@ -139,7 +139,7 @@
                             </tr>
                             <tr>
                                 <td>Tin nhắn từ khách hàng:</td>
-                                <td><?=$orderInfo['message'];?></td>
+                                <td><?=nl2br($orderInfo['message']);?></td>
                             </tr>
                         </tbody>
                     </table>

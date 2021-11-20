@@ -17,7 +17,7 @@
     <div class="container">
         <aside class="sidebar">
             <header>
-                <a href="" class="sidebar__logo-link">Tea House</a>
+                <a href="<?=$SITE_URL;?>" class="sidebar__logo-link">Tea House</a>
                 <button class="sidebar__btn-toggle">
                     <i class="fas fa-chevron-left"></i>
                 </button>
@@ -26,7 +26,7 @@
             <div class="sidebar__menu-wrapper">
                 <ul class="sidebar__menu-nav">
                     <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/thong-ke/?chart" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/analytics/?chart" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-home"></i>
                             </span>
@@ -42,7 +42,7 @@
                     </li>
     
                     <li class="sidebar__menu-item <?=isset($btn_edit_pass) ? 'sidebar__menu-item--active' : '';?>">
-                        <a href="/tai-khoan/?btn_edit_pass" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/account/?update_pass" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-key"></i>
                             </span>
@@ -51,14 +51,39 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="/tai-khoan" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/account" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-user-edit"></i>
                             </span>
                             <span class="sidebar__menu-text">Cập nhật thông tin</span>
                         </a>
                     </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/account/?cart" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Đơn hàng của tôi</span>
+                        </a>
+                    </li>
     
+                    <li class="sidebar__menu-session">
+                        <h4 class="sidebar__menu-session-text">Order</h4>
+                        <div class="aside_menu-session-icon hide">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/order" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Danh sách đơn hàng</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">User</h4>
                         <div class="aside_menu-session-icon hide">

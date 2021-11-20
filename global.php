@@ -1,6 +1,7 @@
 <?php
 
     session_start();
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
 
     // biến toàn cục
     $ROOT_URL = '/duan1';
@@ -18,5 +19,16 @@
         return $file_name;
     }
 
+    // php mailer
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
 
+    require_once "vendor/PHPMailer/src/PHPMailer.php";
+    require_once "vendor/PHPMailer/src/SMTP.php";
+    require_once "vendor/PHPMailer/src/Exception.php";
+
+    // phpMailer settings
+    $PATH_URL = 'http://localhost' . $SITE_URL;
+    $SMTP_UNAME = 'accnoname8@gmail.com';
+    $SMTP_PASS = 'Levantuan2k2';
 ?>

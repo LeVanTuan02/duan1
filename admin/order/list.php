@@ -16,12 +16,12 @@
                             <span class="content__table-text">Order management made easy</span>
                         </div>
 
-                        <form action="" class="content__table-heading-form" method="POST">
+                        <!-- <form action="" class="content__table-heading-form" method="POST">
                             <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
                             <button class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
-                        </form>
+                        </form> -->
                     </div>
 
                     <?php
@@ -34,9 +34,9 @@
                     <table class="content__table-table">
                         <thead>
                             <tr>
-                                <th>
+                                <!-- <th>
                                     <input type="checkbox" data-id="<?=$item['id'];?>">
-                                </th>
+                                </th> -->
                                 <th>Mã đơn hàng</th>
                                 <th>Tên khách hàng</th>
                                 <th>Ngày đặt</th>
@@ -49,9 +49,9 @@
                         <tbody>
                             <?php foreach ($listOrder as $item): ?>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <input type="checkbox" data-id="">
-                                </td>
+                                </td> -->
                                 <td>
                                     DH<?=$item['id'];?>
                                 </td>

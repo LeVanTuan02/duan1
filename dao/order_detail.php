@@ -3,11 +3,11 @@
 
     require_once 'pdo.php';
 
-    // function order_detail_insert($order_id, $product_id, $product_size, $quantity, $price) {
-    //     $sql = "INSERT INTO order_detail(order_id, product_id, product_size, quantity, price)
-    //     VALUES(?, ?, ?, ?, ?)";
-    //     pdo_execute($sql, $order_id, $product_id, $product_size, $quantity, $price);
-    // }
+    function order_detail_insert($order_id, $product_id, $product_size, $quantity, $price) {
+        $sql = "INSERT INTO order_detail(order_id, product_id, product_size, quantity, price)
+        VALUES(?, ?, ?, ?, ?)";
+        pdo_execute($sql, $order_id, $product_id, $product_size, $quantity, $price);
+    }
 
     // function order_detail_update($order_id, $product_id, $product_size, $quantity, $price, $id) {
     //     $sql = "UPDATE order_detail SET order_id = ?, product_id = ?, product_size = ?, quantity = ?, price = ? WHERE id = ?";
@@ -32,7 +32,8 @@
     }
 
     function order_detail_select_all_by_o_id($order_id) {
-        $sql = "SELECT o.*, p.product_name, p.product_image FROM order_detail o JOIN product p ON o.product_id = p.id WHERE o.order_id = ?";
+        $sql = "SELECT o.*, p.product_name, p.product_image FROM order_detail o JOIN product p ON o.product_id = p.id
+        WHERE o.order_id = ?";
         return pdo_query($sql, $order_id);
     }
 

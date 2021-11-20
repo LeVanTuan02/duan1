@@ -26,12 +26,46 @@
     }
 
     function product_select_all() {
-        $sql = "SELECT p.*, SUM(a.quantity) AS totalProduct FROM product p LEFT JOIN attribute a ON p.id = a.product_id GROUP BY p.id ORDER BY id DESC";
+        $sql = "SELECT p.*, SUM(a.quantity) AS totalProduct
+        FROM product p LEFT JOIN attribute a ON p.id = a.product_id
+        GROUP BY p.id
+        ORDER BY id DESC";
+        return pdo_query($sql);
+    }
+
+    // sản phẩm trang khách hàng
+    function product_home_select_all($start = 0, $limit = 0) {
+        $sql = "SELECT p.id, p.product_name, p.product_image, a.price
+        FROM product p JOIN attribute a ON p.id = a.product_id
+        GROUP BY p.id
+        ORDER BY a.price";
+
+        if ($limit) {
+            $sql .= " LIMIT $start, $limit";
+            // return pdo_query($sql, $start, $limit);
+        }
+
         return pdo_query($sql);
     }
 
     function product_select_by_id($id) {
         $sql = "SELECT * FROM product WHERE id = ?";
+        return pdo_query_one($sql, $id);
+    }
+
+    // lấy sản phẩm theo id trang khách hàng
+    function product_home_select_by_id($id, $size = '') {
+        $sql = "SELECT p.*, a.price, a.size FROM product p JOIN attribute a ON p.id = a.product_id
+        WHERE p.id = ?";
+
+        if ($size) {
+            $sql .= " AND a.size = ?";
+            // return $sql;
+            return pdo_query_one($sql, $id, $size);
+        }
+
+        $sql .= " ORDER BY a.price";
+
         return pdo_query_one($sql, $id);
     }
 
@@ -57,19 +91,5 @@
         return pdo_query_value($sql, $product_name) > 0;
     }
 
-    // thống kê số lượng sản phẩm theo danh mục
-    function analytics_quantity_product_by_cate() {
-        $sql = "SELECT c.cate_name, c.id, COUNT(*) AS totalProduct FROM product p JOIN category c ON p.cate_id = c.id GROUP BY c.id ORDER BY c.id DESC";
-        return pdo_query($sql);
-    }
-
-    // thống kê giá sản phẩm theo danh mục
-    function analytics_price_product_by_cate() {
-        $sql = "SELECT c.cate_name, c.id, MAX(price) AS maxPrice, MIN(price) AS minPrice, AVG(price) AS avgPrice
-        FROM ((product p JOIN category c ON p.cate_id = c.id) LEFT JOIN attribute a ON p.id = a.product_id)
-        GROUP BY c.id
-        ORDER BY c.id DESC";
-        return pdo_query($sql);
-    }
 
 ?>

@@ -34,9 +34,17 @@
 
                 </div>
 
+                <!-- thống kê người dùng đăng ký theo tháng -->
                 <div class="content__table-wrap">
                     <section class="content__analytics">
                         <div id="chart_user-register"></div>
+                    </section>
+                </div>
+
+                <!-- thống kê doanh thu -->
+                <div class="content__table-wrap">
+                    <section class="content__analytics">
+                        <div id="chart_price"></div>
                     </section>
                 </div>
             </div>
@@ -127,5 +135,50 @@
 
                 var chartUserReg = new ApexCharts(document.querySelector("#chart_user-register"), optionsChartUserReg);
                 chartUserReg.render();
+
+                // thống kê doanh thu
+                var optionsChartPrice = {
+                    series: [{
+                        name: "Tổng tiền",
+                        data: [<?php foreach ($priceAnalytics as $item) { echo $item['totalPrice'] . ', '; }?>]
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+                    title: {
+                        text: 'Thông kê doanh thu hàng tháng',
+                        align: 'left'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                            opacity: 0.5
+                        },
+                    },
+                    xaxis: {
+                        categories: [<?php foreach ($priceAnalytics as $item) { echo "'Tháng $item[month]', ";}?>],
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: function(val, index) {
+                                val = val.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                                return val;
+                            }
+                        }
+                    }
+                };
+
+                var chartPrice = new ApexCharts(document.querySelector("#chart_price"), optionsChartPrice);
+                chartPrice.render();
             </script>
         </main>

@@ -14,6 +14,7 @@
         $listOrderDetail = order_detail_select_all_by_o_id($id);
 
         $orderInfo = order_select_by_id($id);
+
         $VIEW_PAGE = "detail.php";
     } else {
         $listOrder = order_select_all();
