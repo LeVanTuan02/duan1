@@ -108,10 +108,10 @@
                                 <a href="<?=$SITE_URL;?>" class="header__menu-list-item-link">Trang chủ</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="" class="header__menu-list-item-link">Giới thiệu</a>
+                                <a href="<?=$SITE_URL;?>/home/?intro" class="header__menu-list-item-link">Giới thiệu</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="" class="header__menu-list-item-link">Thực đơn</a>
+                                <a href="<?=$SITE_URL;?>" class="header__menu-list-item-link">Thực đơn</a>
                             </li>
                         </ul>
         
@@ -121,13 +121,13 @@
         
                         <ul class="header__menu-list hide-on-mobile-tablet">
                             <li class="header__menu-list-item">
-                                <a href="" class="header__menu-list-item-link">Tin tức</a>
+                                <a href="#" class="header__menu-list-item-link">Tin tức</a>
                             </li>
                             <li class="header__menu-list-item">
                                 <a href="" class="header__menu-list-item-link">Liên hệ</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="" class="header__menu-list-item-link">Đặt bàn</a>
+                                <a href="<?=$SITE_URL;?>/home/?order" class="header__menu-list-item-link">Đặt bàn</a>
                             </li>
                         </ul>
     

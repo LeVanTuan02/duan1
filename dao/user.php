@@ -121,7 +121,6 @@
     // thông báo đổi mật khẩu thành công
     // gửi email khôi phục mật khẩu
     function user_changed_pass($email, $name) {
-        global $PATH_URL;
         global $SMTP_UNAME;
         global $SMTP_PASS;
 

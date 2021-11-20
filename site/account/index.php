@@ -5,7 +5,18 @@
 
     extract($_REQUEST);
 
-    if (array_key_exists('btn_forgot', $_REQUEST)) {
+    if (array_key_exists('', $_REQUEST)) {
+        // đăng ký
+
+
+        
+    } else if (array_key_exists('', $_REQUEST)) {
+        // đăng ký
+
+
+        
+        $VIEW_PAGE = 'register.php';
+    } else if (array_key_exists('btn_forgot', $_REQUEST)) {
         $getUser = user_exits($user);
 
         $userInfo = [];
