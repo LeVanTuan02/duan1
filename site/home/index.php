@@ -15,7 +15,7 @@
         // trang liên hệ
 
     
-        
+        $VIEW_PAGE = 'contact.php';
     } else if (array_key_exists('intro', $_REQUEST)) {
         $VIEW_PAGE = "intro.php";
     } else if (array_key_exists('order', $_REQUEST)) {

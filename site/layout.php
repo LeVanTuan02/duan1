@@ -124,7 +124,7 @@
                                 <a href="#" class="header__menu-list-item-link">Tin tức</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="" class="header__menu-list-item-link">Liên hệ</a>
+                                <a href="<?=$SITE_URL;?>/home/?contact" class="header__menu-list-item-link">Liên hệ</a>
                             </li>
                             <li class="header__menu-list-item">
                                 <a href="<?=$SITE_URL;?>/home/?order" class="header__menu-list-item-link">Đặt bàn</a>

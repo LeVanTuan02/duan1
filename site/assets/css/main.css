@@ -1979,12 +1979,12 @@ textarea.content__customer-info-form-control {
     
 }
 
-/* .form-wrapper{
+.reserve-table-wrapper .form-wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap:20px;
     
-} */
+}
 
 .reserve-table h4{
     color:#ffffff;

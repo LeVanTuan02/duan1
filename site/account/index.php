@@ -10,7 +10,7 @@
 
 
         
-    } else if (array_key_exists('', $_REQUEST)) {
+    } else if (array_key_exists('register', $_REQUEST)) {
         // đăng ký
 
 
