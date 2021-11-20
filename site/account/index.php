@@ -34,6 +34,8 @@
     } else if (array_key_exists('forgot_pass', $_REQUEST)) {
         $VIEW_PAGE = "forgot_pass.php";
     } else if (array_key_exists('btn_update_pass', $_REQUEST)) {
+        $getUser = user_exits_by_options('token', $code);
+
         $passInfo = [];
         $errorMessage = [];
 
@@ -55,14 +57,28 @@
         }
 
         if (empty($errorMessage)) {
+            // update password
+            $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+            user_change_pass($new_password, $getUser['id']);
+
+            // delete token
+            user_token_delete($getUser['id']);
+
+            // gửi mail thông báo đổi mật khẩu thành công
+            user_changed_pass($getUser['email'], $getUser['fullName']);
+
+            unset($passInfo);
             $MESSAGE = 'Đổi mật khẩu thành công';
+
+            header('Refresh: 5; URL = ' . $SITE_URL . '/account');
         }
 
         $VIEW_PAGE = "forgot_code.php";
     } else if (array_key_exists('code', $_REQUEST)) {
         // khi click link reset pass
         // nếu mã xác nhận ko tồn tại
-        if (empty(user_exits_by_options('token', $code))) header('Location: ' . $SITE_URL);
+        $getUser = user_exits_by_options('token', $code);
+        if (empty($getUser)) header('Location: ' . $SITE_URL);
         $VIEW_PAGE = "forgot_code.php";
     } else if (array_key_exists('btn_login', $_REQUEST)) {
         $userInfo = [];

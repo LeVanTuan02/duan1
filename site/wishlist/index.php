@@ -4,6 +4,7 @@
     require_once '../../dao/product.php';
 
     extract($_REQUEST);
+    if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) $_SESSION['cart'] = [];
     if (!isset($_SESSION['wishlist']) || !is_array($_SESSION['wishlist'])) $_SESSION['wishlist'] = [];
 
     if (array_key_exists('add_wishlist', $_REQUEST)) {

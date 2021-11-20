@@ -66,6 +66,7 @@
         $sql = "UPDATE user SET token = '' WHERE id = ?";
         pdo_execute($sql, $id);
     }
+
     // gửi email khôi phục mật khẩu
     function user_send_reset_pass($email, $name) {
         global $PATH_URL;
@@ -117,4 +118,52 @@
         }
     }
 
+    // thông báo đổi mật khẩu thành công
+    // gửi email khôi phục mật khẩu
+    function user_changed_pass($email, $name) {
+        global $PATH_URL;
+        global $SMTP_UNAME;
+        global $SMTP_PASS;
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        try {
+            $date = date('Y-m-d H:i:s');
+            $date_format = date_format(date_create($date), 'd/m/Y H:i');
+            //Server settings
+            $mail->CharSet = 'UTF-8';
+            $mail->SMTPDebug = 0;// Enable verbose debug output
+            $mail->isSMTP();// gửi mail SMTP
+            $mail->Host = 'smtp.gmail.com';// Set the SMTP server to send through
+            $mail->SMTPAuth = true;// Enable SMTP authentication
+            $mail->Username = $SMTP_UNAME;// SMTP username
+            $mail->Password = $SMTP_PASS; // SMTP password
+            $mail->SMTPSecure = 'ssl';// Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+            $mail->Port = 465; // TCP port to connect to
+            //Recipients
+            $mail->setFrom($SMTP_UNAME, 'Tea House');
+            $mail->addAddress($email, $name); // Add a recipient
+            // $mail->addAddress('ellen@example.com'); // Name is optional
+            $mail->addReplyTo($SMTP_UNAME, 'Tea House');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+            // Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); // Optional name
+            // Content
+            $htmlStr = "";
+            $htmlStr .= "Xin chào <strong>" . $name . '</strong> (' . $email . "),<br /><br />";
+            $htmlStr .= "Mật khẩu Tea House của bạn đã được thay đổi vào lúc ". $date_format ." <br />";
+            $htmlStr .= "Nếu bạn không làm điều này, vui lòng liên hệ với QTV.<br><br>";
+            $htmlStr .= "Cảm ơn bạn đã tham gia và đồng hành cùng Tea House.<br><br>";
+            $htmlStr .= "Trân trọng.";
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Đổi mật khẩu | Tea House';
+            $mail->Body = $htmlStr;
+            $mail->AltBody = $htmlStr;
+            $mail->send();
+            // echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
 ?>
