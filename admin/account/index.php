@@ -5,12 +5,28 @@
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
 
+    // admin có thể truy cập
+    check_login();
+
     extract($_REQUEST);
 
-    if (array_key_exists('', $_REQUEST)) {
-        $VIEW_PAGE = "edit_info.php";
-    } else if (array_key_exists('cart', $_REQUEST)) {
-        $myCarts = order_select_all_by_user_id(1);
+    if (array_key_exists('cart', $_REQUEST)) {
+        // phân trang
+        $totalOrder = count(order_select_all_by_user_id($_SESSION['user']['id']));
+        $limit = 10;
+        $totalPage = ceil($totalOrder / $limit);
+
+        $currentPage = $page ?? 1;
+
+        if ($currentPage <= 0) {
+            header('Location: ' . $ADMIN_URL . '/order/?page=1');
+        } else if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+        }
+
+        $start = ($currentPage - 1) * $limit;
+
+        $myCarts = order_select_all_by_user_id($_SESSION['user']['id'], $start, $limit);
         $VIEW_PAGE = "cart_list.php";
     } else if (array_key_exists('cart_cancel', $_REQUEST)) {
         // đơn hàng đã/đang giao không thể hủy
@@ -122,8 +138,10 @@
         }
 
         $VIEW_PAGE = "edit_info.php";
-    }
-    else {
+    }  else if (array_key_exists('btn_logout', $_REQUEST)) {
+        unset($_SESSION['user']);
+        header('Location: ' . $SITE_URL);
+    } else {
         $VIEW_PAGE = "edit_info.php";
     }
 

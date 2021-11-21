@@ -108,7 +108,22 @@
         $VIEW_PAGE = "detail.php";
     }
     else {
-        $listAttribute = attribute_select_all();
+        // phân trang
+        $totalOrder = count(attribute_select_all());
+        $limit = 10;
+        $totalPage = ceil($totalOrder / $limit);
+
+        $currentPage = $page ?? 1;
+
+        if ($currentPage <= 0) {
+            header('Location: ' . $ADMIN_URL . '/order/?page=1');
+        } else if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+        }
+
+        $start = ($currentPage - 1) * $limit;
+
+        $listAttribute = attribute_select_all($start, $limit);
         $VIEW_PAGE = "list.php";
     }
 

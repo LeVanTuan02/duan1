@@ -91,6 +91,10 @@
                                 </td>
                                 <td>
                                     <a href="<?=$ADMIN_URL;?>/order/?detail&id=<?=$item['id'];?>" class="content__table-stt-active">Chi tiết</a>
+                                    <a href="<?=$ADMIN_URL;?>/order/?invoice&id=<?=$item['id'];?>" target="_blank" class="content__table-stt-active">
+                                        <i class="fas fa-download"></i>
+                                        Xuất hóa đơn
+                                    </a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -99,29 +103,52 @@
 
                     <ul class="content__table-pagination">
                         <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-first">
+                            <a href="<?=$ADMIN_URL;?>/order" class="content__table-pagination-link content__table-pagination-link-first">
                                 <i class="fas fa-angle-double-left"></i>
                             </a>
                         </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-pre">
-                                <i class="fas fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link--active">1</a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link">2</a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-next">
-                                <i class="fas fa-angle-right"></i>
-                            </a>
-                        </li>
+                        <?php
+                            if ($currentPage > 1) {
+                                echo '
+                                <li class="content__table-pagination-item">
+                                    <a href="' . $ADMIN_URL . '/order/?page='. ($currentPage - 1) .'" class="content__table-pagination-link content__table-pagination-link-pre">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>';
+                            }
+                        ?>
+                        <?php
+                            for ($i = 1; $i <= $totalPage; $i++) {
+                                if ($currentPage == $i) {
+                                    echo '
+                                    <li class="content__table-pagination-item">
+                                        <a href="'.$ADMIN_URL . '/order/?page='. $i .'" class="content__table-pagination-link content__table-pagination-link--active">' . $i . '</a>
+                                    </li>
+                                    ';
+                                } else {
+                                    echo '
+                                    <li class="content__table-pagination-item">
+                                        <a href="'.$ADMIN_URL . '/order/?page='. $i .'" class="content__table-pagination-link">' . $i . '</a>
+                                    </li>
+                                    ';
+                                }
+                            }
+                        ?>
+
+                        <?php
+                            if ($currentPage < $totalPage) {
+                                echo '
+                                <li class="content__table-pagination-item">
+                                    <a href="' . $ADMIN_URL . '/order/?page='. ($currentPage + 1) .'" class="content__table-pagination-link content__table-pagination-link-next">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>';
+                            }
+                        ?>
+                        
                         
                         <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-last">
+                            <a href="<?=$ADMIN_URL;?>/order/?page=<?=$totalPage;?>" class="content__table-pagination-link content__table-pagination-link-last">
                                 <i class="fas fa-angle-double-right"></i>
                             </a>
                         </li>

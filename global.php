@@ -31,4 +31,16 @@
     $PATH_URL = 'http://localhost' . $SITE_URL;
     $SMTP_UNAME = 'accnoname8@gmail.com';
     $SMTP_PASS = 'Levantuan2k2';
+
+    // check login
+    function check_login($role = 1) {
+        global $SITE_URL;
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']['role'] != 1 && $_SESSION['user']['role'] != $role) {
+                header('Location: ' . $SITE_URL);
+            }
+        } else {
+            header('Location: ' . $SITE_URL);
+        }
+    }
 ?>

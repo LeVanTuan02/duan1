@@ -26,8 +26,11 @@
         }
     }
 
-    function attribute_select_all() {
+    function attribute_select_all($start = 0, $limit = 0) {
         $sql = "SELECT p.*, COUNT(*) totalAttribute FROM attribute a JOIN product p ON a.product_id = p.id GROUP BY p.id";
+        if ($limit) {
+            $sql .= " LIMIT $start, $limit";
+        }
         return pdo_query($sql);
     }
 

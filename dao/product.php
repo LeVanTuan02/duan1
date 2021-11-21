@@ -25,11 +25,14 @@
         }
     }
 
-    function product_select_all() {
+    function product_select_all($start = 0, $limit = 0) {
         $sql = "SELECT p.*, SUM(a.quantity) AS totalProduct
         FROM product p LEFT JOIN attribute a ON p.id = a.product_id
         GROUP BY p.id
         ORDER BY id DESC";
+        if ($limit) {
+            $sql .= " LIMIT $start, $limit";
+        }
         return pdo_query($sql);
     }
 

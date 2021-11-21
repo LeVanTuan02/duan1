@@ -4,7 +4,6 @@
     require_once '../../dao/product.php';
 
     extract($_REQUEST);
-    if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) $_SESSION['cart'] = [];
     if (!isset($_SESSION['wishlist']) || !is_array($_SESSION['wishlist'])) $_SESSION['wishlist'] = [];
 
     if (array_key_exists('add_wishlist', $_REQUEST)) {
@@ -54,8 +53,6 @@
         }
     } else if (array_key_exists('get_quantity', $_REQUEST)) {
         echo count($_SESSION['wishlist']);
-    } else if (array_key_exists('get_quantity_cart', $_REQUEST)) {
-        echo count($_SESSION['cart']);
     }
 
 ?>

@@ -1507,7 +1507,9 @@ textarea.content__contact-item-form-control {
     color: #000;
 }
 
-.content__cart-detail-table-price {
+.content__cart-detail-price-total,
+.content__cart-detail-price,
+.content__cart-checkout-total-price {
     color: #e4b95b;
     font-weight: bold;
 }

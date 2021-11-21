@@ -72,10 +72,10 @@
                                     <tr>
                                         <td>
                                             <?=$item['product_name'];?>
-                                            <strong class="content__cart-review-table-qnt">x <?=$item['quantity'];?></strong>
+                                            <strong class="content__cart-review-table-qnt">x <?=$item['quantity'];?> (size <?=$item['size'];?>)</strong>
                                         </td>
                                         <td>
-                                            <span class="content__cart-detail-table-price">
+                                            <span class="content__cart-detail-price">
                                                 <?=number_format($item['price'], 0, '', ',');?>đ
                                             </span>
                                         </td>

@@ -47,8 +47,8 @@
                                     <td>
                                         <?=$item['size'];?>
                                     </td>
-                                    <td>
-                                        <span class="content__cart-detail-table-price">
+                                    <td class="content__cart-detail-price">
+                                        <span class="">
                                             <?=number_format($item['price'], 0, '', ',');?>đ
                                         </span>
                                     </td>
@@ -60,7 +60,7 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <span class="content__cart-detail-table-price">
+                                        <span class="content__cart-detail-price-total">
                                             <?=number_format(($item['price'] * $item['quantity']), 0, '', ',')?>đ
                                         </span>
                                     </td>
@@ -97,7 +97,7 @@
                                 <tr>
                                     <td>Tổng</td>
                                     <td>
-                                        <span class="content__cart-detail-table-price"><?=number_format($totalPrice, 0, '', ',');?>đ</span>
+                                        <span class="content__cart-checkout-total-price"><?=number_format($totalPrice, 0, '', ',');?>đ</span>
                                     </td>
                                 </tr>
                             </tbody>

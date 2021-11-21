@@ -44,6 +44,70 @@
             }
         }
         header('Location: ' . $SITE_URL . '/cart');
+    } else if (array_key_exists('update_cart', $_REQUEST)) {
+
+        // jquery ajax
+        foreach ($listQuantity as $cart) {
+            foreach ($_SESSION['cart'] as $key => $item) {
+                if ($cart['id'] == $item['id']) {
+                    if (intval($cart['quantity'])) {
+                        $_SESSION['cart'][$key]['quantity'] = intval($cart['quantity']);
+                    } else {
+                        unset($_SESSION['cart'][$key]);
+                    }
+                }
+            }
+        }
+        echo 1;
+        die();
+    } else if (array_key_exists('render_cart', $_REQUEST)) {
+        // jquery ajax
+        function renderCart($cart_item) {
+            global $IMG_URL;
+            return '
+                <tr data-id="' . $cart_item['id'] . '">
+                    <td>
+                        <a onclick="return confirm("Bạn có chắc muốn xóa sản phẩm này không?") ?
+                        window.location.href = "?btn_delete&id=' . $cart_item['id'] . '" : false;
+                        " class="content__cart-detail-table-btn">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" class="content__cart-detail-table-link">
+                            <img src="' . $IMG_URL . '/' . $cart_item['product_image'] . '" alt="" class="content__cart-detail-table-img">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" class="content__cart-detail-table-link">' . $cart_item['product_name'] . '</a>
+                    </td>
+                    <td>' . $cart_item['size'] . '</td>
+                    <td class="content__cart-detail-price">
+                        <span class="">' . number_format($cart_item['price'], 0, '', ',') . 'đ</span>
+                    </td>
+                    <td>
+                        <form action="" class="content__cart-detail-table-qnt">
+                            <button type="button" onclick="quantity.value = Number(quantity.value) - 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
+                            <input type="number" min="0" name="quantity" class="content__cart-detail-table-qnt-control" value="' . $cart_item['quantity'] . '">
+                            <button type="button" onclick="quantity.value = Number(quantity.value) + 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button>
+                        </form>
+                    </td>
+                    <td>
+                        <span class="content__cart-detail-price-total">' . number_format(($cart_item['price'] * $cart_item['quantity']), 0, '', ',') . 'đ</span>
+                    </td>
+                </tr>
+            ';
+        }
+        $html = array_map("renderCart", $_SESSION['cart']);
+        echo join('', $html);
+        die();
+    } else if (array_key_exists('render_totalPrice', $_REQUEST)) {
+        // jquery ajax
+        $totalPrice = array_reduce($_SESSION['cart'], function ($total, $cart_item) {
+            return $total + $cart_item['price'] * $cart_item['quantity'];
+        }, 0);
+        echo number_format($totalPrice, 0, '', ',') . 'đ';
+        die();
     } else if (array_key_exists('btn_checkout', $_REQUEST)) {
         // validate
         $errorMessage = [];
@@ -105,8 +169,10 @@
     } else if (array_key_exists('thankyou', $_REQUEST)) {
         // if (!isset($_SESSION['cart']) || !$_SESSION['cart']) header('Location: ' . $SITE_URL . '/cart');
         $VIEW_PAGE = "thankyou.php";
+    }  else if (array_key_exists('get_quantity', $_REQUEST)) {
+        echo count($_SESSION['cart']);
+        die();
     } else {
-        $listProduct = product_home_select_all(0, 8);
         $VIEW_PAGE = "list.php";
     }
 
