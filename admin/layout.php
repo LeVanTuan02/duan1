@@ -1,3 +1,8 @@
+<?php
+
+    $userLogged = $_SESSION['user'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,7 +215,7 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/slide/?list.php" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/slide" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-images"></i>
                             </span>
@@ -272,8 +277,8 @@
             <ul class="header__toolbar">
                 <li class="header__toolbar-item">
                     <span class="header__toolbar-user-text">Hi,</span>
-                    <span class="header__toolbar-user-name">Admin</span>
-                    <span class="header__toolbar-user-label">A</span>
+                    <span class="header__toolbar-user-name"><?=ucfirst($userLogged['username']);?></span>
+                    <span class="header__toolbar-user-label"><?=ucfirst(substr($userLogged['username'], 0, 1));?></span>
                 </li>
             </ul>
         </header>
@@ -293,12 +298,12 @@
                 <div class="user__panel-body">
                     <div class="user__panel-info">
                         <div class="user__panel-img">
-                            <img src="" alt="">
+                            <img src="<?=$IMG_URL . '/' . $userLogged['avatar'];?>" alt="">
                         </div>
                         <div class="user__panel-info-details">
-                            <span class="user__panel-info-name">Admin</span>
-                            <span class="user__panel-info-email">admin@gmail.com</span>
-                            <a href="/tai-khoan/?btn_logout" class="user__panel-btn">Đăng xuất</a>
+                            <span class="user__panel-info-name"><?=$userLogged['fullName'];?></span>
+                            <span class="user__panel-info-email"><?=$userLogged['email'];?></span>
+                            <a href="<?=$ADMIN_URL;?>/account/?btn_logout" class="user__panel-btn">Đăng xuất</a>
                         </div>
                     </div>
                 </div>
@@ -307,7 +312,7 @@
 
         <footer class="footer">
             <span class="footer__text">2021 ©</span>
-            <a href="" target="_blank" class="footer__copyright">Tea House</a>
+            <a href="<?=$SITE_URL;?>" target="_blank" class="footer__copyright">Tea House</a>
         </footer>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
