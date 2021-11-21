@@ -4,7 +4,7 @@
     require_once 'pdo.php';
 
     function slide_insert($title, $slide_image, $url) {
-        $sql = "INSERT INTO settings(title, slide_image, url)
+        $sql = "INSERT INTO slide (title, slide_image, url)
         VALUES(?, ?, ?)";
         pdo_execute($sql, $title, $slide_image, $url);
     }
@@ -32,7 +32,7 @@
     }
 
     function slide_select_by_id($id) {
-        $sql = "SELECT * FROM product WHERE id = ?";
+        $sql = "SELECT * FROM slide WHERE id = ?";
         return pdo_query_one($sql, $id);
     }
 
@@ -40,5 +40,8 @@
         $sql = "SELECT COUNT(*) FROM slide WHERE id = ?";
         return pdo_query_value($sql, $id) > 0;
     }
-
+    function slide_quantity() {
+        $sql = "SELECT COUNT(*) FROM slider";
+        return pdo_query_value($sql);
+    }
 ?>

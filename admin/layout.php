@@ -210,7 +210,7 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="/slide" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/slide/?list.php" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-images"></i>
                             </span>
@@ -219,7 +219,7 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="/slide/?btn_add" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/slide/?btn_add" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-plus"></i>
                             </span>
