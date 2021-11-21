@@ -4,6 +4,7 @@
     require_once '../../dao/product.php';
     require_once '../../dao/analytic.php';
 
+    check_login();
     extract($_REQUEST);
 
     if (array_key_exists('chart', $_REQUEST)) {

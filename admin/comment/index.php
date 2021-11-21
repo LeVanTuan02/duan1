@@ -3,6 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/comment.php';
 
+    check_login();
     extract($_REQUEST);
 
     if (array_key_exists('detail', $_REQUEST)) {

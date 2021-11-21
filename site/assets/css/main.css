@@ -124,6 +124,7 @@ html {
     align-items: center;
     text-transform: uppercase;
     transition: all 0.25s linear;
+    display: inline-block;
 }
 
 .header__top-list-item-link:hover,
@@ -139,6 +140,7 @@ html {
     transition: all 0.25s linear;
     text-decoration: none;
     color: rgba(255,255,255,0.8);
+    display: inline-block;
 }
 
 .header__top-list-item-icon-size-M {

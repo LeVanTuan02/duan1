@@ -3,6 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/settings.php';
 
+    check_login();
     extract($_REQUEST);
 
     if (array_key_exists('btn_update', $_REQUEST)) {

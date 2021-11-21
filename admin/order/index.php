@@ -5,6 +5,8 @@
     require_once '../../dao/settings.php';
     require_once '../../dao/order_detail.php';
 
+    check_login();
+
     require_once '../../vendor/dompdf/autoload.inc.php';
     use Dompdf\Dompdf;
 

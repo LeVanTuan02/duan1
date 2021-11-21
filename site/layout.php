@@ -1,10 +1,17 @@
+<?php
+
+    require_once '../../dao/settings.php';
+    $infoWeb = settings_select_all();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - Trà sữa Tea House</title>
+    <title><?=!empty($infoWeb) ? $infoWeb['title'] : '';?></title>
     <!-- SLICK SLIDER -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,7 +38,7 @@
                 <div class="header__top grid">
                     <ul class="header__top-list">
                         <li class="header__top-list-item header__top-list-item--separator">
-                            <a href="" class="header__top-list-item-link">
+                            <a href="mailto:<?=!empty($infoWeb) ? $infoWeb['email'] : '';?>" class="header__top-list-item-link">
                                 <div class="header__top-list-item-icon">
                                     <i class="far fa-envelope"></i>
                                 </div>
@@ -39,19 +46,19 @@
                             </a>
                         </li>
                         <li class="header__top-list-item header__top-list-item--separator">
-                            <a href="" class="header__top-list-item-link">
+                            <div class="header__top-list-item-link">
                                 <div class="header__top-list-item-icon">
                                     <i class="far fa-clock"></i>
                                 </div>
                                 08:00 - 17:00
-                            </a>
+                            </d>
                         </li>
                         <li class="header__top-list-item">
-                            <a href="" class="header__top-list-item-link">
+                            <a href="tel:<?=!empty($infoWeb) ? $infoWeb['phone'] : '';?>" class="header__top-list-item-link">
                                 <div class="header__top-list-item-icon">
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
-                                0347 888 888
+                                <?=!empty($infoWeb) ? $infoWeb['phone'] : '';?>
                             </a>
                         </li>
                     </ul>
@@ -71,12 +78,28 @@
                                 </button>
                             </form>
                         </li>
-                        <li class="header__top-list-item header__top-list-item--separator">
-                            <a href="<?=$SITE_URL;?>/account" class="header__top-list-item-link">Đăng nhập</a>
-                        </li>
-                        <li class="header__top-list-item header__top-list-item--separator">
-                            <a href="<?=$SITE_URL;?>/account/?register" class="header__top-list-item-link">Đăng ký</a>
-                        </li>
+
+                        <?php if (isset($_SESSION['user'])): ?>
+                            <?php if ($_SESSION['user']['role']): ?>
+                            <li class="header__top-list-item header__top-list-item--separator">
+                                Xin chào,
+                                <a href="<?=$ADMIN_URL;?>" class="header__top-list-item-link"><?=$_SESSION['user']['fullName'];?></a>
+                            </li>
+                            <?php else: ?>
+                            <li class="header__top-list-item header__top-list-item--separator">
+                                Xin chào,
+                                <a href="<?=$ADMIN_URL;?>/account" class="header__top-list-item-link"><?=$_SESSION['user']['fullName'];?></a>
+                            </li>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <li class="header__top-list-item header__top-list-item--separator">
+                                <a href="<?=$SITE_URL;?>/account" class="header__top-list-item-link">Đăng nhập</a>
+                            </li>
+                            <li class="header__top-list-item header__top-list-item--separator">
+                                <a href="<?=$SITE_URL;?>/account/?register" class="header__top-list-item-link">Đăng ký</a>
+                            </li>
+                        <?php endif; ?>
+
                         <li class="header__top-list-item header__top-list-item-heart">
                             <label for="" class="header__top-list-item-heart-label">0</label>
                             <div class="header__top-list-item-icon header__top-list-item-icon-size-M header__top-list-item-icon-heart">
@@ -228,22 +251,22 @@
 
                         <ul class="footer__item-icon-list">
                             <li class="footer__item-icon-item">
-                                <a href="" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['facebook'] : '';?>" class="footer__item-icon-item-link">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['instagram'] : '';?>" class="footer__item-icon-item-link">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['tiktok'] : '';?>" class="footer__item-icon-item-link">
                                     <i class="fab fa-tiktok"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['youtube'] : '';?>" class="footer__item-icon-item-link">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </li>
@@ -258,19 +281,19 @@
                                 <div class="footer__item-list-item-icon">
                                     <i class="fas fa-home"></i>
                                 </div>
-                                25A Trần Nguyên Hãn – Nha Trang
+                                <?=!empty($infoWeb) ? $infoWeb['address'] : '';?>
                             </li>
                             <li class="footer__item-list-item">
                                 <div class="footer__item-list-item-icon">
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
-                                Hotline: <a href="" class="footer__item-list-item-link" target="_blank">&nbsp;0347888888</a>
+                                Hotline: <a href="tel:<?=!empty($infoWeb) ? $infoWeb['phone'] : '';?>" class="footer__item-list-item-link" target="_blank">&nbsp;<?=!empty($infoWeb) ? $infoWeb['phone'] : '';?></a>
                             </li>
                             <li class="footer__item-list-item">
                                 <div class="footer__item-list-item-icon">
                                     <i class="far fa-envelope"></i>
                                 </div>
-                                Email: <a href="" class="footer__item-list-item-link" target="_blank">&nbsp;zinzinfood@gmail.com</a>
+                                Email: <a href="mailto:<?=!empty($infoWeb) ? $infoWeb['email'] : '';?>" class="footer__item-list-item-link" target="_blank">&nbsp;<?=!empty($infoWeb) ? $infoWeb['email'] : '';?></a>
                             </li>
                             <li class="footer__item-list-item">
                                 <div class="footer__item-list-item-icon">

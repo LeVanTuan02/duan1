@@ -5,8 +5,7 @@
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
 
-    // admin có thể truy cập
-    check_login();
+    check_login(0);
 
     extract($_REQUEST);
 
