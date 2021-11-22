@@ -9,7 +9,7 @@
             </header>
 
             <div class="content__table-section">
-                <div class="content__table-wrap order__card">
+                <!-- <div class="content__table-wrap order__card">
                     <div class="order__card-item order__card-item--new">
                         <div class="order__card-item-inner">
                             <div class="order__card-content">
@@ -80,7 +80,7 @@
                             <div class="order__card-percent" style="--width-percent: <?=($totalOrderCancel/$totalOrder) * 100;?>%;"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="content__dashboard">
                     <div class="content__table-wrap">
                         <div class="content__table-heading">
