@@ -9,9 +9,9 @@
         pdo_execute($sql, $cate_name, $cate_image);
     }
 
-    function category_update($cate_name, $cate_image, $id) {
+    function category_update($ten_loai, $cate_image, $id) {
         $sql = "UPDATE category SET cate_name = ?, cate_image = ? WHERE id = ?";
-        pdo_execute($sql, $cate_name, $cate_image, $id);
+        pdo_execute($sql, $ten_loai, $cate_image, $id);
     }
 
     function category_delete($id) {
@@ -39,6 +39,20 @@
     function category_exits($id) {
         $sql = "SELECT COUNT(*) FROM category WHERE id = ?";
         return pdo_query_value($sql, $id) > 0;
+    }
+    function category_name_exist($ten_loai) {
+        $sql = "SELECT COUNT(*) FROM category WHERE cate_name = ?";
+        return pdo_query_value($sql, $ten_loai) > 0;
+    }
+
+    function loai_hang_search($keyword) {
+        $sql = "SELECT * FROM category WHERE cate_name LIKE ? ORDER BY id DESC";
+        return pdo_query($sql, '%'.$keyword.'%');
+    }
+
+    function loai_hang_quantity() {
+        $sql = "SELECT COUNT(*) FROM category";
+        return pdo_query_value($sql);
     }
 
 ?>
