@@ -19,12 +19,12 @@
                             <span class="content__table-text">Analytics management made easy</span>
                         </div>
 
-                        <form action="" class="content__table-heading-form" method="POST">
+                        <!-- <form action="" class="content__table-heading-form" method="POST">
                             <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
                             <button class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
-                        </form>
+                        </form> -->
                     </div>
 
                     <?php
@@ -70,7 +70,7 @@
                         </tbody>
                     </table>
 
-                    <ul class="content__table-pagination">
+                    <!-- <ul class="content__table-pagination">
                         <li class="content__table-pagination-item">
                             <a href="" class="content__table-pagination-link content__table-pagination-link-first">
                                 <i class="fas fa-angle-double-left"></i>
@@ -98,7 +98,7 @@
                                 <i class="fas fa-angle-double-right"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </main>

@@ -76,7 +76,7 @@
                                         </td>
                                         <td>
                                             <span class="content__cart-detail-price">
-                                                <?=number_format($item['price'], 0, '', ',');?>đ
+                                                <?=number_format(($item['price'] * $item['quantity']), 0, '', ',');?>đ
                                             </span>
                                         </td>
                                     </tr>

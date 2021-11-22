@@ -157,6 +157,11 @@
                 order_detail_insert($orderId, $item['id'], $item['size'], $item['quantity'], $item['price']);
             }
 
+            // gửi email cho khách hàng
+            order_send_mail_customer($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message);
+
+            // thông báo cho admin
+            order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message);
             // xóa session giỏ hàng
             unset($_SESSION['cart']);
             header('Location: ' . $SITE_URL . '/cart/?thankyou');

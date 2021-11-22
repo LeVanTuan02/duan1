@@ -42,6 +42,10 @@
         display: none;
     }
 
+    .order__card-item {
+        width: 33.3334%;
+    }
+
 }
 
 /* mobile */
@@ -55,7 +59,12 @@
         flex-direction: column;
     }
 
-    .content__profile-form-body .form-control {
+    .content__dashboard {
+        flex-wrap: wrap;
+    }
+
+    .content__profile-form-body .form-control,
+    .content__dashboard .content__table-wrap {
         width: 100%;
         max-width: 100%;
     }
@@ -63,5 +72,9 @@
     .content__form .form__group label,
     .content__profile-form-body .form__group label {
         padding-bottom: 4px;
+    }
+
+    .order__card-item {
+        width: 50%;
     }
 }

@@ -9,10 +9,82 @@
             </header>
 
             <div class="content__table-section">
+                <div class="content__table-wrap order__card">
+                    <div class="order__card-item order__card-item--new">
+                        <div class="order__card-item-inner">
+                            <div class="order__card-content">
+                                <div class="order__card-content-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="order__card-content-text">
+                                    <strong><?=$totalOrderNew;?></strong>
+                                    <p>Đơn hàng mới</p>
+                                </div>
+                            </div>
+                            <div class="order__card-percent" style="--width-percent: <?=($totalOrderNew/$totalOrder) * 100;?>%;"></div>
+                        </div>
+                    </div>
+                    <div class="order__card-item order__card-item--verified">
+                        <div class="order__card-item-inner">
+                            <div class="order__card-content">
+                                <div class="order__card-content-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="order__card-content-text">
+                                    <strong><?=$totalOrderVerified;?></strong>
+                                    Đã xác nhận
+                                </div>
+                            </div>
+                            <div class="order__card-percent" style="--width-percent: <?=($totalOrderVerified/$totalOrder) * 100;?>%;"></div>
+                        </div>
+                    </div>
+                    <div class="order__card-item order__card-item--progress">
+                        <div class="order__card-item-inner">
+                            <div class="order__card-content">
+                                <div class="order__card-content-icon">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <div class="order__card-content-text">
+                                    <strong><?=$totalOrderShip;?></strong>
+                                    Đang giao hàng
+                                </div>
+                            </div>
+                            <div class="order__card-percent" style="--width-percent: <?=($totalOrderShip/$totalOrder) * 100;?>%;"></div>
+                        </div>
+                    </div>
+                    <div class="order__card-item order__card-item--success">
+                        <div class="order__card-item-inner">
+                            <div class="order__card-content">
+                                <div class="order__card-content-icon">
+                                    <i class="fas fa-money-check"></i>
+                                </div>
+                                <div class="order__card-content-text">
+                                    <strong><?=$totalOrderSuccess;?></strong>
+                                    Đã giao hàng
+                                </div>
+                            </div>
+                            <div class="order__card-percent" style="--width-percent: <?=($totalOrderSuccess/$totalOrder) * 100;?>%;"></div>
+                        </div>
+                    </div>
+                    <div class="order__card-item order__card-item--cancel">
+                        <div class="order__card-item-inner">
+                            <div class="order__card-content">
+                                <div class="order__card-content-icon">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div class="order__card-content-text">
+                                    <strong><?=$totalOrderCancel;?></strong>
+                                    Đã hủy
+                                </div>
+                            </div>
+                            <div class="order__card-percent" style="--width-percent: <?=($totalOrderCancel/$totalOrder) * 100;?>%;"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="content__dashboard">
                     <div class="content__table-wrap">
                         <div class="content__table-heading">
-                            <h3 class="content__table-title">Thống kê hàng hóa</h3>
+                            <h3 class="content__table-title">Thống kê hàng hóa theo loại</h3>
                             <span class="content__table-text">Analytic management made easy</span>
                         </div>
     

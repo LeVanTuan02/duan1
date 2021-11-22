@@ -35,4 +35,10 @@
         return pdo_query($sql);
     }
 
+    // thống kê đơn hàng (mới, đã hủy
+    function analytics_select_totalOrder_by_stt($status) {
+        $sql = "SELECT COUNT(*) AS total FROM `order` WHERE `status` = ?";
+        return pdo_query_value($sql, $status);
+    }
+
 ?>

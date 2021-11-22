@@ -9,7 +9,7 @@
     if (array_key_exists('detail', $_REQUEST)) {
         // phân trang
         $totalOrder = count(comment_select_all_by_pid($p_id));
-        $limit = 1;
+        $limit = 10;
         $totalPage = ceil($totalOrder / $limit);
 
         $currentPage = $page ?? 1;
