@@ -5,7 +5,7 @@
 
     // $_SESSION['cart'][0]['quantity'] = 3;
     echo "<pre>";
-    var_dump($_SESSION['cart']);
+    var_dump($_SESSION['user']);
 
 
     // unset($_SESSION['cart']);

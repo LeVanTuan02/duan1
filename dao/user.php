@@ -3,15 +3,15 @@
 
     require_once 'pdo.php';
 
-    function user_insert($SMTP_UNAME, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at) {
+    function user_insert($username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at) {
         $sql = "INSERT INTO user(username, password, email, phone, fullName, address, avatar, active, role, created_at)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        pdo_execute($sql, $SMTP_UNAME, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at);
+        pdo_execute($sql, $username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at);
     }
 
-    function user_update($SMTP_UNAME, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $id) {
-        $sql = "UPDATE user SET username = ?, password = ?, email = ?, phone = ?, fullName = ?, address = ?, avatar = ?, active = ?, role = ? WHERE id = ?";
-        pdo_execute($sql, $SMTP_UNAME, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $id);
+    function user_update($password, $email, $phone, $fullName, $address, $avatar, $active, $role, $id) {
+        $sql = "UPDATE user SET password = ?, email = ?, phone = ?, fullName = ?, address = ?, avatar = ?, active = ?, role = ? WHERE id = ?";
+        pdo_execute($sql, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $id);
     }
 
     function user_delete($id) {
@@ -26,7 +26,7 @@
         }
     }
 
-    function user_select_all() {
+    function user_select_all($start = '', $limit = '') {
         $sql = "SELECT * FROM user ORDER BY id DESC";
         return pdo_query($sql);
     }
@@ -163,5 +163,33 @@
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
+    }
+    function khach_hang_email_exits($email) {
+        $sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+        return pdo_query_value($sql, $email) > 0;
+    }
+    function khach_hang_action($id, $type = '') {
+        if ($type && $type == 'lock') {
+            $sql = "UPDATE user SET active = 0 WHERE id = ?";
+        } else if ($type == 'unlock') {
+            $sql = "UPDATE user SET active = 1 WHERE id = ?";
+        }
+
+        if (is_array($id)) {
+            foreach ($id as $ma) {
+                pdo_execute($sql, $ma);
+            }
+        } else {
+            pdo_execute($sql, $id);
+        }
+    }
+    function user_search($keyword) {
+        $sql = "SELECT * FROM user WHERE username LIKE ? OR fullName LIKE ? ORDER BY id DESC";
+        return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%');
+    }
+    // Lấy ra số user hiện có
+    function user_quantity() {
+        $sql = "SELECT COUNT(*) FROM user";
+        return pdo_query_value($sql);
     }
 ?>

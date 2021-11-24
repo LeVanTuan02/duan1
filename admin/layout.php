@@ -97,7 +97,7 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="/khach-hang" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/user" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-users"></i>
                             </span>
@@ -106,7 +106,7 @@
                     </li>
     
                     <li class="sidebar__menu-item">
-                        <a href="/khach-hang/?btn_add" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/user/?btn_add" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-user-plus"></i>
                             </span>
