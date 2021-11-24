@@ -4,7 +4,7 @@
     require_once 'pdo.php';
 
     function contact_insert($name, $content, $email, $phone, $created_at) {
-        $sql = "INSERT INTO contact(name, content, email, phone,  created_at)
+        $sql = "INSERT INTO contact(name, content, email, phone, created_at)
         VALUES(?, ?, ?, ?, ?)";
         pdo_execute($sql, $name, $content, $email, $phone, $created_at);
     }
