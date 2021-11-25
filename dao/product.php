@@ -91,7 +91,7 @@
     // kiểm tra tên sản phẩm tồ tại không
     function product_name_exits($product_name) {
         $sql = "SELECT * FROM product WHERE product_name = ?";
-        return pdo_query_value($sql, $product_name) > 0;
+        return pdo_query_one($sql, $product_name) > 0;
     }
 
 

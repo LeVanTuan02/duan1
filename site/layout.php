@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/main.css">
     <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/responsive.css">
+    <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/css_pro.css">
+    <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/product_in.css">
+    
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,7 +137,7 @@
                                 <a href="<?=$SITE_URL;?>/home/?intro" class="header__menu-list-item-link">Giới thiệu</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="<?=$SITE_URL;?>" class="header__menu-list-item-link">Thực đơn</a>
+                                <a href="<?=$SITE_URL;?>/product/?list" class="header__menu-list-item-link">Thực đơn</a>
                             </li>
                         </ul>
         
