@@ -16,12 +16,12 @@
                             <span class="content__table-text">Order management made easy</span>
                         </div>
 
-                        <!-- <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
-                            <button class="content__table-heading-form-btn">
+                        <form action="" class="content__table-heading-form" method="POST">
+                            <input type="text" class="content__table-heading-form-control form__control-my-order" name="keyword" placeholder="Nhập tên KH hoặc mã ĐH">
+                            <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
-                        </form> -->
+                        </form>
                     </div>
 
                     <?php

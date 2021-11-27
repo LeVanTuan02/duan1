@@ -106,6 +106,67 @@
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         product_delete($id);
         header('Location: ' . $ADMIN_URL . '/product');
+    } else if (array_key_exists('search', $_REQUEST)) {
+        // jquery ajax
+        $listProduct = product_search($keyword, $cate_id);
+        function renderProduct($product_item) {
+            global $IMG_URL;
+            global $ADMIN_URL;
+            $html = '';
+            $html .= '
+            <tr>
+                <td>
+                    <input type="checkbox" data-id="' . $product_item['id'] . '">
+                </td>
+                <td>' . $product_item['id'] . '</td>
+                <td class="content__table-cell-flex">
+                    <div class="content__table-img">
+                        <img src="' . $IMG_URL . '/' . $product_item['product_image'] . '" class="content__table-avatar" alt="">
+                    </div>
+
+                    <div class="content__table-info">
+                        <span class="content__table-name">' . $product_item['product_name'] . '</span>
+                    </div>
+                </td>
+                <td>
+                    ' . $product_item['view'] . '
+                </td>
+                <td>
+                    <span class="content__table-text-success">
+                        ' . date_format(date_create($product_item['created_at']), 'd/m/Y') . '
+                    </span>
+                </td>
+                <td>' . ($product_item['totalProduct'] ?? 0) . '</td>
+                <td>' . $product_item['cate_name'] . '</td>
+                <td>';
+                
+                if ($product_item['status']) {
+                    $html .= '<span class="content__table-stt-active">Còn hàng</span>';
+                } else {
+                    $html .= '<span class="content__table-stt-locked">Hết hàng</span>';
+                }
+
+                $html .= '
+                </td>
+                <td>
+                    <div class="user_list-action">
+                        <a onclick="return confirm("Bạn có chắc muốn xóa sản phẩm này không?") ?
+                        window.location.href = "?btn_delete&id="' . $product_item['id'] . ' : false;
+                        " class="content__table-action danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a href="' . $ADMIN_URL . '/product/?btn_edit&id=' . $product_item['id'] . '" class="content__table-action info">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            ';
+            return $html;
+        }
+        $html = array_map('renderProduct', $listProduct);
+        echo join('', $html);
+        die();
     } else {
         // phân trang
         $totalOrder = count(product_select_all());
@@ -123,6 +184,7 @@
         $start = ($currentPage - 1) * $limit;
 
         $listProduct = product_select_all($start, $limit);
+        $listCategory = category_select_all();
         $VIEW_PAGE = "list.php";
     }
 

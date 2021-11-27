@@ -2,10 +2,10 @@
 
     require_once 'pdo.php';
 
-    function order_insert($user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at) {
-        $sql = "INSERT INTO `order`(user_id, customer_name, address, phone, email, total_price, message, status, created_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return pdo_execute($sql, $user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at);
+    function order_insert($user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at, $updated_at) {
+        $sql = "INSERT INTO `order`(user_id, customer_name, address, phone, email, total_price, message, status, created_at, updated_at)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return pdo_execute($sql, $user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at, $updated_at);
     }
 
     // function order_update($user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at, $id) {
@@ -60,9 +60,9 @@
     }
 
     // cập nhật trạng thái đơn hàng 0 - Đơn hàng mới, 1 - Đã xác nhận, 2 - Đang giao hàng, 3 - Đã giao, 4 - Đã hủy
-    function order_update_status($status, $id) {
-        $sql = "UPDATE `order` SET status = ? WHERE id = ?";
-        pdo_execute($sql, $status, $id);
+    function order_update_status($status, $updated_at, $id) {
+        $sql = "UPDATE `order` SET status = ?, updated_at = ? WHERE id = ?";
+        pdo_execute($sql, $status, $updated_at, $id);
     }
 
     function convert_number_to_words($number) {
@@ -441,6 +441,16 @@
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
+    }
+
+    function order_search($keyword, $id = 0) {
+        $sql = "SELECT * FROM `order` WHERE (customer_name LIKE ? OR id LIKE ?)";
+        if ($id) {
+            $sql .= ' AND user_id = ? ORDER BY id DESC';
+            return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%', $id);
+        }
+        $sql .= ' ORDER BY id DESC';
+        return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%');
     }
 
 ?>

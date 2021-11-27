@@ -16,12 +16,12 @@
                             <span class="content__table-text">Order management made easy</span>
                         </div>
 
-                        <!-- <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
-                            <button class="content__table-heading-form-btn">
+                        <form action="" class="content__table-heading-form" method="POST">
+                            <input type="text" class="content__table-heading-form-control form__control-order" name="keyword" placeholder="Nhập tên KH hoặc mã ĐH">
+                            <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
-                        </form> -->
+                        </form>
                     </div>
 
                     <?php
@@ -87,7 +87,6 @@
                                                 echo '<span class="content__table-stt-locked">Đã hủy</span>';
                                         }
                                     ?>
-                                    <!-- <span class="content__table-stt-locked">Hết hàng</span> -->
                                 </td>
                                 <td>
                                     <a href="<?=$ADMIN_URL;?>/order/?detail&id=<?=$item['id'];?>" class="content__table-stt-active">Chi tiết</a>

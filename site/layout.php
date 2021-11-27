@@ -333,9 +333,9 @@
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <!-- TOASTR -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="<?=$SITE_URL;?>/assets/js/main.js"></script>
         <script src="<?=$SITE_URL;?>/assets/js/loadingOverlay.js"></script>
-        <script src="<?=$ROOT_URL;?>/vendor/realtime/realtime.js"></script>
+        <!-- <script src="<?=$ROOT_URL;?>/vendor/realtime/realtime.js"></script> -->
+        <script src="<?=$SITE_URL;?>/assets/js/main.js"></script>
     </div>
 </body>
 </html>

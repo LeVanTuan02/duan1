@@ -30,7 +30,7 @@
         }
 
         if (!$user['username']) {
-            $errorMessage['user_name'] = 'Vui lòng nhập tên đăng nhập';
+            $errorMessage['username'] = 'Vui lòng nhập tên đăng nhập';
         } else if (!preg_match('/^[a-zA-Z0-9.\-_$@*!]{3,30}$/', $user['username'])) {
             $errorMessage['username'] = 'Vui lòng nhập lại, tên đăng nhập không đúng định dạng';
         } else if (user_exits($user['username'])) {

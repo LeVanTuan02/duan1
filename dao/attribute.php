@@ -26,6 +26,11 @@
         }
     }
 
+    function attribute_delete_all_by_pid($p_id) {
+        $sql = "DELETE FROM attribute WHERE product_id = ?";
+        pdo_execute($sql, $p_id);
+    }
+
     function attribute_select_all($start = 0, $limit = 0) {
         $sql = "SELECT p.*, COUNT(*) totalAttribute FROM attribute a JOIN product p ON a.product_id = p.id GROUP BY p.id";
         if ($limit) {
@@ -54,6 +59,37 @@
     function attribute_size_exits($p_id, $size) {
         $sql = "SELECT COUNT(*) FROM attribute WHERE product_id = ? AND size = ?";
         return pdo_query_value($sql, $p_id, $size) > 0;
+    }
+
+    // cập nhật số lượng sp sau khi thêm vào giỏ
+    // function attribute_update_quantity($p_id, $size, $quantity) {
+    //     $sql = "UPDATE attribute SET quantity = ? WHERE product_id = ? AND size = ?";
+    //     pdo_execute($sql, $quantity, $p_id, $size);
+    // }
+
+    // cập nhật số lượng sp sau khi thanh toán (giảm)
+    function attribute_update_quantity($p_id, $size, $quantity) {
+        $sql = "UPDATE attribute SET quantity = quantity - ? WHERE product_id = ? AND size = ?";
+        pdo_execute($sql, $quantity, $p_id, $size);
+    }
+
+    // cập nhật số lượng sp sau khi hủy hàng (tăng)
+    function attribute_update_more_quantity($p_id, $size, $quantity) {
+        $sql = "UPDATE attribute SET quantity = quantity + ? WHERE product_id = ? AND size = ?";
+        pdo_execute($sql, $quantity, $p_id, $size);
+    }
+
+    // get số lượng sp từ size và id sp
+    function attribute_get_quantity($p_id, $size) {
+        $sql = "SELECT a.quantity FROM attribute a JOIN product p ON a.product_id = p.id WHERE p.id = ? AND size = ?";
+        return pdo_query_one($sql, $p_id, $size);
+    }
+
+    // tìm kiếm thuộc tính theo tên sp
+    function attribute_search($keyword) {
+        $sql = "SELECT p.*, COUNT(*) totalAttribute FROM attribute a JOIN product p ON a.product_id = p.id
+        WHERE p.product_name LIKE ? GROUP BY p.id";
+        return pdo_query($sql, '%'.$keyword.'%');
     }
 
 ?>

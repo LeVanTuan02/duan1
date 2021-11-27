@@ -2,8 +2,15 @@
 
     require_once '../../global.php';
     require_once '../../dao/product.php';
+<<<<<<< Updated upstream
     require_once '../../dao/contact.php';
+=======
+    require_once '../../dao/settings.php';
+>>>>>>> Stashed changes
     require_once '../../dao/analytic.php';
+
+    $isWebsiteOpen = settings_select_all();
+    if (!$isWebsiteOpen || !$isWebsiteOpen['status']) header('Location: ' . $SITE_URL . '/home/close.php');
 
     extract($_REQUEST);
 

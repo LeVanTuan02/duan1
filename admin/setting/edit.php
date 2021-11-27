@@ -108,8 +108,26 @@
                             <div class="form-control">
                                 <select name="status">
                                     <option value="">-- Vui lòng chọn trạng thái --</option>
-                                    <option value="0" <?=(isset($status) && !$status) || (isset($settingInfo['status']) && !$settingInfo['status']) ? 'selected' : '';?> >Đóng website</option>
-                                    <option value="1" <?=(isset($status) && $status) || (isset($settingInfo['status']) && $settingInfo['status']) ? 'selected' : '';?> >Mở website</option>
+                                    <?php if(isset($status)): ?>
+                                        <?php if($status): ?>
+                                            <option value="0">Đóng website</option>
+                                            <option value="1" selected>Mở website</option>
+                                        <?php else: ?>
+                                            <option value="0" selected>Đóng website</option>
+                                            <option value="1">Mở website</option>
+                                        <?php endif; ?>
+                                    <?php elseif(isset($settingInfo['status'])): ?>
+                                        <?php if($settingInfo['status']): ?>
+                                            <option value="0">Đóng website</option>
+                                            <option value="1" selected>Mở website</option>
+                                        <?php else: ?>
+                                            <option value="0" selected>Đóng website</option>
+                                            <option value="1">Mở website</option>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <option value="0">Đóng website</option>
+                                        <option value="1">Mở website</option>
+                                    <?php endif; ?>
                                 </select>
                                 <span class="form-message">
                                     <?=$errorMessage['status'] ?? '';?>

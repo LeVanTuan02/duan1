@@ -3,14 +3,15 @@
                 <div class="content__header">
                     <div class="content__header-item">
                         <h5 class="content__header-title content__header-title-has-separator">Sản phẩm</h5>
-                        <span class="content__header-description">Danh sách thuộc tính</span>
+                        <span class="content__header-description">Danh sách thuộc tính của <?=$productInfo['product_name'];?></span>
                     </div>
                     <div class="content__header-item">
                         <a href="<?=$ADMIN_URL;?>/product/?btn_edit&id=<?=$p_id;?>" class="content__header-item-btn">Xem SP</a>
                         <a href="<?=$ADMIN_URL;?>/attribute/?btn_add&p_id=<?=$p_id;?>" class="content__header-item-btn">Thêm thuộc tính</a>
-                        <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
+                        <a href="<?=$ADMIN_URL;?>/attribute" class="content__header-item-btn">DS thuộc tính</a>
+                        <!-- <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-unselect-all">Bỏ chọn tất cả</button>
-                        <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button>
+                        <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button> -->
                     </div>
                 </div>
             </header>
@@ -34,9 +35,9 @@
                     <table class="content__table-table">
                         <thead>
                             <tr>
-                                <th>
+                                <!-- <th>
                                     <input type="checkbox" name="select_all" class="select_all">
-                                </th>
+                                </th> -->
                                 <th>Mã thuộc tính</th>
                                 <th>Tên thuộc tính</th>
                                 <th>Số lượng</th>
@@ -48,9 +49,9 @@
                         <tbody class="content__table-body">
                             <?php foreach ($attributeById as $item): ?>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <input type="checkbox" data-id="<?=$item['id'];?>">
-                                </td>
+                                </td> -->
                                 <td>
                                     <?=$item['id'];?>
                                 </td>

@@ -7,9 +7,11 @@
                     </div>
                     <div class="content__header-item">
 
+                        <?php if ($myCartInfo['status'] != 3 && $myCartInfo['status'] != 4): ?>
                         <a onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?') ?
                         window.location.href = '?cart_cancel&id=<?=$id;?>' : false;
                         " class="content__header-item-btn">Hủy ĐH</a>
+                        <?php endif; ?>
 
                         <a href="<?=$ADMIN_URL;?>/account/?cart" class="content__header-item-btn">DS hóa đơn</a>
                     </div>
@@ -94,6 +96,11 @@
                                             echo '<span class="content__table-stt-locked">Đã hủy</span>';
                                     }
                                 ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="content__table-stt-date">
+                                    (<?=date_format(date_create($myCartInfo['updated_at']), 'd/m/Y H:i')?>)
                                 </td>
                             </tr>
                         </tfoot>

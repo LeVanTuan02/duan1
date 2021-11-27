@@ -23,13 +23,13 @@
                             <tbody>
                             <?php
                                 $totalPrice = 0;
-                                foreach ($_SESSION['cart'] as $item):
+                                foreach ($_SESSION['cart'] as $key => $item):
                                     $totalPrice += $item['price'] * $item['quantity'];
                             ?>
                                 <tr data-id="<?=$item['id'];?>">
                                     <td>
                                         <a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?') ?
-                                        window.location.href = '?btn_delete&id=<?=$item['id'];?>' : false;
+                                        window.location.href = '?btn_delete&id_cart=<?=$item['id_cart'];?>' : false;
                                         " class="content__cart-detail-table-btn">
                                             <i class="far fa-times-circle"></i>
                                         </a>
@@ -44,7 +44,7 @@
                                             <?=$item['product_name'];?>
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="content__cart-detail-size">
                                         <?=$item['size'];?>
                                     </td>
                                     <td class="content__cart-detail-price">

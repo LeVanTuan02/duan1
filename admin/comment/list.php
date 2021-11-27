@@ -17,8 +17,8 @@
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
-                            <button class="content__table-heading-form-btn">
+                            <input type="text" class="content__table-heading-form-control form__control-cmt" name="keyword" placeholder="Nhập tên sản phẩm">
+                            <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
@@ -34,7 +34,7 @@
                     <table class="content__table-table">
                         <thead>
                             <tr>
-                                <th>Hàng hóa</th>
+                                <th>Sản phẩm</th>
                                 <th>Số bình luận</th>
                                 <th>Mới nhất</th>
                                 <th>Cũ nhất</th>

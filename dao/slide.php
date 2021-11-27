@@ -41,7 +41,7 @@
         return pdo_query_value($sql, $id) > 0;
     }
     function slide_quantity() {
-        $sql = "SELECT COUNT(*) FROM slider";
+        $sql = "SELECT COUNT(*) FROM slide";
         return pdo_query_value($sql);
     }
 ?>

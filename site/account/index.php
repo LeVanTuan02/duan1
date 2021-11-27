@@ -182,8 +182,11 @@
                     if (password_verify($password, $getUser['password'])) {
                         $_SESSION['user'] = $getUser;
                         
-                        // đăng nhập với vai trò QTV => dashboard
-                        if ($getUser['role']) {
+                        // nếu click đăng nhập ở trang chi tiết sp
+                        if (isset($page, $id)) {
+                            header('Location: ' . $SITE_URL . '/pro/?detail&id=' . $id);
+                        } else if ($getUser['role']) {
+                            // đăng nhập với vai trò QTV => dashboard
                             header('Location: ' . $ADMIN_URL);
                         } else {
                             header('Location: ' . $SITE_URL);

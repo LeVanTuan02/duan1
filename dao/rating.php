@@ -3,7 +3,7 @@
 
     require_once 'pdo.php';
 
-    function rating_insert($product_id, $user_id, $rating_number ) {
+    function rating_insert($product_id, $user_id, $rating_number) {
         $sql = "INSERT INTO rating(product_id, user_id, rating_number )
         VALUES(?, ?, ?)";
         pdo_execute($sql, $product_id, $user_id, $rating_number);
@@ -36,9 +36,9 @@
         return pdo_query_one($sql, $id);
     }
 
-    function rating_exits($id) {
-        $sql = "SELECT COUNT(*) FROM rating WHERE id = ?";
-        return pdo_query_value($sql, $id) > 0;
+    function rating_exits($p_id, $u_id) {
+        $sql = "SELECT * FROM rating WHERE product_id = ? AND user_id = ?";
+        return pdo_query_one($sql, $p_id, $u_id);;
     }
 
 ?>

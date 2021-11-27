@@ -2,6 +2,8 @@
 
     require_once '../../global.php';
     require_once '../../dao/user.php';
+    require_once '../../dao/attribute.php';
+    require_once '../../dao/product.php';
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
 
@@ -39,7 +41,18 @@
             }
             </script>';
         } else {
-            order_update_status(4, $id);
+            $updated_at = date('Y-m-d H:i:s');
+            order_update_status(4, $updated_at, $id);
+
+            // lấy thông tin sp từ hóa đơn chi tiết
+            $orderDetail = order_detail_select_all_by_o_id($id);
+            foreach ($orderDetail as $order) {
+                // tăng số lượng sp
+                attribute_update_more_quantity($order['product_id'], $order['product_size'], $order['quantity']);
+
+                // cập nhật trạng thái sp (còn hàng, hết hàng)
+                product_update_status($order['product_id']);
+            }
             header('Location: ' . $ADMIN_URL . '/account/?cart_detail&id=' . $id);
         }
     } else if (array_key_exists('cart_detail', $_REQUEST)) {
@@ -49,6 +62,65 @@
         // thông tin đơn hàng
         $myCartInfo = order_select_by_id($id);
         $VIEW_PAGE = "cart_detail.php";
+    } else if (array_key_exists('keyword', $_REQUEST)) {
+        $listOrder = order_search($keyword, $_SESSION['user']['id']);
+        function renderOrder($order_item) {
+            global $ADMIN_URL;
+            $html = '';
+            $html .= '
+            <tr>
+                <!-- <td>
+                    <input type="checkbox" data-id="">
+                </td> -->
+                <td>
+                    DH' . $order_item['id'] . '
+                </td>
+                <td>
+                    <span class="content__table-text-black">
+                        ' . $order_item['customer_name'] . '
+                    </span>
+                </td>
+                <td>
+                    <span class="content__table-text-success">
+                        ' . date_format(date_create($order_item['created_at']), 'd/m/Y H:i') . '
+                    </span>
+                </td>
+                <td>
+                    ' . number_format($order_item['total_price'], 0, '', ',') . ' VNĐ
+                </td>
+                <td>';
+                    switch($order_item['status']) {
+                        case 0:
+                            $html .= '<span class="content__table-stt-active">Đơn hàng mới</span>';
+                            break;
+                        case 1:
+                            $html .= '<span class="content__table-stt-active">Đã xác nhận</span>';
+                            break;
+                        case 2:
+                            $html .= '<span class="content__table-stt-active">Đang giao hàng</span>';
+                            break;
+                        case 3:
+                            $html .= '<span class="content__table-stt-active">Đã giao hàng</span>';
+                            break;
+                        case 4:
+                            $html .= '<span class="content__table-stt-locked">Đã hủy</span>';
+                    }
+                $html .= '
+                </td>
+                <td>
+                    <a href="' . $ADMIN_URL . '/order/?detail&id=' . $order_item['id'] . '" class="content__table-stt-active">Chi tiết</a>
+                    <!-- <a href="' . $ADMIN_URL . '/order/?invoice&id=' . $order_item['id'] . '" target="_blank" class="content__table-stt-active">
+                        <i class="fas fa-download"></i>
+                        Xuất hóa đơn
+                    </a> -->
+                </td>
+            </tr>
+            ';
+            return $html;
+        }
+        $html = array_map('renderOrder', $listOrder);
+        echo join('', $html);
+        die();
     } else if (array_key_exists('btn_update_pass', $_REQUEST)) {
         $password = [];
         $errorMessage = [];

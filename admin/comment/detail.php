@@ -3,7 +3,7 @@
                 <div class="content__header">
                     <div class="content__header-item">
                         <h5 class="content__header-title content__header-title-has-separator">Bình luận</h5>
-                        <span class="content__header-description">Bình luận về sản phẩm <strong><?=$listCmt[0]['product_name'];?></strong></span>
+                        <span class="content__header-description">Bình luận về sản phẩm <strong><?=$productInfo['product_name'];?></strong></span>
                     </div>
                     <div class="content__header-item">
                         <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
@@ -22,13 +22,15 @@
                             <span class="content__table-text">Comment management made easy</span>
                         </div>
 
-                        <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="detail_keyword" placeholder="Nhập nội dung bình luận">
-                            <select name="ma_kh" class="content__table-heading-form-select">
+                        <form action="" class="content__table-heading-form" method="POST" data-product-id="<?=$p_id;?>">
+                            <input type="text" class="content__table-heading-form-control form__control-cmt-detail" name="detail_keyword" placeholder="Nhập nội dung bình luận">
+                            <select name="user_id" class="content__table-heading-form-select form__control-cmt-user">
                                 <option value="">-- KH bình luận --</option>
-                                <option value="">A D M I N</option>
+                                <?php foreach ($listUser as $user): ?>
+                                <option value="<?=$user['id'];?>"><?=$user['fullName'];?></option>
+                                <?php endforeach; ?>
                             </select>
-                            <select name="rating" class="content__table-heading-form-select">
+                            <select name="rating" class="content__table-heading-form-select form__control-cmt-rating">
                                 <option value="">-- Đánh giá --</option>
                                 <option value="1">1 sao</option>
                                 <option value="2">2 sao</option>
@@ -36,7 +38,7 @@
                                 <option value="4">4 sao</option>
                                 <option value="5">5 sao</option>
                             </select>
-                            <button class="content__table-heading-form-btn">
+                            <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
@@ -56,6 +58,7 @@
                                     <input type="checkbox" name="select_all" class="select_all">
                                 </th>
                                 <th>Nội dung</th>
+                                <th>Đánh giá</th>
                                 <th>Ngày bình luận</th>
                                 <th>Người bình luận</th>
                                 <th>Mã KH bình luận</th>
@@ -71,6 +74,21 @@
                                 </td>
                                 <td>
                                     <textarea cols="30" readonly rows="4" class="content__table-comment"><?=$item['content'];?></textarea>
+                                </td>
+                                <td>
+                                    <ul class="cmt__stars">
+                                        <?php for($i = 1; $i <= $item['rating_number']; $i++): ?>
+                                        <li class="cmt__star cmt__star--active">
+                                            <i class="fas fa-star"></i>
+                                        </li>
+                                        <?php endfor; ?>
+
+                                        <?php for($i = 1; $i <= (5 - $item['rating_number']); $i++): ?>
+                                        <li class="cmt__star">
+                                            <i class="fas fa-star"></i>
+                                        </li>
+                                        <?php endfor; ?>
+                                    </ul>
                                 </td>
                                 <td>
                                     <span class="content__table-text-success">

@@ -6,24 +6,29 @@
                         <span class="content__header-description">Chi tiết hóa đơn</span>
                     </div>
                     <div class="content__header-item">
-                        <!-- <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
-                        <button class="content__header-item-btn content__header-item-btn-unselect-all">Bỏ chọn tất cả</button>
-                        <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button> -->
+                        <!-- 0 - đơn mới, 1 - đã xác nhận, 2 - đang giao, 3 - đã giao, 4 - hủy -->
+                        <?php if($orderInfo['status'] == 0): ?>
                         <a onclick="return confirm('Bạn có chắc muốn xác nhận đơn hàng này không?') ?
                         window.location.href = '?update_stt&status=1&id=<?=$id;?>' : false;
                         " class="content__header-item-btn">Xác nhận ĐH</a>
 
-                        <a onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?') ?
-                        window.location.href = '?update_stt&status=4&id=<?=$id;?>' : false;
-                        " class="content__header-item-btn">Hủy ĐH</a>
-
+                        <?php elseif ($orderInfo['status'] == 1): ?>
                         <a onclick="return confirm('Bạn có chắc muốn cập nhật trạng thái đang giao hàng không?') ?
                         window.location.href = '?update_stt&status=2&id=<?=$id;?>' : false;
                         " class="content__header-item-btn">Đang giao hàng</a>
 
+                        <?php elseif ($orderInfo['status'] == 2): ?>
                         <a onclick="return confirm('Bạn có chắc muốn cập nhật trạng thái đã giao hàng không?') ?
                         window.location.href = '?update_stt&status=3&id=<?=$id;?>' : false;
                         " class="content__header-item-btn">Đã giao hàng</a>
+                        <?php endif; ?>
+
+                        <!-- nếu đã giao thì ko hủy -->
+                        <?php if($orderInfo['status'] != 3 && $orderInfo['status'] != 4): ?>
+                        <a onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?') ?
+                        window.location.href = '?update_stt&status=4&id=<?=$id;?>' : false;
+                        " class="content__header-item-btn">Hủy ĐH</a>
+                        <?php endif; ?>
 
                         <a href="<?=$ADMIN_URL;?>/order" class="content__header-item-btn">DS hóa đơn</a>
                     </div>
@@ -54,11 +59,11 @@
                         <tbody class="content__table-body">
                             <?php
                                 $totalPrice = 0;
-                                foreach ($listOrderDetail as $item) { 
+                                foreach ($listOrderDetail as $key => $item) { 
                                     $totalPrice += $item['quantity'] * $item['price'];
                             ?>
                             <tr>
-                                <td>1</td>
+                                <td><?=($key + 1);?></td>
                                 <td class="content__table-cell-flex">
                                     <div class="content__table-img">
                                         <img src="<?=$IMG_URL . '/' . $item['product_image'];?>" class="content__table-avatar" alt="">
@@ -106,6 +111,11 @@
                                             echo '<span class="content__table-stt-locked">Đã hủy</span>';
                                     }
                                 ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="content__table-stt-date">
+                                    (<?=date_format(date_create($orderInfo['updated_at']), 'd/m/Y H:i')?>)
                                 </td>
                             </tr>
                         </tfoot>

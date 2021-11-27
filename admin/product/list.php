@@ -23,14 +23,14 @@
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên sản phẩm">
-                            <select name="ma_loai" class="content__table-heading-form-select">
+                            <input type="text" class="content__table-heading-form-control form__control-product" name="keyword" placeholder="Nhập tên sản phẩm">
+                            <select name="cate_id" class="content__table-heading-form-select">
                                 <option value="">-- Loại hàng --</option>
-                                <?php foreach ($categoryList as $item): ?>
-                                    <option value="<?=$item['ma_loai'];?>"><?=$item['ten_loai'];?></option>
+                                <?php foreach ($listCategory as $item): ?>
+                                    <option value="<?=$item['id'];?>"><?=$item['cate_name'];?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <button class="content__table-heading-form-btn">
+                            <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
@@ -54,6 +54,7 @@
                                 <th>Lượt xem</th>
                                 <th>Ngày tạo</th>
                                 <td>Số lượng</td>
+                                <td>Loại hàng</td>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
@@ -84,6 +85,7 @@
                                     </span>
                                 </td>
                                 <td><?=$item['totalProduct'] ?? 0;?></td>
+                                <td><?=$item['cate_name'];?></td>
                                 <td>
                                     <?php if ($item['status']): ?>
                                     <span class="content__table-stt-active">Còn hàng</span>

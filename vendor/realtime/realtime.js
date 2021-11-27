@@ -40,8 +40,6 @@ function start() {
                 update_total_order_to_localStorage();
             }
         }, 1000);
-        console.log(123)
-
     }
 }
 
@@ -95,7 +93,11 @@ function show_info_new_order(newOrderQuantity) {
         },
         success: function (response) {
             $.each(response, function (i, orderInfo) {
-                toastr.success(`Đơn hàng mới từ ${orderInfo.customer_name}`);
+                var ok = toastr.success(`Đơn hàng mới từ ${orderInfo.customer_name}`);
+                if (!ok) {
+                    toastr.success(`Đơn hàng mới từ ${orderInfo.customer_name}`);
+                }
+                console.log('ok');
             });
         },
         error: function () {

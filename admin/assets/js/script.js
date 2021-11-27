@@ -83,6 +83,7 @@ $('.select_all').on('change', () => {
 $('.content__header-item-btn-del-all').on('click', () => {
     var isConfirmed = confirm('Bạn có chắc chắn muốn xóa mục đã chọn không?');
     if (isConfirmed) {
+        // danh sách checkbox checked
         var checkboxElement = $('.content__table-body input:checkbox:checked');
         var ids = [];
         $.each(checkboxElement, function(index) {
@@ -99,8 +100,7 @@ $('.content__header-item-btn-del-all').on('click', () => {
                     btn_delete: '',
                     id: ids
                 },
-                success: function(data) {
-                    $('.error-message').html(data);
+                success: function() {
                     location.reload();
                 },
                 error: function() {
@@ -114,4 +114,185 @@ $('.content__header-item-btn-del-all').on('click', () => {
 // reset form
 $('.content__header-item-btn-reset').on('click', () => {
     $('.content__form')[0].reset();
+});
+
+const admin_url = 'http://localhost/duan1/admin';
+
+// tìm kiếm hóa đơn (be)
+$('.form__control-order').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/order/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy đơn hàng nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});
+
+// tìm kiếm đơn hàng của tôi (be)
+$('.form__control-my-order').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/account/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy đơn hàng nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});
+
+// tìm kiếm sản phẩm trang be
+$('.form__control-product').on('keyup', function() {
+    var keyword = $(this).val();
+    var cate_id = $(this).next().val();
+    productSearch(keyword, cate_id);
+});
+
+$('select[name="cate_id"]').on('change', function() {
+    var keyword = $(this).prev().val();
+    var cate_id = $(this).val();
+    productSearch(keyword, cate_id);
+});
+
+function productSearch(keyword, cate_id) {
+    $.ajax({
+        url: admin_url + '/product/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword,
+            cate_id: cate_id,
+            search: ''
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy sản phẩm nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+}
+
+// tìm kiếm bình luận (be)
+$('.form__control-cmt').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/comment/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy bình luận nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});
+
+// tìm kiếm cmt theo sp
+function commentSearch(evt) {
+    var formElement = evt.target.closest('form');
+    var product_id = formElement.getAttribute('data-product-id');
+    var keyword = formElement.querySelector('input[name="detail_keyword"]').value;
+    var user_id = formElement.querySelector('select[name="user_id"]').value;
+    var rating_number = formElement.querySelector('select[name="rating"]').value;
+
+    $.ajax({
+        url: admin_url + '/comment/index.php',
+        type: 'POST',
+        data: {
+            p_id: product_id,
+            content: keyword,
+            u_id: user_id,
+            rating: rating_number,
+            cmt_detail_search: ''
+        },
+        success: function(result) {
+            if (result.trim()) {
+                // console.log(result);
+                $('.content__table-body').html(result);
+            } else {
+                $('.content__table-body').html(`<div class="alert alert-success">Không tìm thấy bình luận nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+}
+
+$('.form__control-cmt-detail').on('keyup', function(event) {
+    commentSearch(event);
+});
+
+$('.form__control-cmt-user').on('change', function(event) {
+    commentSearch(event);
+});
+
+$('.form__control-cmt-rating').on('change', function(event) {
+    commentSearch(event);
+});
+
+// tìm kiếm thuộc tính theo tên sp
+$('.form__control-attribute').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/attribute/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-body').html(result);
+            } else {
+                $('.content__table-body').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
 });

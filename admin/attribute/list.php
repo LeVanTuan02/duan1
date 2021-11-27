@@ -6,9 +6,9 @@
                         <span class="content__header-description">Danh sách thuộc tính</span>
                     </div>
                     <div class="content__header-item">
-                        <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
+                        <!-- <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-unselect-all">Bỏ chọn tất cả</button>
-                        <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button>
+                        <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button> -->
                     </div>
                 </div>
             </header>
@@ -22,8 +22,8 @@
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên sản phẩm">
-                            <button class="content__table-heading-form-btn">
+                            <input type="text" class="content__table-heading-form-control form__control-attribute" name="keyword" placeholder="Nhập tên sản phẩm">
+                            <button class="content__table-heading-form-btn" type="button">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
@@ -39,9 +39,9 @@
                     <table class="content__table-table">
                         <thead>
                             <tr>
-                                <th>
+                                <!-- <th>
                                     <input type="checkbox" name="select_all" class="select_all">
-                                </th>
+                                </th> -->
                                 <th>Mã SP</th>
                                 <th>Sản phẩm</th>
                                 <td>Số thuộc tính</td>
@@ -52,9 +52,9 @@
                         <tbody class="content__table-body">
                             <?php foreach ($listAttribute as $item): ?>
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <input type="checkbox" data-id="<?=$item['id'];?>">
-                                </td>
+                                </td> -->
                                 <td>
                                     <?=$item['id'];?>
                                 </td>
@@ -72,8 +72,8 @@
                                 </td>
                                 <td>
                                     <div class="user_list-action">
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?') ?
-                                        window.location.href = '?btn_delete&id=<?=$item['id'];?>' : false;
+                                        <a onclick="return confirm('Bạn có chắc muốn xóa toàn bộ thuộc tính của sản phẩm này không?') ?
+                                        window.location.href = '?btn_delete_all&p_id=<?=$item['id'];?>' : false;
                                         " class="content__table-action danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
