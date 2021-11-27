@@ -3,6 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/product.php';
     require_once '../../dao/analytic.php';
+    require_once '../../dao/contact.php';
 
     check_login();
     extract($_REQUEST);
@@ -28,7 +29,28 @@
         // thống kê kh đky theo tháng
         $userRegAnalytics = analytics_user_reg();
         $VIEW_PAGE = "chart.php";
-    } else {
+    }else if(array_key_exists('feedback', $_REQUEST)){
+        $title = 'Góp ý';
+        $limit = 10;
+        $totalUser = count(contact_select_all());
+        $totalPage = ceil($totalUser / $limit);
+        $currentPage = $page ?? 1;
+        
+        if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+        } else if ($currentPage < 0) {
+            $currentPage = 1;
+        }
+        
+        $start = ($currentPage - 1) * $limit;
+
+        $items = contact_select_all();
+        $VIEW_PAGE = 'gop-y.php';
+        $VIEW_PAGE="feedback.php";
+    }else if(array_key_exists('btn_delete', $_REQUEST )){
+        contact_delete($id);
+        header('location: '. $ADMIN_URL.'/analytics?feedback');
+    }else {
         $quantityAnalytics = analytics_quantity_product_by_cate();
         $priceAnalytics = analytics_price_product_by_cate();
         

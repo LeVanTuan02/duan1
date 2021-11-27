@@ -168,6 +168,11 @@
         $sql = "SELECT COUNT(*) FROM user WHERE email = ?";
         return pdo_query_value($sql, $email) > 0;
     }
+    function username_exits($email) {
+        $sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+        return pdo_query_value($sql, $email) > 0;
+    }
+    
     function khach_hang_action($id, $type = '') {
         if ($type && $type == 'lock') {
             $sql = "UPDATE user SET active = 0 WHERE id = ?";

@@ -12,7 +12,73 @@
         
     } else if (array_key_exists('register', $_REQUEST)) {
         // đăng ký
+        $errorMessage = [];
+        $user_dk = [];
 
+        $user_dk['username'] = $username ?? '';
+        $user_dk['password'] = $password ?? '';
+        $user_dk['confirm'] = $confirm ?? '';
+        $user_dk['fullName'] = $fullName ?? '';
+        $user_dk['phone']= $phone ?? '';
+        $user_dk['email'] = $email ?? '';
+
+        if (!$user_dk['fullName']) {
+            $errorMessage['fullName'] = 'Vui lòng nhập họ tên';
+        } else if (!preg_match('/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/', $user_dk['fullName'])) {
+            $errorMessage['fullName'] = 'Vui lòng nhập lại, họ tên không đúng định dạng';
+        }
+
+        if (!$user_dk['username']) {
+            $errorMessage['username'] = 'Vui lòng nhập tên đăng nhập';
+        } else if (!preg_match('/^[a-zA-Z0-9.\-_$@*!]{3,30}$/', $user_dk['username'])) {
+            $errorMessage['username'] = 'Vui lòng nhập lại, tên đăng nhập không đúng định dạng';
+        } else if (username_exits($user_dk['username'])) {
+            $errorMessage['username'] = 'Vui lòng nhập lại, tên đăng nhập đã tồn tại';
+        }
+
+        if (!$user_dk['password']) {
+            $errorMessage['password'] = 'Vui lòng nhập mật khẩu';
+        } else if (strlen($user_dk['password']) < 3) {
+            $errorMessage['password'] = 'Vui lòng nhập lại, mật khẩu tối thiểu 3 ký tự';
+        }
+
+        if (!$user_dk['confirm']) {
+            $errorMessage['confirm'] = 'Vui lòng nhập mật khẩu xác nhận';
+        } else if ($user_dk['password'] != $user_dk['confirm']) {
+            $errorMessage['confirm'] = 'Vui lòng nhập lại, mật khẩu xác nhận không chính xác';
+        }
+
+        if (!$user_dk['phone']) {
+            $errorMessage['phone'] = 'Vui lòng nhập số điện thoại';
+        } else if (!preg_match('/(84|0[3|5|7|8|9])+([0-9]{8})\b/', $user_dk['phone'])) {
+            $errorMessage['phone'] = 'Vui lòng nhập lại, số điện thoại không đúng định dạng';
+        }
+
+        if (!$user_dk['email']) {
+            $errorMessage['email'] = 'Vui lòng nhập email';
+        } else if (!preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $user_dk['email'])) {
+            $errorMessage['email'] = 'Vui lòng nhập lại, email không đúng định dạng';
+        } else if (khach_hang_email_exits($user_dk['email'])) {
+            $errorMessage['email'] = 'Vui lòng nhập lại, email đã tồn tại';
+        }
+
+        if (empty($errorMessage)) {
+            $password = password_hash($user_dk['password'], PASSWORD_DEFAULT);
+            $image = 'image_default.png';
+            $created_at = Date('Y-m-d H:i:s');
+            $avatar = "image_default.png";
+            $active = 1;
+            $role = 0;
+            $address = '';
+            
+            $last_id = user_insert($username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at);
+            unset($user_dk);
+
+            $user_info = user_select_by_id($last_id);
+            $_SESSION['auth'] = $user_info;
+            $MESSAGE = 'Đăng ký thành công, hệ thống tự động đăng nhập sau 3s';
+            header('Refresh: 3; URL = ' . $SITE_URL);
+        }
 
         
         $VIEW_PAGE = 'register.php';
