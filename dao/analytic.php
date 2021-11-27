@@ -40,5 +40,6 @@
         $sql = "SELECT COUNT(*) AS total FROM `order` WHERE `status` = ?";
         return pdo_query_value($sql, $status);
     }
+    
 
 ?>

@@ -91,7 +91,12 @@
     // kiểm tra tên sản phẩm tồ tại không
     function product_name_exits($product_name) {
         $sql = "SELECT * FROM product WHERE product_name = ?";
-        return pdo_query_value($sql, $product_name) > 0;
+        return pdo_query_one($sql, $product_name) > 0;
+    }
+    function product_relation($cate_id, $id) {
+        $sql = "SELECT p.*, ct.cate_name FROM product p JOIN category ct ON p.cate_id = ct.id
+        WHERE NOT p.id = ? AND p.cate_id = ? ORDER BY cate_id DESC LIMIT 0, 4";
+        return pdo_query($sql,$cate_id, $id);
     }
 
 
