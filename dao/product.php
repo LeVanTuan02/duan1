@@ -116,14 +116,6 @@
     // kiểm tra tên sản phẩm tồn tại không
     function product_name_exits($product_name) {
         $sql = "SELECT * FROM product WHERE product_name = ?";
-<<<<<<< Updated upstream
-        return pdo_query_one($sql, $product_name) > 0;
-    }
-    function product_relation($cate_id, $id) {
-        $sql = "SELECT p.*, ct.cate_name FROM product p JOIN category ct ON p.cate_id = ct.id
-        WHERE NOT p.id = ? AND p.cate_id = ? ORDER BY cate_id DESC LIMIT 0, 4";
-        return pdo_query($sql,$cate_id, $id);
-=======
         return pdo_query_one($sql, $product_name);
     }
 
@@ -131,7 +123,6 @@
     function product_get_price_qnt_from_size($id, $size) {
         $sql = "SELECT a.price, a.quantity FROM product p JOIN attribute a ON p.id = a.product_id WHERE p.id = ? AND a.size = ?";
         return pdo_query_one($sql, $id, $size);
->>>>>>> Stashed changes
     }
 
 
