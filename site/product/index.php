@@ -15,7 +15,7 @@
         $itemData = product_home_select_by_id($id);
         extract($itemData);
 
-        $item_tt = product_home_select_all();
+        $item_tt = product_relation($cate_id, $id);
         $VIEW_PAGE = "detail.php";
     } else {
         // trang danh sách sp
