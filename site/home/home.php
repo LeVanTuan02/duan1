@@ -23,7 +23,7 @@
                 <ul class="content__cate-list">
                 <?php foreach ($categoryInfo as $cate): ?>
                     <li class="content__cate-item">
-                        <a href="" class="content__cate-item-link">
+                        <a href="<?=$SITE_URL . '/product/?category&cate_id=' . $cate['id'];?>" class="content__cate-item-link">
                             <img src="<?=$IMG_URL . '/' . $cate['cate_image'];?>" alt="" class="content__cate-img">
 
                             <div class="content__cate-item-info">
@@ -93,18 +93,18 @@
                         <?php foreach ($listProduct as $item): ?>
                         <div class="content__menu-item">
                             <div class="content__menu-item-image">
-                                <a href="" class="content__menu-item-image-link" style="background-image: url('<?=$IMG_URL . '/' . $item['product_image'];?>')"></a>
-                                <a href="" class="content__menu-item-btn">Xem chi tiết</a>
+                                <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__menu-item-image-link" style="background-image: url('<?=$IMG_URL . '/' . $item['product_image'];?>')"></a>
+                                <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__menu-item-btn">Xem chi tiết</a>
                                 <button class="content__menu-item-icon content__menu-item-icon-heart" data-id="<?=$item['id'];?>">
                                     <i class="fas fa-heart"></i>
                                 </button>
-                                <a href="<?=$SITE_URL . '/cart/?add_cart&id=' . $item['id'];?>" class="content__menu-item-icon content__menu-item-icon-cart">
+                                <!-- <a href="<?=$SITE_URL . '/cart/?add_cart&id=' . $item['id'];?>" class="content__menu-item-icon content__menu-item-icon-cart">
                                     <i class="fas fa-shopping-basket"></i>
-                                </a>
+                                </a> -->
                             </div>
                             <div class="content__menu-item-info">
                                 <p class="content__menu-item-info-name">
-                                    <a href="" class="content__menu-item-info-name-link"><?=$item['product_name'];?></a>
+                                    <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__menu-item-info-name-link"><?=$item['product_name'];?></a>
                                 </p>
                                 <span class="content__menu-item-info-price"><?=number_format($item['price'], 0, '', ',');?> ₫</span>
                             </div>

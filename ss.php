@@ -4,9 +4,9 @@
     require_once 'dao/order.php';
 
     echo "<pre>";
-    var_dump($_SESSION['cart']);
+    var_dump($_SESSION['user']);
 
-    // unset($_SESSION['cart']);
+    // unset($_SESSION['user']);
     // order_send_mail_customer('levantuan.fpoly@gmail.com', 'Lê Tuân');
 
 

@@ -83,7 +83,8 @@
 
     // lấy sản phẩm theo id trang khách hàng
     function product_home_select_by_id($id, $size = '') {
-        $sql = "SELECT p.*, a.price, a.size, a.quantity FROM product p JOIN attribute a ON p.id = a.product_id
+        $sql = "SELECT p.*, a.price, a.size, a.quantity, c.cate_name, p.cate_id FROM ((product p JOIN attribute a ON p.id = a.product_id)
+        JOIN category c ON p.cate_id = c.id)
         WHERE p.id = ?";
 
         if ($size) {
@@ -123,6 +124,37 @@
     function product_get_price_qnt_from_size($id, $size) {
         $sql = "SELECT a.price, a.quantity FROM product p JOIN attribute a ON p.id = a.product_id WHERE p.id = ? AND a.size = ?";
         return pdo_query_one($sql, $id, $size);
+    }
+
+    // sản phẩm cùng loại
+    function product_relation($id, $cate_id) {
+        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price
+        FROM product p JOIN attribute a ON p.id = a.product_id
+        WHERE NOT p.id = ? AND p.cate_id = ?
+        GROUP BY p.id
+        ORDER BY p.id DESC LIMIT 4";
+        return pdo_query($sql, $id, $cate_id);
+    }
+
+    // tìm kiếm sp
+    function product_home_search($keyword) {
+        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price
+        FROM product p JOIN attribute a ON p.id = a.product_id
+        WHERE p.product_name LIKE ?
+        GROUP BY p.id
+        ORDER BY p.id DESC";
+        return pdo_query($sql, '%'.$keyword.'%');
+    }
+
+    // sp theo danh mục
+    function product_home_select_by_cate($cate_id) {
+        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price, c.cate_name
+        FROM ((product p JOIN attribute a ON p.id = a.product_id)
+        JOIN category c ON p.cate_id = c.id)
+        WHERE p.cate_id = ?
+        GROUP BY p.id
+        ORDER BY p.id DESC";
+        return pdo_query($sql, $cate_id);
     }
 
 

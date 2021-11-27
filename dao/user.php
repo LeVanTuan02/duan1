@@ -6,7 +6,7 @@
     function user_insert($username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at) {
         $sql = "INSERT INTO user(username, password, email, phone, fullName, address, avatar, active, role, created_at)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        pdo_execute($sql, $username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at);
+        return pdo_execute($sql, $username, $password, $email, $phone, $fullName, $address, $avatar, $active, $role, $created_at);
     }
 
     function user_update($password, $email, $phone, $fullName, $address, $avatar, $active, $role, $id) {

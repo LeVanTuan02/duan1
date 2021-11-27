@@ -12,7 +12,7 @@
                                     Tên đăng nhập
                                     <span class="req">*</span>
                                 </label>
-                                <input type="text" name="username" id="email" placeholder="demo" value="<?=$user_dk['username'] ?? '';?>" required>
+                                <input type="text" name="username" id="email" placeholder="demo" value="<?=$user_dk['username'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['username'] ?? '';?>
                                 </span>
@@ -23,7 +23,7 @@
                                     Họ và tên
                                     <span class="req">*</span>
                                 </label>
-                                <input type="text" name="fullName" id="email" placeholder="Ngô Văn A" value="<?=$user_dk['fullName'] ?? '';?>" required>
+                                <input type="text" name="fullName" id="email" placeholder="Ngô Văn A" value="<?=$user_dk['fullName'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['fullName'] ?? '';?>
                                 </span>
@@ -34,7 +34,7 @@
                                     Email
                                     <span class="req">*</span>
                                 </label>
-                                <input type="email" name="email" id="email" placeholder="demo123@gmail.com" value="<?=$user_dk['email'] ?? '';?>" required>
+                                <input type="email" name="email" id="email" placeholder="demo123@gmail.com" value="<?=$user_dk['email'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['email'] ?? '';?>
                                 </span>
@@ -45,7 +45,7 @@
                                     Số điện thoại
                                     <span class="req">*</span>
                                 </label>
-                                <input type="number" name="phone" id="email" placeholder="09******* or 03********" value="<?=$user_dk['phone'] ?? '';?>" required>
+                                <input type="number" name="phone" id="email" placeholder="Nhập số điện thoại" value="<?=$user_dk['phone'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['phone'] ?? '';?>
                                 </span>
@@ -56,7 +56,7 @@
                                     Mật khẩu
                                     <span class="req">*</span>
                                 </label>
-                                <input type="password" name="password" id="password" placeholder="*************" value="<?=$user_dk['password'] ?? '';?>" required>
+                                <input type="password" name="password" id="password" placeholder="*************" value="<?=$user_dk['password'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['password'] ?? '';?>
                                 </span>
@@ -67,7 +67,7 @@
                                     Xác nhận mật khẩu
                                     <span class="req">*</span>
                                 </label>
-                                <input type="password" name="confirm" id="password" placeholder="*************" value="<?=$user_dk['confirm'] ?? '';?>" required>
+                                <input type="password" name="confirm" id="password" placeholder="*************" value="<?=$user_dk['confirm'] ?? '';?>">
                                 <span class="form-message">
                                     <?=$errorMessage['comfirm'] ?? '';?>
                                 </span>
@@ -76,21 +76,13 @@
                         
 
                             <div class="control-wrapper">
-                                <button type="submit" name="btn_register" href="#">Đăng ký</button>
+                                <button type="submit" name="btn_register">Đăng ký</button>
                             
                             </div>
                         
-
-
-
                         </form>
                     </div>
-                
-
                 </div>
            </div>
-             
-
-
         </div>
         <!-- END CONTENT -->

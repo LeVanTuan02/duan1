@@ -25,14 +25,15 @@
         } else {
             $html = array_map(function($item) {
                 global $IMG_URL;
+                global $SITE_URL;
                 return
                 '<li class="wishlist__body-list-item wishlist__body-list-item-'.$item['id'].'">
-                    <a href="/site/hang-hoa/chi-tiet.php?ma_hh=49" class="wishlist__body-list-item-image-link">
+                    <a href="' . $SITE_URL . '/product/?detail&id=' . $item['id'] . '" class="wishlist__body-list-item-image-link">
                         <img src="'.$IMG_URL.'/'.$item['product_image'].'" alt="" class="wishlist__body-list-item-image">
                     </a>
         
                     <div class="wishlist__body-list-item-info">
-                        <a href="/site/hang-hoa/chi-tiet.php?ma_hh=49" class="wishlist__body-list-item-title">'.$item['product_name'].'</a>
+                        <a href="' . $SITE_URL . '/product/?detail&id=' . $item['id'] . '" class="wishlist__body-list-item-title">'.$item['product_name'].'</a>
                         <span class="wishlist__body-list-item-price">'.number_format($item['price'], 0, '', ',').'₫</span>
                         <span class="wishlist__body-list-item-time">'.date_format(date_create($item['date']), 'd/m/Y H:i').'</span>
                     </div>

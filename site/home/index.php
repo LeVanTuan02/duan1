@@ -2,11 +2,8 @@
 
     require_once '../../global.php';
     require_once '../../dao/product.php';
-<<<<<<< Updated upstream
     require_once '../../dao/contact.php';
-=======
     require_once '../../dao/settings.php';
->>>>>>> Stashed changes
     require_once '../../dao/analytic.php';
 
     $isWebsiteOpen = settings_select_all();
@@ -25,12 +22,12 @@
         $errorMessage = [];
         $contact = [];
 
-        if (isset($_SESSION['user'])) {
-            $name = $_SESSION['user']['fullName'];
-            $email = $_SESSION['user']['email'];
-            $phone = $_SESSION['user']['phone'];
-            // $name = $_SESSION['user']['fullName'];
-        }
+        // if (isset($_SESSION['user'])) {
+        //     $name = $_SESSION['user']['fullName'];
+        //     $email = $_SESSION['user']['email'];
+        //     $phone = $_SESSION['user']['phone'];
+        //     // $name = $_SESSION['user']['fullName'];
+        // }
         $contact['name'] = $name ?? '';
         $contact['email'] = $email ?? '';
         $contact['phone'] = $phone ?? '';
@@ -67,8 +64,7 @@
         $VIEW_PAGE = "contact.php";
     } else if (array_key_exists('contact', $_REQUEST)) {
         $VIEW_PAGE = 'contact.php';
-    }
-     else {
+    } else {
         // danh sách menu
         $listProduct = product_home_select_all(0, 8);
 

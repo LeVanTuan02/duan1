@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/main.css">
     <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/responsive.css">
-    <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/css_pro.css">
-    <link rel="stylesheet" href="<?=$SITE_URL;?>/assets/css/product_in.css">
-    
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,8 +71,8 @@
                                 </div>
                             </div>
 
-                            <form class="header__top-list-item-form" method="POST">
-                                <input type="text" class="header__top-list-item-form-control input" placeholder="Tìm kiếm...">
+                            <form class="header__top-list-item-form" method="GET" action="<?=$SITE_URL . '/product/?search';?>">
+                                <input type="text" name="keyword" class="header__top-list-item-form-control input" placeholder="Tìm kiếm...">
                                 <button class="header__top-list-item-form-btn btn">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -137,7 +134,7 @@
                                 <a href="<?=$SITE_URL;?>/home/?intro" class="header__menu-list-item-link">Giới thiệu</a>
                             </li>
                             <li class="header__menu-list-item">
-                                <a href="<?=$SITE_URL;?>/product/?list" class="header__menu-list-item-link">Thực đơn</a>
+                                <a href="<?=$SITE_URL;?>/product" class="header__menu-list-item-link">Thực đơn</a>
                             </li>
                         </ul>
         
@@ -181,8 +178,8 @@
                 <div class="menu__mobile-inner">
                     <ul class="menu__mobile-list">
                         <li class="menu__mobile-item menu__mobile-item-search">
-                            <form action="" class="menu__mobile-item-form">
-                                <input type="text" class="menu__mobile-item-form-control input" placeholder="Tìm kiếm...">
+                            <form action="<?=$SITE_URL . '/product/?keyword';?>" class="menu__mobile-item-form">
+                                <input type="text" name="keyword" class="menu__mobile-item-form-control input" placeholder="Tìm kiếm...">
                                 <button class="menu__mobile-item-form-btn btn">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -190,22 +187,22 @@
                         </li>
 
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Trang chủ</a>
+                            <a href="<?=$SITE_URL;?>" class="menu__mobile-item-link">Trang chủ</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Giới thiệu</a>
+                            <a href="<?=$SITE_URL;?>/home?intro" class="menu__mobile-item-link">Giới thiệu</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Thực đơn</a>
+                            <a href="<?=$SITE_URL;?>/product" class="menu__mobile-item-link">Thực đơn</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Tin tức</a>
+                            <a href="#" class="menu__mobile-item-link">Tin tức</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Liên hệ</a>
+                            <a href="<?=$SITE_URL;?>/home?contact" class="menu__mobile-item-link">Liên hệ</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="" class="menu__mobile-item-link">Đặt bàn</a>
+                            <a href="#" class="menu__mobile-item-link">Đặt bàn</a>
                         </li>
                     </ul>
                 </div>

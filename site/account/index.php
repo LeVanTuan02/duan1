@@ -5,12 +5,7 @@
 
     extract($_REQUEST);
 
-    if (array_key_exists('', $_REQUEST)) {
-        // đăng ký
-
-
-        
-    } else if (array_key_exists('register', $_REQUEST)) {
+    if (array_key_exists('btn_register', $_REQUEST)) {
         // đăng ký
         $errorMessage = [];
         $user_dk = [];
@@ -64,7 +59,6 @@
 
         if (empty($errorMessage)) {
             $password = password_hash($user_dk['password'], PASSWORD_DEFAULT);
-            $image = 'image_default.png';
             $created_at = Date('Y-m-d H:i:s');
             $avatar = "image_default.png";
             $active = 1;
@@ -75,12 +69,14 @@
             unset($user_dk);
 
             $user_info = user_select_by_id($last_id);
-            $_SESSION['auth'] = $user_info;
+            $_SESSION['user'] = $user_info;
             $MESSAGE = 'Đăng ký thành công, hệ thống tự động đăng nhập sau 3s';
             header('Refresh: 3; URL = ' . $SITE_URL);
         }
 
         
+        $VIEW_PAGE = 'register.php';
+    } else if (array_key_exists('register', $_REQUEST)) {
         $VIEW_PAGE = 'register.php';
     } else if (array_key_exists('btn_forgot', $_REQUEST)) {
         $getUser = user_exits($user);

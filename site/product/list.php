@@ -2,13 +2,13 @@
 
             <div class="on">
                 <nav class="left">
-                    <a class="tt" href="#">TRANG CHỦ</a>
+                    <a class="tt" href="<?=$SITE_URL;?>">TRANG CHỦ</a>
                     <span class="">/</span>
-                    <a class="td" href="#">THỰC ĐƠN</a>
+                    <span class="td" href="#">THỰC ĐƠN</span>
                 </nav>
 
                 <div class="right">
-                    <span>Hiển thị 1–12 của 17 kết quả</span>
+                    <!-- <span>Hiển thị 1–12 của 17 kết quả</span> -->
 
                     <select name="serch" id="">
                         <option value="1">Mới nhất</option>
@@ -29,15 +29,15 @@
                         <img src="<?=$IMG_URL . '/' . $item['product_image'];?>" alt="" width="245px" height="245px">
                       </div>
                    <div class="content_con">
-                    <button class="bt" name="btn_pro"> <a href="<?=$SITE_URL;?>/product/?detail&id=<?=$item['id'];?>">Xem nhanh</a></button>
+                    <button class="bt" name="btn_pro"> <a href="<?=$SITE_URL;?>/product/?detail&id=<?=$item['id'];?>">Xem chi tiết</a></button>
                    </div>
                    
                 </div>
                     
                     <div class="content_pro">
-                        <a href="#">><?=$item['product_name'];?></a>
+                        <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>"><?=$item['product_name'];?></a>
                         <div>
-                            <span><?=$item['price'];?></span>
+                            <span><?=number_format($item['price']);?>đ</span>
                         </div>
                        
                     </div>

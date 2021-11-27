@@ -5,7 +5,6 @@
                 <div class="page-login">
                     <h2 class="page-login-title">Đăng nhập</h2>
                     <div class="form-wrapper">
-                        tài khoản + mật khẩu: admin
                         <form action="" method="POST">
                             <div class="control-wrapper">
                                 <label for="customer_email">

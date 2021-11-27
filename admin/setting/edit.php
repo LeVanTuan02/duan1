@@ -56,7 +56,7 @@
                         <div class="form__group">
                             <label for="map">Iframe Google map</label>
                             <div class="form-control">
-                                <input type="text" name="map" placeholder="Nhập HTML Iframe Goolge map" value="<?=isset($map) ? $map : $settingInfo['map'] ?? '';?>">
+                                <textarea name="map" cols="30" rows="5"><?=isset($map) ? $map : $settingInfo['map'] ?? '';?></textarea>
                                 <span class="form-message">
                                     <?=$errorMessage['map'] ?? '';?>
                                 </span>

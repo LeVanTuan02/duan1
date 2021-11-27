@@ -71,7 +71,7 @@
     
                         <ul class="content__cart-detail-action-list">
                             <li class="content__cart-detail-action">
-                                <a href="" class="content__cart-detail-action-link">
+                                <a href="<?=$SITE_URL;?>/product" class="content__cart-detail-action-link">
                                     <div class="content__cart-detail-action-link-icon">
                                         <i class="fas fa-long-arrow-alt-left"></i>
                                     </div>

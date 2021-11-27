@@ -1,3 +1,5 @@
+const site_url = 'http://localhost/duan1/site';
+
 // slider
 $(document).ready(function() {
     $('.slider__list').slick({
@@ -128,7 +130,6 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
-const site_url = 'http://localhost/duan1/site';
 // add wishlist
 $('.content__menu-item-icon-heart').on('click', function() {
     var id = $(this).attr('data-id');
@@ -392,7 +393,7 @@ $('select[name="size"]').on('change', function() {
     var id = $(this).attr('data-id');
     var size = $(this).val();
     $.ajax({
-        url: site_url + '/pro/index.php',
+        url: site_url + '/product/index.php',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -476,7 +477,7 @@ $('.form__comment_btn').on('click', function() {
         toastr.info('Vui lòng nhập nội dung');
     } else {
         $.ajax({
-            url: site_url + '/pro/index.php',
+            url: site_url + '/product/index.php',
             type: 'POST',
             data: {
                 product_id: product_id,
@@ -527,7 +528,7 @@ function repCmt(e) {
     var product_id = parentComment.getAttribute('data-product-id');
 
     $.ajax({
-        url: site_url + '/pro/index.php',
+        url: site_url + '/product/index.php',
         type: 'POST',
         data: {
             id: id,
@@ -555,7 +556,7 @@ function repComment(e) {
         toastr.info('Vui lòng nhập nội dung');
     } else {
         $.ajax({
-            url: site_url + '/pro/index.php',
+            url: site_url + '/product/index.php',
             type: 'POST',
             data: {
                 comment_parent_id: id_parent,
@@ -578,7 +579,7 @@ function repComment(e) {
 // render lại cmt rep
 function render_rep_cmt(id, id_parent) {
     $.ajax({
-        url: site_url + '/pro/index.php',
+        url: site_url + '/product/index.php',
         type: 'POST',
         data: {
             id: id,
@@ -596,7 +597,7 @@ function render_rep_cmt(id, id_parent) {
 // render lại đánh giá
 function render_cmt(id) {
     $.ajax({
-        url: site_url + '/pro/index.php',
+        url: site_url + '/product/index.php',
         type: 'POST',
         data: {
             id: id,
@@ -618,7 +619,7 @@ function deleteComment(id) {
 
     if (isOk) {
         $.ajax({
-            url: site_url + '/pro/index.php',
+            url: site_url + '/product/index.php',
             type: 'POST',
             data: {
                 id: id,
