@@ -387,6 +387,7 @@ label.star:before {
     .content_1 .content_between button.submit{
       margin-top: 12px;
       border-radius: 8px;
+      border:none;
     }
 
     .content .feedback{

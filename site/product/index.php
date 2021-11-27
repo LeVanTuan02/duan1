@@ -14,6 +14,8 @@
         $titleData = "Chi tiết sản phẩm";
         $itemData = product_home_select_by_id($id);
         extract($itemData);
+
+        $item_tt = product_home_select_all();
         $VIEW_PAGE = "detail.php";
     } else {
         // trang danh sách sp

@@ -116,27 +116,27 @@
             <!--  -->
             <h3 class="pro_plus_text">Sản phẩm tương tự</h3>
             <div class="product_plus">
-               
+               <?php foreach($item_tt as $item):?>
                 <div class="pro">
                     <div class="cha">
                         <div class="img">
-                          <img src="assets/images/8-400x400.jpg" alt="" width="245px">
+                          <img src="<?=$IMG_URL . '/' . $item['product_image'];?>" alt="" width="245px" height="275px">
                         </div>
                      <div class="content_con">
-                      <button class="bt"> <a  href="#">Xem nhanh</a></button>
+                      <button class="bt"> <a  href="<?=$SITE_URL;?>/product/?detail&id=<?=$item['id'];?>">Xem nhanh</a></button>
                      </div>
                      
                   </div>
                       
                       <div class="content_pro">
-                          <a href="#">Trà chanh</a>
+                          <a href="#"><?php $item['product_name'];?></a>
                           <div>
-                              <span>40,000đ</span>
+                              <span><?php $item['price'];?></span>
                           </div>
                          
                       </div>
                   </div>
-                  
+                <?php endforeach;?>
 
             </div>
 
