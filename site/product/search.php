@@ -9,6 +9,11 @@
 
             </div>
        
+            <?php 
+                if (!$itemData) {
+                    echo '<div class="grid"><div class="alert alert-success">Không tìm thấy kết quả phù hợp</div></div>';
+                }
+            ?>
             <div class="product_1">
             <?php foreach($itemData as $item):?>
                 <div class="pro">

@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator</title>
-    <link rel="stylesheet" href="<?=$ADMIN_URL;?>/assets/css/base.css">
     <link rel="stylesheet" href="<?=$ADMIN_URL;?>/assets/css/main.css">
     <link rel="stylesheet" href="<?=$ADMIN_URL;?>/assets/css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +29,8 @@
 
             <div class="sidebar__menu-wrapper">
                 <ul class="sidebar__menu-nav">
+                    <!-- nếu là admin -->
+                    <?php if($_SESSION['user']['role']): ?>
                     <li class="sidebar__menu-item">
                         <a href="<?=$ADMIN_URL;?>/analytics/?chart" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
@@ -38,6 +39,7 @@
                             <span class="sidebar__menu-text">Dashboard</span>
                         </a>
                     </li>
+                    <?php endif; ?>
 
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">Profile</h4>
@@ -73,6 +75,8 @@
                         </a>
                     </li>
     
+                    <!-- nếu là admin -->
+                    <?php if($_SESSION['user']['role']): ?>
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">Order</h4>
                         <div class="aside_menu-session-icon hide">
@@ -86,6 +90,31 @@
                                 <i class="fas fa-shopping-cart"></i>
                             </span>
                             <span class="sidebar__menu-text">Danh sách đơn hàng</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-session">
+                        <h4 class="sidebar__menu-session-text">Voucher</h4>
+                        <div class="aside_menu-session-icon hide">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/voucher" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Danh sách voucher</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/voucher/?btn_add" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Thêm voucher</span>
                         </a>
                     </li>
 
@@ -247,6 +276,7 @@
                             <span class="sidebar__menu-text">Cấu hình hệ thống</span>
                         </a>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </aside>

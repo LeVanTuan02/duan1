@@ -3,7 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/category.php';
 
-    check_login(1);
+    check_login();
     
     extract($_REQUEST);
     

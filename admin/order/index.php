@@ -39,9 +39,6 @@
         // thông tin hóa đơn
         $orderInfo = order_select_by_id($id);
 
-        // echo "<pre>";
-        // var_dump($orderInfo);
-
         $VIEW_PAGE = "detail.php";
     } else if (array_key_exists('invoice', $_REQUEST)) {
         // xuất hóa đơn

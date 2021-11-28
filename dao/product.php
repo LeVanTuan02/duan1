@@ -68,7 +68,7 @@
         GROUP BY p.id
         ORDER BY p.id DESC";
 
-        if ($limit) {
+        if ($limit && $start >= 0) {
             $sql .= " LIMIT $start, $limit";
             // return pdo_query($sql, $start, $limit);
         }
@@ -106,12 +106,13 @@
     // cập nhật trạng thái sản phẩm (còn hàng, hết hàng)
     function product_update_status($id) {
         $status = 0;
-        $sql_get_quantity = "SELECT SUM(quantity) AS totalQuantity FROM attribute WHERE product_id = $id";
-        if (pdo_query_one($sql_get_quantity)) {
+        $sql_get_quantity = "SELECT SUM(quantity) FROM attribute WHERE product_id = $id";
+        if (pdo_query_value($sql_get_quantity) > 0) {
             $status = 1;
         }
         $sql = "UPDATE product SET status = $status WHERE id = ?";
         pdo_execute($sql, $id);
+        return $status;
     }
 
     // kiểm tra tên sản phẩm tồn tại không
@@ -155,6 +156,44 @@
         GROUP BY p.id
         ORDER BY p.id DESC";
         return pdo_query($sql, $cate_id);
+    }
+
+    // tăng lượt xem
+    function product_update_view($id) {
+        $sql = "UPDATE product SET view = view + 1 WHERE id = ?";
+        pdo_execute($sql, $id);
+    }
+
+    // lọc sp
+    function product_filter($type) {
+        $sql = "SELECT p.*, MIN(a.price) as price, c.cate_name
+        FROM ((product p JOIN attribute a ON p.id = a.product_id)
+        JOIN category c ON p.cate_id = c.id)
+        GROUP BY p.id";
+
+        switch($type) {
+            case 'date_desc':
+                $sql .= " ORDER BY p.id DESC";
+                break;
+            case 'date_asc':
+                $sql .= " ORDER BY p.id";
+                break;
+            case 'price_asc':
+                $sql .= " ORDER BY price";
+                break;
+            case 'date_asc':
+                $sql .= " ORDER BY price DESC";
+                break;
+            case 'view_asc':
+                $sql .= " ORDER BY view";
+                break;
+            case 'view_desc':
+                $sql .= " ORDER BY view DESC";
+                break;
+
+        }
+
+        return pdo_query($sql);
     }
 
 

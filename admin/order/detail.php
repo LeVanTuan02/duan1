@@ -70,7 +70,7 @@
                                     </div>
 
                                     <div class="content__table-info">
-                                        <a href="" target="_blank" class="content__table-name"><?=$item['product_name'];?></a>
+                                        <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['product_id'];?>" target="_blank" class="content__table-name"><?=$item['product_name'];?></a>
                                     </div>
                                 </td>
                                 <td>
@@ -88,7 +88,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="6">
-                                    Tổng tiền: <?=number_format($totalPrice, 0, '', ',');?> VNĐ
+                                    Tổng tiền: <?=number_format($orderInfo['total_price'], 0, '', ',');?> VNĐ
                                 </td>
                             </tr>
                             <tr>

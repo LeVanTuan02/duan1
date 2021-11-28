@@ -102,7 +102,7 @@
         attribute_delete($id);
         
         // cập nhật trạng thái sản phẩm
-        product_update_status($p_id);
+        echo product_update_status($p_id);
         header('Location: ' . $ADMIN_URL . '/attribute/?detail&p_id=' . $p_id);
     } else if (array_key_exists('btn_delete_all', $_REQUEST)) {
         // xóa toàn bộ thuộc tính của sp theo id

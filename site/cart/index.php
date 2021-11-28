@@ -6,12 +6,14 @@
     require_once '../../dao/attribute.php';
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
+    require_once '../../dao/voucher.php';
 
     $isWebsiteOpen = settings_select_all();
     if (!$isWebsiteOpen || !$isWebsiteOpen['status']) header('Location: ' . $SITE_URL . '/home/close.php');
 
     extract($_REQUEST);
     if (!isset($_SESSION['cart']) || !is_array($_SESSION['cart'])) $_SESSION['cart'] = [];
+    if (!isset($_SESSION['voucher']) || !is_array($_SESSION['voucher'])) $_SESSION['voucher'] = [];
 
     if (array_key_exists('add_cart', $_REQUEST)) {
 
@@ -23,8 +25,7 @@
         // nếu số lượng mua nhiều hơn số lượng hiện có
         if ($qnt > $productInfo['quantity']) {
             echo json_encode(array(
-                'success' => false,
-                'message' => $productInfo['quantity'] + 1
+                'success' => false
             ));
             die();
         }
@@ -168,10 +169,60 @@
         die();
     } else if (array_key_exists('render_totalPrice', $_REQUEST)) {
         // jquery ajax
+        // tính tổng tiền ban đầu
         $totalPrice = array_reduce($_SESSION['cart'], function ($total, $cart_item) {
             return $total + $cart_item['price'] * $cart_item['quantity'];
         }, 0);
-        echo number_format($totalPrice, 0, '', ',') . 'đ';
+
+        // tính số tiền giảm
+        $totalPriceVoucher = 0;
+        $html = '';
+        // tiền ban đầu
+        $html .= '
+        <tr>
+            <td>Tạm tính</td>
+            <td class="content__cart-checkout-table-price">'. number_format($totalPrice, 0, '', ',').'đ</td>
+        </tr>
+        ';
+        foreach ($_SESSION['voucher'] as $voucher) {
+            // nếu giảm theo tiền
+            if($voucher['condition']) {
+                $totalPriceVoucher += $voucher['voucher_number'];
+            } else {
+                // giảm theo % tổng đơn
+                $totalPriceVoucher += ($totalPrice * $voucher['voucher_number'])/100;
+            }
+
+            $html .= '
+            <tr>
+                <td>
+                    Voucher <strong>' . $voucher['code'] . '</strong>
+                    <a class="content__cart-checkout-table-delete" onclick="return confirm(\'Bạn có chắc muốn xóa Voucher này không?\') ?
+                    window.location.href = \'?delete_voucher&id=' . $voucher['id'] . '\' : false;
+                    ">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </td>';
+
+                if($voucher['condition']) {
+                    $html .= '<td class="content__cart-checkout-table-price">- ' . number_format($voucher['voucher_number']) . ' VNĐ</td>';
+
+                } else {
+                    $html .= '<td class="content__cart-checkout-table-price">- ' . $voucher['voucher_number'] . '%</td>';
+                }
+
+            $html .= '
+            </tr>';
+        }
+
+        // tiền sau áp voucher
+        $totalPrice = $totalPrice - $totalPriceVoucher;
+        $totalPrice = number_format($totalPrice > 0 ? $totalPrice : 0) . 'đ';
+
+        echo json_encode(array(
+            'html' => $html,
+            'totalPrice' => $totalPrice
+        ));
         die();
     } else if (array_key_exists('btn_checkout', $_REQUEST)) {
         // validate
@@ -209,10 +260,25 @@
             $user_id = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0;
             $created_at = date('Y-m-d H:i:s');
 
-            // tính tổng tiền đơn hàng
+            // tính tổng tiền đơn hàng (khi chưa có voucher)
             $total_price = array_reduce($_SESSION['cart'], function($total, $item) {
                 return $total + ($item['price'] * $item['quantity']);
             }, 0);
+
+            // cập nhật số lượng voucher và tính tổng tiền giảm
+            $totalPriceVoucher = 0; //tổng tiền được giảm từ voucher
+            foreach ($_SESSION['voucher'] as $voucher) {
+                voucher_update_qnt($voucher['id']);
+                // nếu giảm theo tiền
+                if($voucher['condition']) {
+                    $totalPriceVoucher += $voucher['voucher_number'];
+                } else {
+                    // giảm theo % tổng đơn
+                    $totalPriceVoucher += ($total_price * $voucher['voucher_number'])/100;
+                }
+            }
+            $total_price = $total_price - $totalPriceVoucher;
+            $total_price = $total_price > 0 ? $total_price : 0; //tổng tiền đã trừ voucher
 
             // insert order
             $orderId = order_insert($user_id, $customer_name, $customer_address, $customer_phone, $customer_email, $total_price, $customer_message, 0, $created_at, $created_at);
@@ -221,7 +287,7 @@
             foreach ($_SESSION['cart'] as $item) {
                 order_detail_insert($orderId, $item['id'], $item['size'], $item['quantity'], $item['price']);
 
-                // cập nhật sl sp
+                // cập nhật sl sp trong database
                 attribute_update_quantity($item['id'], $item['size'], $item['quantity']);
 
                 // cập nhật lại trạng thái (còn hàng, hết hàng)
@@ -229,13 +295,15 @@
             }
 
             // gửi email cho khách hàng
-            order_send_mail_customer($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message);
+            order_send_mail_customer($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message, $total_price, $totalPriceVoucher);
 
             // thông báo cho admin
-            order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message);
+            order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message, $total_price, $totalPriceVoucher);
 
             // xóa session giỏ hàng
             unset($_SESSION['cart']);
+            // xóa voucher
+            unset($_SESSION['voucher']);
             header('Location: ' . $SITE_URL . '/cart/?thankyou');
         }
 
@@ -249,7 +317,51 @@
     }  else if (array_key_exists('get_quantity', $_REQUEST)) {
         echo count($_SESSION['cart']);
         die();
-    } else {
+    } else if (array_key_exists('check_voucher', $_REQUEST)) {
+        $voucherInfo = voucher_select_by_code($voucher);
+        $currentTime = date('Y-m-d H:i:s');
+        $success = false;;
+        $message = '';
+        if ($voucherInfo) {
+            if (!$voucherInfo['quantity']) {
+                $message = 'Voucher đã hết lượt sử dụng';
+            } else if ($currentTime < $voucherInfo['time_start']) {
+                $message = 'Voucher chưa đến thời gian có hiệu lực sử dụng';
+            } else if ($currentTime > $voucherInfo['time_end']) {
+                $message = 'Voucher đã quá hạn sử dụng';
+            } else if (!$voucherInfo['status']) {
+                $message = 'Voucher đã bị khóa';
+            } else {
+                // check mã gg tồn tại
+                $isVoucherExits = array_filter($_SESSION['voucher'], function ($voucher_item) use ($voucher) {
+                    return $voucher_item['code'] == strtoupper($voucher);
+                });
+
+                if ($isVoucherExits) {
+                    $message = 'Bạn đã sử dụng mã này';
+                } else {
+                    $success = true;
+                    $message = 'Áp mã giảm giá thành công';
+                    array_push($_SESSION['voucher'], $voucherInfo);
+                }
+            }
+        } else {
+            $message = 'Voucher không tồn tại';
+        }
+        echo json_encode(array(
+            'success' => $success,
+            'message' => $message
+        ));
+        die();
+    } else if (array_key_exists('delete_voucher', $_REQUEST)) {
+        foreach ($_SESSION['voucher'] as $key => $item) {
+            if ($id == $item['id']) {
+                unset($_SESSION['voucher'][$key]);
+            }
+        }
+        header('Location: ' . $SITE_URL . '/cart');
+    }
+    else {
         $VIEW_PAGE = "list.php";
     }
 

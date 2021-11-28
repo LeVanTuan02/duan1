@@ -1,3 +1,5 @@
+const admin_url = 'http://localhost/duan1/admin';
+
 // đóng mở menu
 $('.sidebar__btn-toggle').on('click', () => {
     $('.container').toggleClass('isMenuClosed');
@@ -115,8 +117,6 @@ $('.content__header-item-btn-del-all').on('click', () => {
 $('.content__header-item-btn-reset').on('click', () => {
     $('.content__form')[0].reset();
 });
-
-const admin_url = 'http://localhost/duan1/admin';
 
 // tìm kiếm hóa đơn (be)
 $('.form__control-order').on('keyup', function() {
@@ -278,6 +278,30 @@ $('.form__control-attribute').on('keyup', function() {
     var keyword = $(this).val();
     $.ajax({
         url: admin_url + '/attribute/index.php',
+        type: 'POST',
+        data: {
+            keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-body').html(result);
+            } else {
+                $('.content__table-body').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});
+
+// tìm kiếm voucher
+$('.form__control-voucher').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/voucher/index.php',
         type: 'POST',
         data: {
             keyword: keyword

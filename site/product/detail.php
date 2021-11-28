@@ -26,7 +26,7 @@
                     <div>
                         -----
                     </div>
-                    <span class="product_price"><?= number_format($itemData['price']); ?>đ</span>
+                    <span class="product_price"><?= $itemData['quantity'] ? number_format($itemData['price']) . 'đ' : 'Hết hàng';?></span>
                     <p class="info">
                         <?= nl2br($itemData['description']); ?>
                     </p>
@@ -105,7 +105,7 @@
                 <div class="comment__list">
                     <!-- nếu không có bình luận nào -->
                     <?php if (!$listComment): ?>
-                        <p>Chưa có đánh giá nào</p>
+                        <p class="comment__message">Chưa có đánh giá nào</p>
                     <?php endif; ?>
 
                     <?php foreach($listComment as $cmt): ?>

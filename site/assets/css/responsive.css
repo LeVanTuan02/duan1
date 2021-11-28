@@ -132,6 +132,10 @@
     .content__contact-item {
         min-height: 350px;
     }
+
+    .content__cart-checkout {
+        border-left: none;
+    }
     /* end contact */
 }
 

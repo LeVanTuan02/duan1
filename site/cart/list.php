@@ -4,10 +4,12 @@
                 <?php
                     if (!$_SESSION['cart']) {
                         echo '<div class="alert alert-success">Chưa có sản phẩm nào trong giỏ hàng</div>';
-                        // die();
                     }
                 ?>
+
+                
                 <section class="content__cart">
+                    <?php if($_SESSION['cart']): ?>
                     <div class="content__cart-item content__cart-detail">
                         <table class="content__cart-detail-table">
                             <thead>
@@ -95,16 +97,67 @@
     
                             <tbody>
                                 <tr>
+                                    <td>Tạm tính</td>
+                                    <td class="content__cart-checkout-table-price"><?=number_format($totalPrice);?>đ</td>
+                                </tr>
+                            <?php $totalPriceVoucher = 0; ?>
+                            <?php foreach($_SESSION['voucher'] as $voucher): ?>
+                                <?php
+                                    // nếu giảm theo tiền
+                                    if($voucher['condition']) {
+                                        $totalPriceVoucher += $voucher['voucher_number'];
+                                    } else {
+                                        // giảm theo % tổng đơn
+                                        $totalPriceVoucher += ($totalPrice * $voucher['voucher_number'])/100;
+                                    }
+                                ?>
+
+                                <tr>
+                                    <td>
+                                        Voucher <strong><?=$voucher['code'];?></strong>
+                                        <a class="content__cart-checkout-table-delete" onclick="return confirm('Bạn có chắc muốn xóa Voucher này không?') ?
+                                        window.location.href = '?delete_voucher&id=<?=$voucher['id'];?>' : false;
+                                        ">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                    <?php if($voucher['condition']): ?>
+                                        <td class="content__cart-checkout-table-price">- <?=number_format($voucher['voucher_number']);?> VNĐ</td>
+                                    <?php else: ?>
+                                        <td class="content__cart-checkout-table-price">- <?=$voucher['voucher_number'];?>%</td>
+                                    <?php endif; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
                                     <td>Tổng</td>
                                     <td>
-                                        <span class="content__cart-checkout-total-price"><?=number_format($totalPrice, 0, '', ',');?>đ</span>
+                                        <?php 
+                                            $newPrice = $totalPrice - $totalPriceVoucher;
+                                            $newPrice = $newPrice > 0 ? $newPrice : 0;
+                                        ?>
+                                        <span class="content__cart-checkout-total-price"><?=number_format($newPrice, 0, '', ',');?>đ</span>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tfoot>
                         </table>
     
                         <a href="<?=$SITE_URL;?>/cart/?checkout" class="content__cart-checkout-btn">Tiến hành thanh toán</a>
+
+                        <form action="" class="content__cart-checkout-voucher" onsubmit="return false;">
+                            <div class="content__cart-checkout-voucher-title">
+                                <div class="content__cart-checkout-voucher-icon">
+                                    <i class="fas fa-tag"></i>
+                                </div>
+                                Mã giảm giá
+                            </div>
+                            <input type="text" class="content__cart-checkout-voucher-fom-control input" placeholder="Mã giảm giá">
+                            <button class="content__cart-checkout-voucher-btn">Áp dụng</button>
+                        </form>
                     </div>
+                    <?php endif; ?>
                 </section>
             </div>
         </div>

@@ -27,7 +27,7 @@
 
     function order_select_all($start = 0, $limit = 0) {
         $sql = "SELECT * FROM `order` ORDER BY id DESC";
-        if ($limit) {
+        if ($limit && $start >= 0) {
             $sql .= " LIMIT $start, $limit";
         }
         
@@ -42,7 +42,7 @@
     // ds đơn hàng của tôi
     function order_select_all_by_user_id($id, $start = 0, $limit = 0) {
         $sql = "SELECT * FROM `order` WHERE user_id = ? ORDER BY id DESC";
-        if ($limit) {
+        if ($limit && $start >= 0) {
             $sql .= " LIMIT $start, $limit";
         }
         return pdo_query($sql, $id);
@@ -176,7 +176,7 @@
     }
 
     // gửi mail thông báo đặt hàng thành công
-    function order_send_mail_customer($email, $name, $address, $phone, $customer_message) {
+    function order_send_mail_customer($email, $name, $address, $phone, $customer_message, $total_price, $totalPriceVoucher) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
 
@@ -286,8 +286,35 @@
             
                             <tfoot>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng tiền</td>
-                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($totalPrice, 0, '', ',') .' VNĐ (' . convert_number_to_words($totalPrice) . ')</td>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tạm tính</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($totalPrice, 0, '', ',') .' VNĐ</td>
+                                </tr>';
+                                if ($_SESSION['voucher']) {
+                                    $htmlStr .= '
+                                    <tr>
+                                        <td style="font-weight: bold; padding: 8px 12px;">Voucher</td>
+                                        <td colspan="6" style="padding: 8px 12px;">
+                                    ';
+                                    $tempStr = '';
+                                    foreach ($_SESSION['voucher'] as $voucher) {
+                                        $tempStr .= $voucher['code'] . ', ';
+                                    }
+
+                                    $htmlStr .= substr($tempStr, 0, -2);
+
+                                    $htmlStr .= '
+                                        </td>
+                                    </tr>
+                                    ';
+                                }
+                                $htmlStr .= '
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng giảm</td>
+                                    <td colspan="6" style="padding: 8px 12px;">' . number_format($totalPriceVoucher) . ' VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng thanh toán</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($total_price) .' VNĐ ('. convert_number_to_words($total_price) .')</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -307,7 +334,7 @@
     }
 
     // gửi mail thông báo cho nhân viên
-    function order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message) {
+    function order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message, $total_price, $totalPriceVoucher) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
 
@@ -423,8 +450,35 @@
             
                             <tfoot>
                                 <tr>
-                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng tiền</td>
-                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($totalPrice, 0, '', ',') .' VNĐ (' . convert_number_to_words($totalPrice) . ')</td>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tạm tính</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($totalPrice, 0, '', ',') .' VNĐ</td>
+                                </tr>';
+                                if ($_SESSION['voucher']) {
+                                    $htmlStr .= '
+                                    <tr>
+                                        <td style="font-weight: bold; padding: 8px 12px;">Voucher</td>
+                                        <td colspan="6" style="padding: 8px 12px;">
+                                    ';
+                                    $tempStr = '';
+                                    foreach ($_SESSION['voucher'] as $voucher) {
+                                        $tempStr .= $voucher['code'] . ', ';
+                                    }
+
+                                    $htmlStr .= substr($tempStr, 0, -2);
+
+                                    $htmlStr .= '
+                                        </td>
+                                    </tr>
+                                    ';
+                                }
+                                $htmlStr .= '
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng giảm</td>
+                                    <td colspan="6" style="padding: 8px 12px;">' . number_format($totalPriceVoucher) . ' VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng thanh toán</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($total_price) .' VNĐ ('. convert_number_to_words($total_price) .')</td>
                                 </tr>
                             </tfoot>
                         </table>

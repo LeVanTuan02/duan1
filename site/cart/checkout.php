@@ -64,31 +64,67 @@
                                 </thead>
     
                                 <tbody>
+                                    <!-- danh sách sp -->
                                     <?php
                                         $totalPrice = 0;
                                         foreach ($_SESSION['cart'] as $item):
                                             $totalPrice += $item['price'] * $item['quantity'];
                                     ?>
-                                    <tr>
-                                        <td>
-                                            <?=$item['product_name'];?>
-                                            <strong class="content__cart-review-table-qnt">x <?=$item['quantity'];?> (size <?=$item['size'];?>)</strong>
-                                        </td>
-                                        <td>
-                                            <span class="content__cart-detail-price">
-                                                <?=number_format(($item['price'] * $item['quantity']), 0, '', ',');?>đ
-                                            </span>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <?=$item['product_name'];?>
+                                                <strong class="content__cart-review-table-qnt">x <?=$item['quantity'];?> (size <?=$item['size'];?>)</strong>
+                                            </td>
+                                            <td>
+                                                <span class="content__cart-detail-price">
+                                                    <?=number_format(($item['price'] * $item['quantity']), 0, '', ',');?>đ
+                                                </span>
+                                            </td>
+                                        </tr>
                                     <?php endforeach; ?>
+
+                                    <!-- danh sách voucher -->
+                                    <?php $totalPriceVoucher = 0; ?>
+                                    <?php foreach($_SESSION['voucher'] as $voucher): ?>
+                                        <?php
+                                            // nếu giảm theo tiền
+                                            if($voucher['condition']) {
+                                                $totalPriceVoucher += $voucher['voucher_number'];
+                                            } else {
+                                                // giảm theo % tổng đơn
+                                                $totalPriceVoucher += ($totalPrice * $voucher['voucher_number'])/100;
+                                            }
+                                        ?>
+
+                                        <tr>
+                                            <td>
+                                                Voucher <strong><?=$voucher['code'];?></strong>
+                                            </td>
+                                            <?php if($voucher['condition']): ?>
+                                                <td class="content__cart-detail-price">- <?=number_format($voucher['voucher_number']);?> VNĐ</td>
+                                            <?php else: ?>
+                                                <td class="content__cart-detail-price">- <?=$voucher['voucher_number'];?>%</td>
+                                            <?php endif; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                    <!-- tiền tạm tính (chưa có voucher) -->
+                                    <tr>
+                                        <td>Tạm tính</td>
+                                        <td class="content__cart-detail-price"><?=number_format($totalPrice);?>đ</td>
+                                    </tr>
                                 </tbody>
     
                                 <tfoot>
                                     <tr>
                                         <td>Tổng</td>
                                         <td>
+                                            <?php 
+                                                $newPrice = $totalPrice - $totalPriceVoucher;
+                                                $newPrice = $newPrice > 0 ? $newPrice : 0;
+                                            ?>
                                             <span class="content__cart-detail-table-price">
-                                                <?=number_format($totalPrice, 0, '', ',');?>đ
+                                                <?=number_format($newPrice, 0, '', ',');?>đ
                                             </span>
                                         </td>
                                     </tr>

@@ -722,6 +722,7 @@ html {
 =========================================================== HOME ======================================================== */
 .content {
     overflow: hidden;
+    min-height: 400px;
 }
 
 .content__title {
@@ -1515,8 +1516,9 @@ textarea.content__contact-item-form-control {
 
 .content__cart-detail-price-total,
 .content__cart-detail-price,
-.content__cart-checkout-total-price {
-    color: #e4b95b;
+.content__cart-checkout-total-price,
+.content__cart-checkout-table-price {
+    color: #e4b95b !important;
     font-weight: bold;
 }
 
@@ -1577,12 +1579,18 @@ input[type=number] {
     text-align: right;
 }
 
-.content__cart-detail-table tbody tr {
+.content__cart-detail-table tfoot tr,
+.content__cart-checkout-table tbody tr,
+.content__cart-detail-table tr {
     border-bottom: 1px solid #ececec;
 }
 
-.content__cart-checkout-table tbody tr {
+.content__cart-checkout-table tfoot tr {
     border-bottom: 2px solid #ececec;
+}
+
+.content__cart-checkout-table td {
+    padding: 8px 0;
 }
 
 .content__cart-detail-action-list {
@@ -1590,6 +1598,11 @@ input[type=number] {
     margin-top: 12px;
     list-style-type: none;
     flex-wrap: wrap;
+}
+
+.content__cart-checkout-table-delete {
+    cursor: pointer;
+    padding-left: 6px;
 }
 
 .content__cart-detail-action-link,
@@ -1613,7 +1626,8 @@ input[type=number] {
 }
 
 .content__cart-detail-action-link-update:hover,
-.content__cart-checkout-btn:hover {
+.content__cart-checkout-btn:hover,
+.content__cart-checkout-voucher-btn:hover {
     box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
 }
 
@@ -1651,6 +1665,45 @@ input[type=number] {
 
 .content__cart-detail-table-btn:hover {
     color: #000;
+}
+
+.content__cart-checkout-voucher {
+    margin-top: 32px;
+}
+
+.content__cart-checkout-voucher-title {
+    display: flex;
+    align-items: center;
+    color: #555;
+    padding-bottom: 4px;
+    font-weight: bold;
+    border-bottom: 3px solid #ececec;
+}
+
+.content__cart-checkout-voucher-icon {
+    padding-right: 6px;
+}
+
+.content__cart-checkout-voucher-fom-control {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.content__cart-checkout-voucher-btn {
+    margin-top: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    font-size: 15.5px;
+    text-align: center;
+    height: 38px;
+    color: #666;
+    font-weight: 100;
+    font-family: inherit;
+    line-height: 38px;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.25s linear;
 }
 /* *
 ===================================================== END CART ===================================================== */
@@ -2102,6 +2155,7 @@ textarea.content__customer-info-form-control {
     line-height: 24.832px;
     margin: 5px 0px 0px 15px;
     padding: 0px 21.728px 0px 11.64px;
+    outline: none;
 }
 
 .content .product_1 {
@@ -2114,6 +2168,46 @@ textarea.content__customer-info-form-control {
     /* display: flex;
     justify-content: center;
     gap: 10px; */
+}
+.content__table-pagination{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    justify-content: center;
+    padding-bottom: 32px;
+}
+
+.content__table-pagination-item{
+    list-style-type: none;
+    display: inline-block;
+    margin-top: 24px;
+    margin-right: 6px;
+}
+
+.content__table-pagination-link-first,
+.content__table-pagination-link-pre,
+.content__table-pagination-link-next,
+.content__table-pagination-link-last
+{
+    background-color: #ecf1f6;
+}
+
+
+.content__table-pagination-link{
+    display: inline-block;
+    text-decoration: none;
+    color: #7E8299;
+    font-weight: 500;
+    padding: 6px;
+    border-radius: 4px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.content__table-pagination-link--active,
+.content__table-pagination-link:hover{
+    color: #fff;
+    background-color: #3699FF;
 }
 .content_pro {
     position: relative;
