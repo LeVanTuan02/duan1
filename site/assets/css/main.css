@@ -1971,7 +1971,7 @@ textarea.content__customer-info-form-control {
 }
 
 .time-open-wrapper{
-    background: url(//bizweb.dktcdn.net/100/351/580/themes/714586/assets/open-hour-bg.png?1564557016331) no-repeat scroll 0px 0px;
+    background: url(//bizweb.dktcdn.net/100/351/580/themes/714586/assets/open-hour-bg.png?1564557016331) no-repeat center / cover;
     text-align: center;
     color: #ffffff;
     text-decoration: none;

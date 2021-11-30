@@ -5,7 +5,7 @@
                 <div class="content">
                     <h2 class="content__title">Đặt bàn</h2>
     
-                    <div class="main-content">
+                    <div class="main-content main-content-time-open">
     
                         <div class="time-open-wrapper">
                             <div class="time-open">

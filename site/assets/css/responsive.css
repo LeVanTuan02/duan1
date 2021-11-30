@@ -254,4 +254,15 @@
     .content .product_1 .pro .cha{
         margin: 0px auto;
     }
+    /* product */
+
+    /* đặt bàn */
+    .main-content-time-open {
+        flex-wrap: wrap;
+    }
+
+    .main-content-time-open .time-open-wrapper,
+    .main-content-time-open .reserve-table-wrapper {
+        width: 100%;
+    }
 }
