@@ -2,6 +2,8 @@
 
     require_once '../../global.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/user.php';
+    require_once '../../dao/order.php';
     require_once '../../dao/analytic.php';
     require_once '../../dao/contact.php';
 
@@ -25,6 +27,16 @@
 
         // thống kê doanh thu
         $priceAnalytics = analytics_price();
+
+        // tổng sp hiện có
+        $totalProduct = count(product_select_all());
+
+        // tổng tài khoản
+        $totalUser = count(user_select_all());
+
+        // tổng doanh thu
+        $totalMoney = analytics_total_money();
+        // var_dump($totalMoney);
 
         // thống kê kh đky theo tháng
         $userRegAnalytics = analytics_user_reg();

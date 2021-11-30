@@ -16,17 +16,39 @@
 
     if (array_key_exists('update_stt', $_REQUEST)) {
         $updated_at = Date('Y-m-d H:i:s');
+        
+        // lấy thông tin sp từ hóa đơn chi tiết
+        $orderDetail = order_detail_select_all_by_o_id($id);
+
+        
         switch ($status) {
             case '4':
-                // lấy thông tin sp từ hóa đơn chi tiết
-                $orderDetail = order_detail_select_all_by_o_id($id);
+                // cập nhật sl của sp
                 foreach ($orderDetail as $order) {
                     attribute_update_more_quantity($order['product_id'], $order['product_size'], $order['quantity']);
 
                     // cập nhật trạng thái sp (còn hàng, hết hàng)
                     product_update_status($order['product_id']);
                 }
+
+                // cập nhật trạng thái đơn hàng
                 order_update_status($status, $updated_at, $id);
+
+                // thông tin hóa đơn
+                $orderInfo = order_select_by_id($id);
+
+                // gửi mail thông báo hủy
+                order_cancel_noti($orderDetail, $orderInfo);
+                break;
+            case '3':
+                // cập nhật trạng thái đơn hàng
+                order_update_status($status, $updated_at, $id);
+
+                // thông tin hóa đơn
+                $orderInfo = order_select_by_id($id);
+
+                // thông báo đặt thành công
+                order_success_noti($orderDetail, $orderInfo);
                 break;
             default:
                 order_update_status($status, $updated_at, $id);

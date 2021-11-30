@@ -283,7 +283,7 @@
 
         <header class="header__top-mobile">
             <div class="header__top-mobile-logo">
-                <a href="" class="sidebar__logo-link">Tea House</a>
+                <a href="<?=$SITE_URL;?>" class="sidebar__logo-link">Tea House</a>
             </div>
 
             <div class="header__top-bar">

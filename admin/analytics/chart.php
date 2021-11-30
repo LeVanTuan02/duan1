@@ -81,6 +81,51 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="content__table-wrap dashboard__card">
+                    <div class="dashboard__card-item">
+                        <div class="dashboard__card-item-inner">
+                            <div class="dashboard__card-content">
+                                <div class="dashboard__card-content-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="dashboard__card-content-text">
+                                    <strong><?=$totalProduct;?></strong>
+                                    <p>Số sản phẩm hiện có</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard__card-item">
+                        <div class="dashboard__card-item-inner">
+                            <div class="dashboard__card-content">
+                                <div class="dashboard__card-content-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="dashboard__card-content-text">
+                                    <strong><?=$totalUser;?></strong>
+                                    <p>Số tài khoản hiện có</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard__card-item">
+                        <div class="dashboard__card-item-inner">
+                            <div class="dashboard__card-content">
+                                <div class="dashboard__card-content-icon">
+                                    <i class="fas fa-money-check"></i>
+                                </div>
+                                <div class="dashboard__card-content-text">
+                                    <strong><?=$totalMoney ? number_format($totalMoney['total']) . ' VNĐ' : 0;?></strong>
+                                    <p>Tổng doanh thu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="content__dashboard">
                     <div class="content__table-wrap">
                         <div class="content__table-heading">

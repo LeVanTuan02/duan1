@@ -35,11 +35,15 @@
         return pdo_query($sql);
     }
 
-    // thống kê đơn hàng (mới, đã hủy
+    // thống kê đơn hàng (mới, đã hủy)
     function analytics_select_totalOrder_by_stt($status) {
         $sql = "SELECT COUNT(*) AS total FROM `order` WHERE `status` = ?";
         return pdo_query_value($sql, $status);
     }
-    
 
+    // thống kê tổng doanh thu (stt3 - đã giao)
+    function analytics_total_money() {
+        $sql = "SELECT SUM(total_price) AS total FROM `order` WHERE status = 3";
+        return pdo_query_one($sql);
+    }
 ?>

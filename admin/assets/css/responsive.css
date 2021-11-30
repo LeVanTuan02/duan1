@@ -74,7 +74,8 @@
         padding-bottom: 4px;
     }
 
-    .order__card-item {
+    .order__card-item,
+    .dashboard__card-item {
         width: 50%;
     }
 }

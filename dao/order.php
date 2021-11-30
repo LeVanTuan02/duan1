@@ -507,4 +507,270 @@
         return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%');
     }
 
+    // thông báo hủy đơn
+    function order_cancel_noti($orderDetail, $orderInfo) {
+        global $SMTP_UNAME;
+        global $SMTP_PASS;
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        try {
+            //Server settings
+            $mail->CharSet = 'UTF-8';
+            $mail->SMTPDebug = 0;// Enable verbose debug output
+            $mail->isSMTP();// gửi mail SMTP
+            $mail->Host = 'smtp.gmail.com';// Set the SMTP server to send through
+            $mail->SMTPAuth = true;// Enable SMTP authentication
+            $mail->Username = $SMTP_UNAME;// SMTP username
+            $mail->Password = $SMTP_PASS; // SMTP password
+            $mail->SMTPSecure = 'ssl';// Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+            $mail->Port = 465; // TCP port to connect to
+            //Recipients
+            $mail->setFrom($SMTP_UNAME, 'Tea House');
+            $mail->addAddress($orderInfo['email'], $orderInfo['customer_name']); // Add a recipient
+            // $mail->addAddress('ellen@example.com'); // Name is optional
+            $mail->addReplyTo($SMTP_UNAME, 'Tea House');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+            // Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments
+            foreach ($orderDetail as $key => $item) {
+                $mail->AddEmbeddedImage("../../uploads/$item[product_image]", "image_$key", "$item[product_image]"); // Optional name
+            }
+            // Content
+            $htmlStr = '
+            <div class="wrapper" style="background-color: #EFEFEF; padding: 0 15px;">
+                <div class="container" style="width: 700px; max-width: 100%; margin: 0 auto;">
+                    <header style="text-align: center; padding: 12px 0;">
+                        <h2>
+                            <strong>Xin chào '. $orderInfo['customer_name'] .'</strong>
+                            <p style="font-size: 16px; font-weight: normal;">Đơn hàng #'. $orderInfo['id'] .' của bạn đã bị hủy lúc '. date('d/m/Y H:i', strtotime($orderInfo['updated_at'])) .'.</p>
+                        </h2>
+                    </header>
+            
+                    <div class="content" style="padding-bottom: 32px;">
+                        <h3>
+                            <strong>Người nhận hàng</strong>
+                        </h3>
+                        <table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Họ tên</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['customer_name'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Email</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['email'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Số điện thoại</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['phone'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Địa chỉ nhận hàng</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['address'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y H:i', strtotime($orderInfo['created_at'])) . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Ghi chú</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['message'] . '</td>
+                                </tr>
+                            </tbody>
+                        </table>
+            
+                        <h3>
+                            <strong>Thông tin sản phẩm</strong>
+                        </h3>
+                        <table table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th style="font-weight: bold; padding: 8px; text-align: center;">STT</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Ảnh SP</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Tên SP</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Size</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Đơn giá</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Số lượng</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Thành tiền</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody>';
+                            $stt = 0;
+                            foreach ($orderDetail as $key => $item) {
+                                $stt++;
+                                $htmlStr .= '
+                                <tr>
+                                    <td style="text-align: center;">'. $stt .'</td>
+                                    <td style="padding: 8px;">
+                                        <img src="cid:image_'. $key .'" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                                    </td>
+                                    <td style="padding: 8px 12px;">' . $item['product_name'] . '</td>
+                                    <td style="padding: 8px 12px;">' . $item['product_size'] . '</td>
+                                    <td style="padding: 8px 12px;">'. number_format($item['price'], 0, '', ',') .' VNĐ</td>
+                                    <td style="padding: 8px 12px;">' . $item['quantity'] . '</td>
+                                    <td style="padding: 8px 12px;">'. number_format(($item['price'] * $item['quantity']), 0, '', ',') .' VNĐ</td>
+                                </tr>
+                                ';
+                            }
+                                
+                            $htmlStr .= '
+                            </tbody>
+            
+                            <tfoot>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng thanh toán</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($orderInfo['total_price']) .' VNĐ ('. convert_number_to_words($orderInfo['total_price']) .')</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>';
+
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Đơn hàng #' . $orderInfo['id'] . ' đã bị hủy | Tea House';
+            $mail->Body = $htmlStr;
+            $mail->AltBody = $htmlStr;
+            $mail->send();
+            // echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+
+    // thông báo đã giao hàng
+    function order_success_noti($orderDetail, $orderInfo) {
+        global $SMTP_UNAME;
+        global $SMTP_PASS;
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        try {
+            //Server settings
+            $mail->CharSet = 'UTF-8';
+            $mail->SMTPDebug = 0;// Enable verbose debug output
+            $mail->isSMTP();// gửi mail SMTP
+            $mail->Host = 'smtp.gmail.com';// Set the SMTP server to send through
+            $mail->SMTPAuth = true;// Enable SMTP authentication
+            $mail->Username = $SMTP_UNAME;// SMTP username
+            $mail->Password = $SMTP_PASS; // SMTP password
+            $mail->SMTPSecure = 'ssl';// Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+            $mail->Port = 465; // TCP port to connect to
+            //Recipients
+            $mail->setFrom($SMTP_UNAME, 'Tea House');
+            $mail->addAddress($orderInfo['email'], $orderInfo['customer_name']); // Add a recipient
+            // $mail->addAddress('ellen@example.com'); // Name is optional
+            $mail->addReplyTo($SMTP_UNAME, 'Tea House');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+            // Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments
+            foreach ($orderDetail as $key => $item) {
+                $mail->AddEmbeddedImage("../../uploads/$item[product_image]", "image_$key", "$item[product_image]"); // Optional name
+            }
+            // Content
+            $htmlStr = '
+            <div class="wrapper" style="background-color: #EFEFEF; padding: 0 15px;">
+                <div class="container" style="width: 700px; max-width: 100%; margin: 0 auto;">
+                    <header style="text-align: center; padding: 12px 0;">
+                        <h2>
+                            <strong>Xin chào '. $orderInfo['customer_name'] .'</strong>
+                            <p style="font-size: 16px; font-weight: normal;">Đơn hàng #'. $orderInfo['id'] .' của bạn đã giao thành công lúc '. date('d/m/Y H:i', strtotime($orderInfo['updated_at'])) .'.</p>
+                        </h2>
+                    </header>
+            
+                    <div class="content" style="padding-bottom: 32px;">
+                        <h3>
+                            <strong>Người nhận hàng</strong>
+                        </h3>
+                        <table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Họ tên</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['customer_name'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Email</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['email'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Số điện thoại</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['phone'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Địa chỉ nhận hàng</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['address'] . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y H:i', strtotime($orderInfo['created_at'])) . '</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 12px; font-weight: bold;">Ghi chú</td>
+                                    <td style="padding: 10px 12px;">' . $orderInfo['message'] . '</td>
+                                </tr>
+                            </tbody>
+                        </table>
+            
+                        <h3>
+                            <strong>Thông tin sản phẩm</strong>
+                        </h3>
+                        <table table border="1" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th style="font-weight: bold; padding: 8px; text-align: center;">STT</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Ảnh SP</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Tên SP</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Size</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Đơn giá</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Số lượng</th>
+                                    <th style="font-weight: bold; padding: 8px 12px; text-align: left;">Thành tiền</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody>';
+                            $stt = 0;
+                            foreach ($orderDetail as $key => $item) {
+                                $stt++;
+                                $htmlStr .= '
+                                <tr>
+                                    <td style="text-align: center;">'. $stt .'</td>
+                                    <td style="padding: 8px;">
+                                        <img src="cid:image_'. $key .'" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                                    </td>
+                                    <td style="padding: 8px 12px;">' . $item['product_name'] . '</td>
+                                    <td style="padding: 8px 12px;">' . $item['product_size'] . '</td>
+                                    <td style="padding: 8px 12px;">'. number_format($item['price'], 0, '', ',') .' VNĐ</td>
+                                    <td style="padding: 8px 12px;">' . $item['quantity'] . '</td>
+                                    <td style="padding: 8px 12px;">'. number_format(($item['price'] * $item['quantity']), 0, '', ',') .' VNĐ</td>
+                                </tr>
+                                ';
+                            }
+                                
+                            $htmlStr .= '
+                            </tbody>
+            
+                            <tfoot>
+                                <tr>
+                                    <td style="font-weight: bold; padding: 8px 12px;">Tổng thanh toán</td>
+                                    <td colspan="6" style="padding: 8px 12px;">'. number_format($orderInfo['total_price']) .' VNĐ ('. convert_number_to_words($orderInfo['total_price']) .')</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>';
+
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Đơn hàng #' . $orderInfo['id'] . ' đã giao hàng thành công | Tea House';
+            $mail->Body = $htmlStr;
+            $mail->AltBody = $htmlStr;
+            $mail->send();
+            // echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+
 ?>
