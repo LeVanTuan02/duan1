@@ -151,7 +151,7 @@
                     <li class="content__feedback-item">
                         <div class="grid">
                             <div class="content__feedback-item-avatar">
-                                <img src="<?=$SITE_URL;?>/assets/images/feedback/chang-trai-lai-3-dong-mau-va-nhung-bac-si-noi-tieng-tren-mang-4abe91-300x300.jpg" alt="" class="content__feedback-item-img">
+                                <img src="<?=$SITE_URL;?>/assets/images/feedback/Tuan_demo.jpg"  alt="" class="content__feedback-item-img">
                             </div>
     
                             <ul class="content__feedback-item-star-list">
@@ -172,7 +172,7 @@
                                 </li>
                             </ul>
     
-                            <h3 class="content__feedback-item-name">Lê Minh Trung</h3>
+                            <h3 class="content__feedback-item-name">Lê Văn Tuân</h3>
                             <p class="content__feedback-item-content">
                                 Mình rất thích đưa khách hàng của mình đến đây bởi vì
                                 phong cách rất chuyên nghiệp.Hơn nữa thức uống ở đây rất ngon,
@@ -184,7 +184,7 @@
                     <li class="content__feedback-item">
                         <div class="grid">
                             <div class="content__feedback-item-avatar">
-                                <img src="<?=$SITE_URL;?>/assets/images/feedback/img_1062_89af8c0f-3d9b-49c5-4b09-33fc8d0a2f0d-300x300.jpg" alt="" class="content__feedback-item-img">
+                                <img src="<?=$SITE_URL;?>/assets/images/feedback/Corny_hung.jpg" alt="" class="content__feedback-item-img">
                             </div>
     
                             <ul class="content__feedback-item-star-list">
@@ -205,7 +205,7 @@
                                 </li>
                             </ul>
     
-                            <h3 class="content__feedback-item-name">Ngô Lệ Hằng</h3>
+                            <h3 class="content__feedback-item-name">Ngô Sỹ Hùng</h3>
                             <p class="content__feedback-item-content">
                             Nếu như muốn được thư giãn hãy nghe một bản nhạc.
                             Nếu muốn tìm một hương vị trà chanh đúng gu nhất với mình thì hãy đến với Tea House.
@@ -217,7 +217,7 @@
                     <li class="content__feedback-item">
                         <div class="grid">
                             <div class="content__feedback-item-avatar">
-                                <img src="<?=$SITE_URL;?>/assets/images/feedback/4302df8958f010703fef2d8187d869a6-400x400.jpg" alt="" class="content__feedback-item-img">
+                                <img src="<?=$SITE_URL;?>/assets/images/feedback/quyen.jpg"  alt="" class="content__feedback-item-img">
                             </div>
     
                             <ul class="content__feedback-item-star-list">
@@ -238,7 +238,7 @@
                                 </li>
                             </ul>
     
-                            <h3 class="content__feedback-item-name">Nguyễn Vinh Quang</h3>
+                            <h3 class="content__feedback-item-name">Ngô Duy Quyền</h3>
                             <p class="content__feedback-item-content">
                                 Không gian được thiết kế quá tuyệt vời luôn giúp mình có nhiều idea và cảm hứng để mình sáng tạo.
                                 Hơn nữa chất lượng đồ uống ở đây vô cùng vừa ý mình, Tea House là sự lựa chọn tuyệt vời.
