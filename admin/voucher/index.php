@@ -7,6 +7,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_insert', $_REQUEST)) {
+        $titlePage = 'Add Voucher';
         $errorMessage = [];
         $voucher = [];
 
@@ -67,8 +68,10 @@
 
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_add', $_REQUEST)) {
+        $titlePage = 'Add Voucher';
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_update', $_REQUEST)) {
+        $titlePage = 'Update Voucher';
         $voucherInfo = voucher_select_by_id($id);
         $errorMessage = [];
         $voucher = [];
@@ -130,6 +133,7 @@
 
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
+        $titlePage = 'Update Voucher';
         $voucherInfo = voucher_select_by_id($id);
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
@@ -199,6 +203,7 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'List Voucher';
         // phân trang
         $totalVoucher = count(voucher_select_all());
         $limit = 10;

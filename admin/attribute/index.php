@@ -8,6 +8,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_insert', $_REQUEST)) {
+        $titlePage = 'Add Attibutes';
         $productInfo = product_select_by_id($p_id);
 
         $errorMessage = [];
@@ -50,9 +51,11 @@
 
         $VIEW_PAGE = "add.php";
     } else if (array_key_exists('btn_add', $_REQUEST)) {
+        $titlePage = 'Add Attibutes';
         $productInfo = product_select_by_id($p_id);
         $VIEW_PAGE = "add.php";
     } else if (array_key_exists('btn_update', $_REQUEST)) {
+        $titlePage = 'Update Attibutes';
         $productInfo = product_select_by_id($p_id);
         $attributeInfo = attribute_select_by_id($id);
 
@@ -94,6 +97,7 @@
 
         $VIEW_PAGE = "edit.php";
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
+        $titlePage = 'Update Attibutes';
         $productInfo = product_select_by_id($p_id);
         $attributeInfo = attribute_select_by_id($id);
         $VIEW_PAGE = "edit.php";
@@ -112,6 +116,7 @@
         product_update_status($p_id);
         header('Location: ' . $ADMIN_URL . '/attribute');
     } else if (array_key_exists('detail', $_REQUEST)) {
+        $titlePage = 'Attribute Details';
         // danh sách thuộc tính của 1 sp
         $attributeById = attribute_select_all_by_id($p_id);
 
@@ -163,6 +168,7 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'List Attibutes';
         // phân trang
         $totalOrder = count(attribute_select_all());
         $limit = 10;

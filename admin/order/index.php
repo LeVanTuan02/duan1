@@ -55,6 +55,7 @@
         }
         header('Location: ' . $ADMIN_URL . '/order/?detail&id=' . $id);
     } else if (array_key_exists('detail', $_REQUEST)) {
+        $titlePage = 'Order Details';
         // chi tiết hóa đơn
         $listOrderDetail = order_detail_select_all_by_o_id($id);
 
@@ -127,6 +128,7 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'List Order';
         // phân trang
         $totalOrder = count(order_select_all());
         $limit = 10;

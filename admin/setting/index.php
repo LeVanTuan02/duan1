@@ -7,6 +7,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_update', $_REQUEST)) {
+        $titlePage = 'Update Settings';
         $settingInfo = settings_select_all();
 
         $setting = [];
@@ -48,10 +49,13 @@
         }
 
         if (empty($errorMessage)) {
+            $current_logo = save_file('logo', $IMG_PATH . '/');
             if (empty($settingInfo)) {
-                settings_insert($title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
+                $current_logo = strlen($current_logo) > 0 ? $current_logo : 'image_default.png';
+                settings_insert($title, $current_logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
             } else {
-                settings_update($title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
+                $current_logo = strlen($current_logo) > 0 ? $current_logo : $settingInfo['logo'];
+                settings_update($title, $current_logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
             }
             
             $MESSAGE = 'Cập nhật cấu hình thành công';
@@ -59,6 +63,7 @@
 
         $VIEW_PAGE = "edit.php";
     } else {
+        $titlePage = 'Update Settings';
         $settingInfo = settings_select_all();
 
         $VIEW_PAGE = "edit.php";

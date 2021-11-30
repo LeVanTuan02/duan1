@@ -27,9 +27,9 @@
                         -----
                     </div>
                     <span class="product_price"><?= $itemData['quantity'] ? number_format($itemData['price']) . 'đ' : 'Hết hàng';?></span>
-                    <p class="info">
-                        <?= nl2br($itemData['description']); ?>
-                    </p>
+                    <div class="info">
+                        <?=$itemData['description'];?>
+                    </div>
 
                     <p class="status product__quantity">Còn <?=$itemData['quantity'];?> sản phẩm</p>
 

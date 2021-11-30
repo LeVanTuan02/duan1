@@ -8,7 +8,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_insert', $_REQUEST)) {
-        $title = 'Add User';
+        $titlePage = 'Add User';
         $errorMessage = [];
         $user = [];
 
@@ -82,10 +82,10 @@
 
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_add', $_REQUEST)) {
-        $title = 'Add User';
+        $titlePage = 'Add User';
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_update', $_REQUEST)) {
-        $title = 'Edit User';
+        $titlePage = 'Edit User';
         $userData = user_select_by_id($ma_kh);
         $user = [];
         $errorMessage = [];
@@ -150,7 +150,7 @@
 
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
-        $title = 'Edit User';
+        $titlePage = 'Edit User';
         $userData = user_select_by_id($ma_kh);
         // echo "<pre>";
         // var_dump($userData);
@@ -202,11 +202,11 @@
         khach_hang_action($ma_kh, 'unlock');
         header('Location: ' . $ADMIN_URL . '/user');
     } else if (array_key_exists('keyword', $_REQUEST)) {
-        $title = 'Search User';
+        $titlePage = 'Search User';
         $userList = user_search($keyword);
         $VIEW_PAGE = 'search.php';
     } else {
-        $title = 'List User';
+        $titlePage = 'List User';
         $limit = 10;
         $totalUser = user_quantity();
         $totalPage = ceil($totalUser / $limit);

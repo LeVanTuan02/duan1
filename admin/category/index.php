@@ -8,6 +8,7 @@
     extract($_REQUEST);
     
     if (array_key_exists('btn_insert', $_REQUEST)) {
+        $titlePage = 'Add Category';
         $errorMessage = [];
         $category = [];
 
@@ -28,6 +29,7 @@
         
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_update', $_REQUEST)) {
+        $titlePage = 'Update Category';
         $categoryData = category_select_by_id($id);
         $errorMessage = [];
         $category = [];
@@ -52,7 +54,7 @@
         $VIEW_PAGE = 'edit.php';
 
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
-        $title = 'Edit Category';
+        $titlePage = 'Update Category';
         $categoryData = category_select_by_id($id);
         extract($categoryData);
         $VIEW_PAGE = 'edit.php';
@@ -60,14 +62,14 @@
         category_delete($id);
         header('Location: ' . $ADMIN_URL . '/category');
     } else if (array_key_exists('btn_add', $_REQUEST)) {
-        $title = 'Add Category';
+        $titlePage = 'Add Category';
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('keyword', $_REQUEST)) {
-        $title = 'Search Category';
+        $titlePage = 'Search Category';
         $listCategory = loai_hang_search($keyword);
         $VIEW_PAGE = 'search.php';
     } else {
-        $title = 'List Category';
+        $titlePage = 'List Category';
         $limit = 10;
         $totalUser = loai_hang_quantity();
         $totalPage = ceil($totalUser / $limit);

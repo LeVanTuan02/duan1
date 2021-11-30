@@ -12,6 +12,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('cart', $_REQUEST)) {
+        $titlePage = 'My Cart';
         // phân trang
         $totalOrder = count(order_select_all_by_user_id($_SESSION['user']['id']));
         $limit = 10;
@@ -56,6 +57,7 @@
             header('Location: ' . $ADMIN_URL . '/account/?cart_detail&id=' . $id);
         }
     } else if (array_key_exists('cart_detail', $_REQUEST)) {
+        $titlePage = 'My Cart Detail';
         // chi tiết đơn hàng
         $myCartDetail = order_detail_select_all_by_o_id($id);
 
@@ -122,6 +124,7 @@
         echo join('', $html);
         die();
     } else if (array_key_exists('btn_update_pass', $_REQUEST)) {
+        $titlePage = 'Update Password';
         $password = [];
         $errorMessage = [];
 
@@ -162,8 +165,10 @@
 
         $VIEW_PAGE = "edit_pass.php";
     } else if (array_key_exists('update_pass', $_REQUEST)) {
+        $titlePage = 'Update Password';
         $VIEW_PAGE = "edit_pass.php";
     } else if (array_key_exists('btn_update_info', $_REQUEST)) {
+        $titlePage = 'Update Info';
         $infoUser = [];
         $errorMessage = [];
 
@@ -213,6 +218,7 @@
         unset($_SESSION['user']);
         header('Location: ' . $SITE_URL);
     } else {
+        $titlePage = 'Update Info';
         $VIEW_PAGE = "edit_info.php";
     }
 

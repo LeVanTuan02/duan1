@@ -3,15 +3,15 @@
 
     require_once 'pdo.php';
 
-    function settings_insert($title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status) {
-        $sql = "INSERT INTO settings(title, phone, email, address, map, facebook, youtube, instagram, tiktok, status)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        pdo_execute($sql, $title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
+    function settings_insert($title, $logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status) {
+        $sql = "INSERT INTO settings(title, logo, phone, email, address, map, facebook, youtube, instagram, tiktok, status)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        pdo_execute($sql, $title, $logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
     }
 
-    function settings_update($title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status) {
-        $sql = "UPDATE settings SET title = ?, phone = ?, email = ?, address = ?, map = ?, facebook = ?, youtube = ?, instagram = ?, tiktok = ?, status = ?";
-        pdo_execute($sql, $title, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
+    function settings_update($title, $logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status) {
+        $sql = "UPDATE settings SET title = ?, logo = ?, phone = ?, email = ?, address = ?, map = ?, facebook = ?, youtube = ?, instagram = ?, tiktok = ?, status = ?";
+        pdo_execute($sql, $title, $logo, $phone, $email, $address, $map, $facebook, $youtube, $instagram, $tiktok, $status);
     }
 
     // function settings_delete($id) {

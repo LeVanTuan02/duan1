@@ -9,7 +9,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrator</title>
+    <title><?=isset($titlePage) ? $titlePage . ' | ' : '';?>Administrator</title>
+    <link rel="shortcut icon" href="<?=$IMG_URL;?>/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="<?=$ADMIN_URL;?>/assets/css/main.css">
     <link rel="stylesheet" href="<?=$ADMIN_URL;?>/assets/css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -348,5 +349,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="<?=$ADMIN_URL;?>/assets/js/script.js"></script>
+    <script src="../../vendor/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'description' );
+    </script>
 </body>
 </html>

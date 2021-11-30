@@ -9,6 +9,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('detail', $_REQUEST)) {
+        $titlePage = 'Comment Details';
         // phân trang
         $totalOrder = count(comment_home_select_all_by_pid($p_id));
         $limit = 10;
@@ -125,6 +126,7 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'List Comment';
         // phân trang
         $totalOrder = count(comment_select_all());
         $limit = 10;

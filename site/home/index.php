@@ -11,23 +11,22 @@
 
     extract($_REQUEST);
 
-
     if (array_key_exists('intro', $_REQUEST)) {
+        $titlePage = 'Giới thiệu';
+        $active = 'intro';
         $VIEW_PAGE = "intro.php";
     } else if (array_key_exists('order', $_REQUEST)) {
+        $titlePage = 'Đặt bàn';
+        $active = 'order';
         $VIEW_PAGE = "order.php";
     } else if(array_key_exists('contact_insert', $_REQUEST)){
+        $titlePage = 'Liên hệ';
+        $active = 'contact';
 
         $title = 'Liên hệ - Góp ý';
         $errorMessage = [];
         $contact = [];
 
-        // if (isset($_SESSION['user'])) {
-        //     $name = $_SESSION['user']['fullName'];
-        //     $email = $_SESSION['user']['email'];
-        //     $phone = $_SESSION['user']['phone'];
-        //     // $name = $_SESSION['user']['fullName'];
-        // }
         $contact['name'] = $name ?? '';
         $contact['email'] = $email ?? '';
         $contact['phone'] = $phone ?? '';
@@ -63,8 +62,12 @@
         }
         $VIEW_PAGE = "contact.php";
     } else if (array_key_exists('contact', $_REQUEST)) {
+        $titlePage = 'Liên hệ';
+        $active = 'contact';
         $VIEW_PAGE = 'contact.php';
     } else {
+        $active = 'index';
+
         // danh sách menu
         $listProduct = product_home_select_all(0, 8);
 

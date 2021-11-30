@@ -8,6 +8,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_insert', $_REQUEST)) {
+        $titlePage = 'Add Product';
         $listCategory = category_select_all();
         $errorMessage = [];
         $product = [];
@@ -52,9 +53,11 @@
 
         $VIEW_PAGE = "add.php";
     } else if (array_key_exists('btn_add', $_REQUEST)) {
+        $titlePage = 'Add Product';
         $listCategory = category_select_all();
         $VIEW_PAGE = "add.php";
     } else if (array_key_exists('btn_update', $_REQUEST)) {
+        $titlePage = 'Update Product';
         $productInfo = product_select_by_id($id);
         $listCategory = category_select_all();
         $errorMessage = [];
@@ -100,6 +103,7 @@
 
         $VIEW_PAGE = "edit.php";
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
+        $titlePage = 'Update Product';
         $listCategory = category_select_all();
         $productInfo = product_select_by_id($id);
         $VIEW_PAGE = "edit.php";
@@ -168,6 +172,7 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'List Product';
         // phân trang
         $totalOrder = count(product_select_all());
         $limit = 10;

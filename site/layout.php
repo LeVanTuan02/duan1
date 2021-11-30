@@ -11,7 +11,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=!empty($infoWeb) ? $infoWeb['title'] : '';?></title>
+    <?php $mainTitle = !empty($infoWeb) ? $infoWeb['title'] : '';?>
+    <title><?=(isset($titlePage) ? $titlePage . ' - ' : '') . $mainTitle;?></title>
+    <link rel="shortcut icon" href="<?=$IMG_URL;?>/favicon.png" type="image/x-icon">
     <!-- SLICK SLIDER -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -127,29 +129,29 @@
                         </div>
 
                         <ul class="header__menu-list hide-on-mobile-tablet">
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'index' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="<?=$SITE_URL;?>" class="header__menu-list-item-link">Trang chủ</a>
                             </li>
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'intro' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="<?=$SITE_URL;?>/home/?intro" class="header__menu-list-item-link">Giới thiệu</a>
                             </li>
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'product' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="<?=$SITE_URL;?>/product" class="header__menu-list-item-link">Thực đơn</a>
                             </li>
                         </ul>
         
                         <a href="<?=$SITE_URL;?>" class="header__menu-logo-link">
-                            <img src="<?=$SITE_URL;?>/assets/images/logo.png" alt="" class="header__menu-logo">
+                            <img src="<?=!empty($infoWeb) ? $IMG_URL . '/' . $infoWeb['logo'] : '';?>" alt="Logo" class="header__menu-logo">
                         </a>
         
                         <ul class="header__menu-list hide-on-mobile-tablet">
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'news' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="#" class="header__menu-list-item-link">Tin tức</a>
                             </li>
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'contact' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="<?=$SITE_URL;?>/home/?contact" class="header__menu-list-item-link">Liên hệ</a>
                             </li>
-                            <li class="header__menu-list-item">
+                            <li class="header__menu-list-item <?=isset($active) && $active == 'order' ? 'header__menu-list-item--active' : '';?>">
                                 <a href="<?=$SITE_URL;?>/home/?order" class="header__menu-list-item-link">Đặt bàn</a>
                             </li>
                         </ul>
@@ -251,22 +253,22 @@
 
                         <ul class="footer__item-icon-list">
                             <li class="footer__item-icon-item">
-                                <a href="<?=!empty($infoWeb) ? $infoWeb['facebook'] : '';?>" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['facebook'] : '';?>" target="_blank" class="footer__item-icon-item-link">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="<?=!empty($infoWeb) ? $infoWeb['instagram'] : '';?>" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['instagram'] : '';?>" target="_blank" class="footer__item-icon-item-link">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="<?=!empty($infoWeb) ? $infoWeb['tiktok'] : '';?>" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['tiktok'] : '';?>" target="_blank" class="footer__item-icon-item-link">
                                     <i class="fab fa-tiktok"></i>
                                 </a>
                             </li>
                             <li class="footer__item-icon-item">
-                                <a href="<?=!empty($infoWeb) ? $infoWeb['youtube'] : '';?>" class="footer__item-icon-item-link">
+                                <a href="<?=!empty($infoWeb) ? $infoWeb['youtube'] : '';?>" target="_blank" class="footer__item-icon-item-link">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </li>

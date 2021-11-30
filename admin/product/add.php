@@ -82,7 +82,7 @@
                         <div class="form__group">
                             <label for="mo_ta">Mô tả</label>
                             <div class="form-control">
-                                <textarea name="description" rows="5" placeholder="Nhập mô tả sản phẩm"><?=$product['description'] ?? '';?></textarea>
+                                <textarea name="description" id="description" rows="5" placeholder="Nhập mô tả sản phẩm"><?=$product['description'] ?? '';?></textarea>
                                 <span class="form-message">
                                     <?=$errorMessage['description'] ?? '';?>
                                 </span>

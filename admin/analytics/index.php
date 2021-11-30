@@ -11,6 +11,8 @@
     extract($_REQUEST);
 
     if (array_key_exists('chart', $_REQUEST)) {
+        $titlePage = 'Chart';
+
         // thống kê đơn hàng mới, đã xác nhận, đã hủy
         $totalOrderNew = analytics_select_totalOrder_by_stt(0); //đơn mới
         $totalOrderVerified = analytics_select_totalOrder_by_stt(1); //đã xác nhận
@@ -42,6 +44,7 @@
         $userRegAnalytics = analytics_user_reg();
         $VIEW_PAGE = "chart.php";
     }else if(array_key_exists('feedback', $_REQUEST)){
+        $titlePage = 'List Feedback';
         $title = 'Góp ý';
         $limit = 10;
         $totalUser = count(contact_select_all());
@@ -63,6 +66,7 @@
         contact_delete($id);
         header('location: '. $ADMIN_URL.'/analytics?feedback');
     }else {
+        $titlePage = 'Product Analytics';
         $quantityAnalytics = analytics_quantity_product_by_cate();
         $priceAnalytics = analytics_price_product_by_cate();
         

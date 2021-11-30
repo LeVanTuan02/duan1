@@ -295,7 +295,8 @@ html {
     letter-spacing: 0.02em;
 }
 
-.header__menu-list-item-link:hover {
+.header__menu-list-item-link:hover,
+.header__menu-list-item--active > .header__menu-list-item-link {
     color: rgba(17,17,17,0.85);
 }
 

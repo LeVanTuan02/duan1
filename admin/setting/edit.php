@@ -24,6 +24,27 @@
                         </div>
 
                         <div class="form__group">
+                            <label for="logo">Logo</label>
+                            <div class="form-control">
+                                <input type="file" name="logo" onchange="preImage(event);">
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="avatar">Logo hiện tại</label>
+                            <div class="form-image-box">
+                                <?php
+                                    if (isset($current_logo)) {
+                                        $image_path = $IMG_URL . '/' . $current_logo;
+                                    } else {
+                                        $image_path = $IMG_URL . '/' . (strlen($settingInfo['logo']) > 0 ? $settingInfo['logo'] : 'image_default.png');
+                                    }
+                                ?>
+                                <img src="<?=$image_path;?>" alt="">
+                            </div>
+                        </div>
+
+                        <div class="form__group">
                             <label for="phone">Số điện thoại</label>
                             <div class="form-control">
                                 <input type="text" name="phone" placeholder="Nhập số điện thoại" value="<?=isset($phone) ? $phone : $settingInfo['phone'] ?? '';?>">

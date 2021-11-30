@@ -36,8 +36,8 @@
         $listCommentRep = array_reverse($listCommentRep);
 
         // chi tiết sản phẩm
-        $titleData = "Chi tiết sản phẩm";
         $itemData = product_home_select_by_id($id);
+        $titlePage = $itemData['product_name'];
 
         // sp cùng loại
         $item_tt = product_relation($id, $itemData['cate_id']);
@@ -217,6 +217,8 @@
         echo join('', $html);
         die();
     } else {
+        $titlePage = 'Thực đơn';
+        $active = 'product';
         // phân trang
         $totalProduct = count(product_home_select_all());
         $limit = 12;

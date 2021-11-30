@@ -7,7 +7,7 @@
     extract($_REQUEST);
 
     if (array_key_exists('btn_insert', $_REQUEST)) {
-        $ten = 'Add Slide';
+        $titlePage = 'Add Slide';
         $errorMessage = [];
         $slide = [];
 
@@ -34,10 +34,10 @@
         }
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_add', $_REQUEST)) {
-        $ten = 'Add Slide';
+        $titlePage = 'Add Slide';
         $VIEW_PAGE = 'add.php';
     } else if (array_key_exists('btn_update', $_REQUEST)) {
-        $ten = 'Add Slide';
+        $titlePage = 'Add Slide';
         $slideData = slide_select_by_id($ma_slide);
         $errorMessage = [];
         $slide = [];
@@ -65,17 +65,14 @@
         }
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
-        $ten = 'Add Slide';
+        $titlePage = 'Add Slide';
         $slideData = slide_select_by_id($ma_slide);
-        // echo "<pre>";
-        // var_dump($slideData);
-        // extract($slideData);
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         slide_delete($id);
         header('Location: ' . $ADMIN_URL . '/slide');
     } else {
-        $ten = 'Add Slide';
+        $titlePage = 'Add Slide';
         $limit = 10;
         $totalUser = slide_quantity();
         $totalPage = ceil($totalUser / $limit);
