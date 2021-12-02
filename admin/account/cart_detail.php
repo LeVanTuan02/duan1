@@ -129,6 +129,10 @@
                                 <td><?=$myCartInfo['phone'];?></td>
                             </tr>
                             <tr>
+                                <td>Email:</td>
+                                <td><?=$myCartInfo['email'];?></td>
+                            </tr>
+                            <tr>
                                 <td>Thời gian đặt:</td>
                                 <td><?=date_format(date_create($myCartInfo['created_at']), 'd/m/Y H:i')?></td>
                             </tr>

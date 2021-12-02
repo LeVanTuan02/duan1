@@ -165,11 +165,14 @@
     }
 
     // lọc sp
-    function product_filter($type) {
+    function product_filter($type, $cate_id = '') {
         $sql = "SELECT p.*, MIN(a.price) as price, c.cate_name
         FROM ((product p JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)
-        GROUP BY p.id";
+        JOIN category c ON p.cate_id = c.id)";
+        if ($cate_id) {
+            $sql .= " WHERE p.cate_id = $cate_id";
+        }
+        $sql .= " GROUP BY p.id";
 
         switch($type) {
             case 'date_desc':
@@ -181,7 +184,7 @@
             case 'price_asc':
                 $sql .= " ORDER BY price";
                 break;
-            case 'date_asc':
+            case 'price_desc':
                 $sql .= " ORDER BY price DESC";
                 break;
             case 'view_asc':
@@ -190,6 +193,9 @@
             case 'view_desc':
                 $sql .= " ORDER BY view DESC";
                 break;
+            default:
+                $sql .= " HAVING p.cate_id = ?";
+                return pdo_query($sql, $type);
 
         }
 

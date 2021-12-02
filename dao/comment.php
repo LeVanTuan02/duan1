@@ -30,7 +30,7 @@
     function comment_select_by_id($id) {
         $sql = "SELECT u.fullName, u.avatar, c.*, r.rating_number
         FROM ((`comment` c JOIN `user` u ON c.user_id = u.id)
-        JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
+        LEFT JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
         WHERE c.id = ?";
         return pdo_query_one($sql, $id);
     }
@@ -56,7 +56,7 @@
     function comment_home_select_all_by_pid($product_id, $start = 0, $limit = 0) {
         $sql = "SELECT u.fullName, u.avatar, u.username, c.*, r.rating_number
         FROM ((`comment` c JOIN `user` u ON c.user_id = u.id)
-        JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
+        LEFT JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
         WHERE c.product_id = ?
         ORDER BY c.created_at DESC
         ";
@@ -70,7 +70,7 @@
     function comment_detail_search($p_id, $content = '', $u_id = 0, $rating = 0) {
         $sql = "SELECT u.fullName, u.avatar, u.username, c.*, r.rating_number
         FROM ((`comment` c JOIN `user` u ON c.user_id = u.id)
-        JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
+        LEFT JOIN rating r ON u.id = r.user_id AND c.product_id = r.product_id)
         WHERE c.product_id = ?";
 
 

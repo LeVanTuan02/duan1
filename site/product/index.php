@@ -3,6 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/category.php';
     require_once '../../dao/comment.php';
     require_once '../../dao/rating.php';
 
@@ -188,7 +189,7 @@
         die();
     } else if (array_key_exists('filter', $_REQUEST)) {
         // jquery ajax
-        $productData = product_filter($type);
+        $productData = product_filter($type, $cate_id);
         function renderProduct($item) {
             global $IMG_URL;
             global $SITE_URL;
@@ -235,8 +236,8 @@
         $start = ($currentPage - 1) * $limit;
         $title = "Sản phẩm";
         $item = product_home_select_all($start, $limit);
-        // echo "<pre>";
-        // var_dump($item);
+
+        $listCategory = category_select_all();
 
         $VIEW_PAGE = "list.php";
     }

@@ -83,6 +83,12 @@
                                         </tr>
                                     <?php endforeach; ?>
 
+                                    <!-- tiền tạm tính (chưa có voucher) -->
+                                    <tr>
+                                        <td>Tạm tính</td>
+                                        <td class="content__cart-detail-price"><?=number_format($totalPrice);?>đ</td>
+                                    </tr>
+
                                     <!-- danh sách voucher -->
                                     <?php $totalPriceVoucher = 0; ?>
                                     <?php foreach($_SESSION['voucher'] as $voucher): ?>
@@ -107,12 +113,6 @@
                                             <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
-
-                                    <!-- tiền tạm tính (chưa có voucher) -->
-                                    <tr>
-                                        <td>Tạm tính</td>
-                                        <td class="content__cart-detail-price"><?=number_format($totalPrice);?>đ</td>
-                                    </tr>
                                 </tbody>
     
                                 <tfoot>

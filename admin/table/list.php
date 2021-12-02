@@ -23,8 +23,8 @@
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên bàn cần tìm">
-                                <button type="button" class="content__table-heading-form-btn">
+                            <input type="text" class="content__table-heading-form-control" name="keywords" placeholder="Nhập tên bàn cần tìm">
+                                <button type="submit" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
@@ -36,7 +36,7 @@
                                     <input type="checkbox" name="select_all" class="select_all">
                                 </th>
                                 <th>Tên bàn</th>
-                                <th>Guest_number</th>
+                                <th>Số ghế</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>

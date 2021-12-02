@@ -23,7 +23,7 @@
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên bàn">
+                            <input type="text" class="content__table-heading-form-control" name="keywords" placeholder="Nhập tên bàn cần tìm">
                             <button class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
