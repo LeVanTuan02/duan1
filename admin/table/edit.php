@@ -62,8 +62,8 @@
                                             <option value="2">Đã đặt trước</option>
 
                                         <?php elseif($tableInfo['status']): ?>
-                                            <option value="0">Còn trống</option>
-                                            <option value="1" selected>Có khách</option>
+                                            <option value="0" selected>Còn trống</option>
+                                            <option value="1" >Có khách</option>
                                             <option value="2">Đã đặt trước</option>
 
                                         <?php else:?>
@@ -78,8 +78,8 @@
                                             <option value="0">Còn trống</option>
 
                                         <?php elseif($tableInfo['status']): ?>
-                                            <option value="1">Có khách</option>
-                                            <option value="0" selected>Còn trống</option>
+                                            <option value="1" selected>Có khách</option>
+                                            <option value="0" >Còn trống</option>
                                             <option value="2">Đã đặt trước</option>
 
                                         <?php else:?>
