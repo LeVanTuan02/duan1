@@ -31,6 +31,14 @@
         return pdo_query($sql);
     }
 
+    // danh sách loại hàng + số lượng sp (còn hàng) ở trang chủ
+    function category_home_select_all() {
+        $sql = "SELECT c.*, COUNT(*) AS totalProduct
+        FROM category c JOIN product p ON c.id = p.cate_id
+        WHERE p.`status` = 1 GROUP BY c.id";
+        return pdo_query($sql);
+    }
+
     function category_select_by_id($id) {
         $sql = "SELECT * FROM category WHERE id = ?";
         return pdo_query_one($sql, $id);

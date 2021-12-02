@@ -47,4 +47,15 @@
         $sql = "SELECT * FROM `table` WHERE `name` LIKE ? ORDER BY id DESC";
         return pdo_query($sql, '%'.$keywords.'%');
     }
+
+    // lấy bàn trống
+    function table_select_exits() {
+        $sql = "SELECT * FROM `table` WHERE status = 0";
+        return pdo_query($sql);
+    }
+
+    function table_update_stt($stt, $id) {
+        $sql = "UPDATE `table` SET status = ? WHERE id = ?";
+        pdo_execute($sql, $stt, $id);
+    }
 ?>

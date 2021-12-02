@@ -17,6 +17,9 @@
                         <option value="price_desc">Thứ tự theo giá: Cao đến thấp</option>
                         <option value="view_asc">Thứ tự theo lượt xem: Thấp đến cao</option>
                         <option value="view_desc">Thứ tự theo lượt xem: Cao đến thấp</option>
+                        <?php foreach ($listCategory as $cate): ?>
+                        <option value="<?=$cate['id'];?>">Lọc theo loại: <?=$cate['cate_name'];?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 

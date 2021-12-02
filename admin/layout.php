@@ -75,6 +75,15 @@
                             <span class="sidebar__menu-text">Đơn hàng của tôi</span>
                         </a>
                     </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/account/?booking" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-calendar-times"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Lịch sử đặt bàn</span>
+                        </a>
+                    </li>
     
                     <!-- nếu là admin -->
                     <?php if($_SESSION['user']['role']): ?>
@@ -94,6 +103,15 @@
                         </a>
                     </li>
 
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/booking" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-th-list"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Danh sách đặt bàn</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">Table</h4>
                         <div class="aside_menu-session-icon hide">
@@ -107,6 +125,15 @@
                                 <i class="fas fa-shopping-cart"></i>
                             </span>
                             <span class="sidebar__menu-text">Danh sách bàn</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/table/?btn_add" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Thêm bàn</span>
                         </a>
                     </li>
 

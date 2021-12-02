@@ -144,6 +144,10 @@
                                 <td><?=$orderInfo['phone'];?></td>
                             </tr>
                             <tr>
+                                <td>Email:</td>
+                                <td><?=$orderInfo['email'];?></td>
+                            </tr>
+                            <tr>
                                 <td>Thời gian đặt:</td>
                                 <td><?=date_format(date_create($orderInfo['created_at']), 'd/m/Y H:i')?></td>
                             </tr>

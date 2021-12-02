@@ -329,7 +329,8 @@ input[type="file"] {
 }
 
 .sidebar__menu-icon{
-    margin-right: 10px;
+    margin-right: 5px;
+    width: 32px;
     font-size: 18px;
     transition: all 0.25s linear;
 }

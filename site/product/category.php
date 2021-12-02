@@ -7,6 +7,18 @@
                     <span class="td"><?=$itemData[0]['cate_name'];?></span>
                 </nav>
 
+                <div class="right">
+                    <!-- <span>Hiển thị 1–12 của 17 kết quả</span> -->
+
+                    <select name="filter" class="product_filter" data-id="<?=$cate_id;?>">
+                        <option value="date_desc">Ngày thêm: Mới nhất</option>
+                        <option value="date_asc">Ngày thêm: Cũ nhất</option>
+                        <option value="price_asc">Thứ tự theo giá: Thấp đến cao</option>
+                        <option value="price_desc">Thứ tự theo giá: Cao đến thấp</option>
+                        <option value="view_asc">Thứ tự theo lượt xem: Thấp đến cao</option>
+                        <option value="view_desc">Thứ tự theo lượt xem: Cao đến thấp</option>
+                    </select>
+                </div>
             </div>
        
             <div class="product_1">

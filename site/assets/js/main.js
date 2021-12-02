@@ -720,14 +720,21 @@ function seeMore() {
 // lọc sản phẩm
 $('.product_filter').on('change', function() {
     var type = $(this).val();
+    var cate_id = $(this).data('id');
+    cate_id = cate_id ? cate_id : '';
     $.ajax({
         url: site_url + '/product/index.php',
         type: 'POST',
         data: {
             filter: '',
             type: type,
+            cate_id: cate_id
         }, success: function(result) {
-            $('.product_1').html(result);
+            if (result.trim()) {
+                $('.product_1').html(result);
+            } else {
+                $('.product_1').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
+            }
             $('.content__table-pagination').hide();
         }, error: function() {
             alert('Có lỗi xảy ra, vui lòng thử lại');

@@ -841,7 +841,7 @@ html {
 .content__cate-img {
     display: block;
     max-width: 100%;
-    height: 300px;
+    /* height: 300px; */
 }
 
 .content__cate-item-info {
@@ -2082,6 +2082,8 @@ textarea.content__customer-info-form-control {
     cursor: text;
     box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
     padding:0 12px;
+    outline: none;
+    font-size: 14px;
     
 }
 
@@ -2095,6 +2097,7 @@ textarea.content__customer-info-form-control {
     cursor: text;
     box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
     padding:0 12px;
+    outline: none;
 }
 
 .content-wrapper .content__title {

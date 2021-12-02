@@ -125,10 +125,10 @@
                                 “Cà phê nhé” – Một lời hẹn rất riêng của người Việt.
                                 Một lời ngỏ mộc mạc để mình ngồi lại bên nhau và sẻ chia câu chuyện của riêng mình.
                             </p>
-                            <p class="content__time-text-desc">T2 – T6: 8h30 – 21h30</p>
-                            <p class="content__time-text-desc">T7 – CN: 8h00 – 22h00</p>
+                            <p class="content__time-text-desc">T2 – T6: 7h00 – 22h00</p>
+                            <p class="content__time-text-desc">T7 – CN: 8h00 – 21h00</p>
 
-                            <a href="" class="content__time-text-btn">Đặt bàn ngay</a>
+                            <a href="<?=$SITE_URL;?>/home?order" class="content__time-text-btn">Đặt bàn ngay</a>
                         </div>
                         <div class="content__time-image-wrap">
                             <div class="content__time-image"></div>

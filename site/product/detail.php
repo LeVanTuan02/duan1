@@ -101,6 +101,7 @@
                         <input type="submit" value="Gửi đi" class="form__comment_btn">
                     </form>
                 </div>
+                <?php endif; ?>
 
                 <div class="comment__list">
                     <!-- nếu không có bình luận nào -->
@@ -140,7 +141,8 @@
                             </p>
                             <ul class="info_cmt-actions">
                                 <!-- admin và người cmt có quyền xóa bình luận -->
-                                <?php if ($cmt['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['role']): ?>
+                                <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role']||
+                                isset($_SESSION['user']['id']) && $cmt['user_id'] == $_SESSION['user']['id']): ?>
                                 <li class="info_cmt-action info_cmt-action--delete" onclick="deleteComment(<?=$cmt['id'];?>);">Xóa</li>
                                 <?php endif; ?>
                                 <li class="info_cmt-action info_cmt-action--rep" onclick="repCmt(event);">Trả lời</li>
@@ -168,7 +170,8 @@
                                                 </p>
                                                 <ul class="info_cmt-actions">
                                                     <!-- admin và người cmt có quyền xóa bình luận -->
-                                                    <?php if ($cmtRep['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['role']): ?>
+                                                    <?php if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] ||
+                                                    isset($_SESSION['user']['id']) && $cmtRep['user_id'] == $_SESSION['user']['id']): ?>
                                                     <li class="info_cmt-action info_cmt-action--delete" onclick="deleteComment(<?=$cmtRep['id'];?>);">Xóa</li>
                                                     <?php endif; ?>
                                                     <li class="info_cmt-action info_cmt-action--rep" onclick="repCmt(event);">Trả lời</li>
@@ -189,7 +192,7 @@
                     <button class="comment__list-button see_all" onclick="seeMore();">Xem tất cả</button>
 
                 </div>
-                <?php endif; ?>
+                
 
                 <!-- <p>----------------------------------------------------------------------------------------------------------------------</p> -->
 

@@ -45,11 +45,15 @@
 
         if (!$voucher['time_start']) {
             $errorMessage['time_start'] = 'Vui lòng nhập thời gian hiệu lực';
+        } elseif ($voucher['time_start'] < date('Y-m-d H:i')) {
+            $errorMessage['time_start'] = 'Vui lòng nhập thời gian hiệu lực';
         }
 
         if (!$voucher['time_end']) {
             $errorMessage['time_end'] = 'Vui lòng nhập thời gian hết hạn';
         } else if ($voucher['time_end'] <= $voucher['time_start']) {
+            $errorMessage['time_end'] = 'Vui lòng nhập lại thời gian';
+        } else if ($voucher['time_end'] < date('Y-m-d H:i')) {
             $errorMessage['time_end'] = 'Vui lòng nhập lại thời gian';
         }
 

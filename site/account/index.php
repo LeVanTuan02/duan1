@@ -180,7 +180,7 @@
                         
                         // nếu click đăng nhập ở trang chi tiết sp
                         if (isset($page, $id)) {
-                            header('Location: ' . $SITE_URL . '/pro/?detail&id=' . $id);
+                            header('Location: ' . $SITE_URL . '/product/?detail&id=' . $id);
                         } else if ($getUser['role']) {
                             // đăng nhập với vai trò QTV => dashboard
                             header('Location: ' . $ADMIN_URL);

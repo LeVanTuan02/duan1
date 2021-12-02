@@ -90,6 +90,9 @@
 
         if (empty($errorMessage)) {
             attribute_update($size, $price, $quantity, $id);
+            
+            // cập nhật trạng thái sản phẩm (còn, hết hàng)
+            product_update_status($p_id);
 
             $MESSAGE = 'Cập nhật thuộc tính thành công, hệ thống tự động chuyển hướng sau 3s';
             header('Refresh: 3; URL = ' . $ADMIN_URL . '/attribute/?detail&p_id=' . $p_id);
@@ -100,6 +103,7 @@
         $titlePage = 'Update Attibutes';
         $productInfo = product_select_by_id($p_id);
         $attributeInfo = attribute_select_by_id($id);
+
         $VIEW_PAGE = "edit.php";
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         // xóa thuộc tính trang chi tiết thuộc tính

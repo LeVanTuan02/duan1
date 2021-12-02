@@ -22,6 +22,7 @@
 
         
         switch ($status) {
+            // 0 - đơn mới, 1 - đã xác nhận, 2 - đang giao, 3 - đã giao, 4 - hủy
             case '4':
                 // cập nhật sl của sp
                 foreach ($orderDetail as $order) {
@@ -115,10 +116,10 @@
                 </td>
                 <td>
                     <a href="' . $ADMIN_URL . '/order/?detail&id=' . $order_item['id'] . '" class="content__table-stt-active">Chi tiết</a>
-                    <!-- <a href="' . $ADMIN_URL . '/order/?invoice&id=' . $order_item['id'] . '" target="_blank" class="content__table-stt-active">
+                    <a href="' . $ADMIN_URL . '/order/?invoice&id=' . $order_item['id'] . '" target="_blank" class="content__table-stt-active">
                         <i class="fas fa-download"></i>
                         Xuất hóa đơn
-                    </a> -->
+                    </a>
                 </td>
             </tr>
             ';

@@ -320,3 +320,53 @@ $('.form__control-voucher').on('keyup', function() {
         }
     });
 });
+
+// tìm kiếm đặt bàn
+$('.form__control-booking').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/booking/index.php',
+        type: 'POST',
+        data: {
+            booking_search: '',
+            bk_keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});
+
+// đặt bàn của tôi//
+$('.form__control-my-booking').on('keyup', function() {
+    var keyword = $(this).val();
+    $.ajax({
+        url: admin_url + '/account/index.php',
+        type: 'POST',
+        data: {
+            booking_search: '',
+            bk_keyword: keyword
+        },
+        success: function(result) {
+            if (result.trim()) {
+                $('.content__table-table tbody').html(result);
+            } else {
+                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
+            }
+            // ẩn phân trang
+            $('.content__table-pagination').hide();
+        },
+        error: function() {
+            console.log('Lỗi');
+        }
+    });
+});

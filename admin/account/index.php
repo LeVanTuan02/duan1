@@ -5,6 +5,8 @@
     require_once '../../dao/attribute.php';
     require_once '../../dao/product.php';
     require_once '../../dao/order.php';
+    require_once '../../dao/booking.php';
+    require_once '../../dao/table.php';
     require_once '../../dao/order_detail.php';
 
     check_login(0);
@@ -21,7 +23,7 @@
         $currentPage = $page ?? 1;
 
         if ($currentPage <= 0) {
-            header('Location: ' . $ADMIN_URL . '/order/?page=1');
+            header('Location: ' . $ADMIN_URL . '/account/?order&page=1');
         } else if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
         }
@@ -43,6 +45,8 @@
             </script>';
         } else {
             $updated_at = date('Y-m-d H:i:s');
+
+            // cập nhật trạng thái hủy
             order_update_status(4, $updated_at, $id);
 
             // lấy thông tin sp từ hóa đơn chi tiết
@@ -54,6 +58,13 @@
                 // cập nhật trạng thái sp (còn hàng, hết hàng)
                 product_update_status($order['product_id']);
             }
+
+            // gửi mail thông báo cho admin
+            $orderInfo = order_select_by_id($id);
+
+            // thông báo cho khách
+            order_cancel_noti($orderDetail, $orderInfo);
+            order_cancel_noti_admin($orderDetail, $orderInfo);
             header('Location: ' . $ADMIN_URL . '/account/?cart_detail&id=' . $id);
         }
     } else if (array_key_exists('cart_detail', $_REQUEST)) {
@@ -217,6 +228,93 @@
     }  else if (array_key_exists('btn_logout', $_REQUEST)) {
         unset($_SESSION['user']);
         header('Location: ' . $SITE_URL);
+    } else if (array_key_exists('booking_detail', $_REQUEST)) {
+        $titlePage = 'Booking Detail';
+        $bookingInfo = booking_select_by_id($id);
+        $VIEW_PAGE = 'booking_detail.php';
+    } else if (array_key_exists('booking_cancel', $_REQUEST)) {
+        // thông tin đặt bàn
+        $bookingInfo = booking_select_by_id($id);
+
+        // cập nhật trạng thái đặt bàn => đã hủy
+        booking_update_stt(2, $id);
+
+        // cập nhật trạng thái bàn => bàn trống
+        table_update_stt(0, $bookingInfo['table_id']);
+
+        // thông báo cho ad
+        booking_send_mail_admin_cancel($bookingInfo);
+        header('Location: ' . $ADMIN_URL . '/account/?booking_detail&id=' . $id);
+    } else if (array_key_exists('booking', $_REQUEST)) {
+        $titlePage = 'List Booking';
+        // phân trang
+        $totalOrder = count(booking_select_all_by_uid($_SESSION['user']['id']));
+        $limit = 10;
+        $totalPage = ceil($totalOrder / $limit);
+
+        $currentPage = $page ?? 1;
+
+        if ($currentPage <= 0) {
+            header('Location: ' . $ADMIN_URL . '/account/?booking&page=1');
+        } else if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+        }
+
+        $start = ($currentPage - 1) * $limit;
+
+        $bookingList = booking_select_all_by_uid($_SESSION['user']['id'], $start, $limit);
+        $VIEW_PAGE = 'booking_list.php';
+    } else if (array_key_exists('booking_search', $_REQUEST)) {
+        // js ajax
+        $listBooking = booking_search($bk_keyword, $_SESSION['user']['id']);
+        function renderBooking($item) {
+            global $ADMIN_URL;
+            $html = '';
+            $html .= '
+            <tr>
+                <!-- <td>
+                    <input type="checkbox" data-id="">
+                </td> -->
+                <td>
+                    #' . $item['id'] . '
+                </td>
+                <td>
+                    <span class="content__table-text-black">
+                        ' . $item['name'] . '
+                    </span>
+                </td>
+                <td>
+                    <span class="content__table-text-success">
+                        ' . date('d/m/Y', strtotime($item['date_book'])) . ' ' . date('H:i', strtotime($item['time_book'])) . '
+                    </span>
+                </td>
+                <td>
+                    ' . $item['table_name'] . '
+                </td>
+                <td>';
+                    switch($item['status']) {
+                        case 0:
+                            $html .= '<span class="content__table-stt-active">Đang xử lý</span>';
+                            break;
+                        case 1:
+                            $html .= '<span class="content__table-stt-active">Đã xác nhận</span>';
+                            break;
+                        case 2:
+                            $html .= '<span class="content__table-stt-locked">Đã hủy</span>';
+                            break;
+                    }
+                $html .= '
+                </td>
+                <td>
+                    <a href="' . $ADMIN_URL . '/booking/?detail&id=' . $item['id'] . '" class="content__table-stt-active">Chi tiết</a>
+                </td>
+            </tr>
+            ';
+            return $html;
+        }
+        $html = array_map('renderBooking', $listBooking);
+        echo join('', $html);
+        die();
     } else {
         $titlePage = 'Update Info';
         $VIEW_PAGE = "edit_info.php";

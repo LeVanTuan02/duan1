@@ -1,4 +1,4 @@
-<div class="content">
+        <div class="content">
 
             <div class="on">
                 <nav class="left">
@@ -37,9 +37,6 @@
                 </div>
             <?php endforeach;?>
             </div>
-       
-       
-
             <!-- Done -->
         </div>
         <!-- END CONTENT -->
