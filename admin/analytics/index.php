@@ -32,6 +32,7 @@
 
         // tổng sp hiện có
         $totalProduct = count(product_select_all());
+        // var_dump(product_select_all());
 
         // tổng tài khoản
         $totalUser = count(user_select_all());

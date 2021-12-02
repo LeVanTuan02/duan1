@@ -58,10 +58,10 @@
                                             <option value="1">Giảm theo tiền</option>
                                             <option value="0" selected>Giảm theo %</option>
                                         <?php endif; ?>
-                                    <?php else: ?>
+                                    <!-- <?php else: ?>
                                         <option value="1">Giảm theo tiền</option>
                                         <option value="0">Giảm theo %</option>
-                                    <?php endif; ?>
+                                    <?php endif; ?> -->
                                 </select>
                                 <span class="form-message">
                                     <?=$errorMessage['condition'] ?? '';?>

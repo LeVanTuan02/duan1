@@ -176,7 +176,7 @@
         // phân trang
         $totalOrder = count(product_select_all());
         $limit = 10;
-        $totalPage = ceil($totalOrder / $limit);
+        $totalPage = ceil($totalOrder / $limit); // làm tròn số sản phẩm trong trang
 
         $currentPage = $page ?? 1;
 

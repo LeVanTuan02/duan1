@@ -38,7 +38,7 @@
                             <div class="reserve-table">
                                 <h4>Gọi ngay cho chúng tôi để đặt bàn</h4>
                                 <div class="form-wrapper">
-                                    <form action="">
+                                    <form action="" method="POST">
                                         <div class="control-wrapper">
                                             <input type="text" name="" id="" placeholder="Họ và tên">
                                         </div>
@@ -62,10 +62,6 @@
                                            <select name="" id="">
                                                <option value="">Số người</option>
                                                <option value="">Nhóm ~ 5 người</option>
-                                               <option value="">Nhóm ~ 10 người</option>
-                                               <option value="">Nhóm ~ 20 người</option>
-                                               <option value="">Nhóm ~ 30 người</option>
-                                               <option value="">Nhóm ~ 40 người</option>
                                            </select>
                                         </div>
                                         <!--  -->

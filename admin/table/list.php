@@ -1,15 +1,15 @@
-        <main class="content">
+<main class="content">
             <header class="content__header-wrap">
                 <div class="content__header">
                     <div class="content__header-item">
-                        <h5 class="content__header-title content__header-title-has-separator">Voucher</h5>
-                        <span class="content__header-description">Danh sách voucher</span>
+                        <h5 class="content__header-title content__header-title-has-separator">Bàn</h5>
+                        <span class="content__header-description">Danh sách Bàn</span>
                     </div>
                     <div class="content__header-item">
                         <button class="content__header-item-btn content__header-item-btn-select-all">Chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-unselect-all">Bỏ chọn tất cả</button>
                         <button class="content__header-item-btn content__header-item-btn-del-all">Xóa các mục chọn</button>
-                        <a href="<?=$ADMIN_URL.'/voucher/?btn_add';?>" class="content__header-item-btn">Thêm VC</a>
+                        <a href="<?=$ADMIN_URL.'/table/?btn_add';?>" class="content__header-item-btn">Thêm Bàn</a>
                     </div>
                 </div>
             </header>
@@ -18,97 +18,67 @@
                 <div class="content__table-wrap">
                     <div class="content__table-heading-wrap">
                         <div class="content__table-heading">
-                            <h3 class="content__table-title">Voucher Management</h3>
-                            <span class="content__table-text">Voucher management made easy</span>
+                            <h3 class="content__table-title">Quản Lý Bàn</h3>
+                            <span class="content__table-text">Quản lý bàn dễ dàng</span>
                         </div>
 
                         <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control form__control-voucher" name="keyword" placeholder="Nhập mã Voucher">
+                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên bàn cần tìm">
                                 <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </form>
                     </div>
-
-                    <?php
-                        if (empty($listVoucher)) {
-                            echo '<div class="alert alert-success">Chưa có mã giảm giá nào</div>';
-                            die();
-                        }
-                    ?>
-
                     <table class="content__table-table">
                         <thead>
                             <tr>
                                 <th>
                                     <input type="checkbox" name="select_all" class="select_all">
                                 </th>
-                                <th>Mã</th>
-                                <th>Mã Voucher</th>
-                                <th>Tổng số lượng</th>
-                                <th>Giảm theo</th>
-                                <th>Ngày bắt đầu</th>
-                                <th>Ngày kết thúc</th>
+                                <th>Tên bàn</th>
+                                <th>Guest_number</th>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
 
                         <tbody class="content__table-body">
-                            <?php foreach ($listVoucher as $item): ?>
-                            <tr>
+                           
+                            <?php foreach($listTable as $table):?>
+                                <tr>
                                 <td>
-                                    <input type="checkbox" data-id="<?=$item['id'];?>">
+                                    <input type="checkbox" data-id="<?=$table['id'];?>">
                                 </td>
-                                <td><?=$item['id'];?></td>
-                                <td><?=$item['code'];?></td>
-                                <td><?=$item['quantity'];?></td>
-                                <td>
-                                    Giảm
-                                    <?php if ($item['condition']): ?>
-                                        <?=number_format($item['voucher_number']);?> VNĐ
-                                    <?php else: ?>
-                                        <?=$item['voucher_number'];?>%
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <span class="content__table-text-success">
-                                        <?=date_format(date_create($item['time_start']), 'd/m/Y H:i:s');?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="content__table-text-success">
-                                        <?=date_format(date_create($item['time_end']), 'd/m/Y H:i:s');?>
-                                    </span>
-                                </td>
+                                <td class="content__table-text-black"><?=$table['name'];?></td>
+                                <td class="content__table-text-black"><?=$table['guest_number'];?></td>
+                                <td class="content__table-text-black"><?php if($table['status']==0){
+                                    echo "Còn trống";
+                                }else if($table['status']==1){
+                                    echo 'Có khách';
+                                }else{
+                                    echo 'Đã đặt trước';
+                                }?></td>
                                 
                                 <td>
-                                    <?php if ($item['status']): ?>
-                                    <span class="content__table-stt-active">Kích hoạt</span>
-                                    <?php else: ?>
-                                    <span class="content__table-stt-locked">Khóa</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
                                     <div class="user_list-action">
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa voucher này không?') ?
-                                        window.location.href = '?btn_delete&id=<?=$item['id'];?>' : false;
+                                        <a onclick="return confirm('Bạn có chắc muốn xóa bàn này không?') ?
+                                        window.location.href = '?btn_delete&id=<?=$table['id'];?>' : false;
                                         " class="content__table-action danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                        <a href="<?=$ADMIN_URL;?>/voucher/?btn_edit&id=<?=$item['id'];?>" class="content__table-action info">
+                                        <a href="<?=$ADMIN_URL;?>/table/?btn_edit&id=<?=$table['id'];?>" class="content__table-action info">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                </tr>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
 
                     <ul class="content__table-pagination">
                         <li class="content__table-pagination-item">
-                            <a href="<?=$ADMIN_URL;?>/voucher" class="content__table-pagination-link content__table-pagination-link-first">
+                            <a href="<?=$ADMIN_URL;?>/table" class="content__table-pagination-link content__table-pagination-link-first">
                                 <i class="fas fa-angle-double-left"></i>
                             </a>
                         </li>
@@ -116,7 +86,7 @@
                             if ($currentPage > 1) {
                                 echo '
                                 <li class="content__table-pagination-item">
-                                    <a href="' . $ADMIN_URL . '/voucher/?page='. ($currentPage - 1) .'" class="content__table-pagination-link content__table-pagination-link-pre">
+                                    <a href="' . $ADMIN_URL . '/table/?page='. ($currentPage - 1) .'" class="content__table-pagination-link content__table-pagination-link-pre">
                                         <i class="fas fa-angle-left"></i>
                                     </a>
                                 </li>';
@@ -127,13 +97,13 @@
                                 if ($currentPage == $i) {
                                     echo '
                                     <li class="content__table-pagination-item">
-                                        <a href="'.$ADMIN_URL . '/voucher/?page='. $i .'" class="content__table-pagination-link content__table-pagination-link--active">' . $i . '</a>
+                                        <a href="'.$ADMIN_URL . '/table/?page='. $i .'" class="content__table-pagination-link content__table-pagination-link--active">' . $i . '</a>
                                     </li>
                                     ';
                                 } else {
                                     echo '
                                     <li class="content__table-pagination-item">
-                                        <a href="'.$ADMIN_URL . '/voucher/?page='. $i .'" class="content__table-pagination-link">' . $i . '</a>
+                                        <a href="'.$ADMIN_URL . '/table/?page='. $i .'" class="content__table-pagination-link">' . $i . '</a>
                                     </li>
                                     ';
                                 }
@@ -144,7 +114,7 @@
                             if ($currentPage < $totalPage) {
                                 echo '
                                 <li class="content__table-pagination-item">
-                                    <a href="' . $ADMIN_URL . '/voucher/?page='. ($currentPage + 1) .'" class="content__table-pagination-link content__table-pagination-link-next">
+                                    <a href="' . $ADMIN_URL . '/table/?page='. ($currentPage + 1) .'" class="content__table-pagination-link content__table-pagination-link-next">
                                         <i class="fas fa-angle-right"></i>
                                     </a>
                                 </li>';
@@ -153,7 +123,7 @@
                         
                         
                         <li class="content__table-pagination-item">
-                            <a href="<?=$ADMIN_URL;?>/voucher/?page=<?=$totalPage;?>" class="content__table-pagination-link content__table-pagination-link-last">
+                            <a href="<?=$ADMIN_URL;?>/table/?page=<?=$totalPage;?>" class="content__table-pagination-link content__table-pagination-link-last">
                                 <i class="fas fa-angle-double-right"></i>
                             </a>
                         </li>

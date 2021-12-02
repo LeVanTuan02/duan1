@@ -5,6 +5,9 @@
     require_once '../../dao/contact.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/analytic.php';
+    require_once '../../dao/order.php';
+    require_once '../../dao/table.php';
+
 
     $isWebsiteOpen = settings_select_all();
     if (!$isWebsiteOpen || !$isWebsiteOpen['status']) header('Location: ' . $SITE_URL . '/home/close.php');
@@ -19,6 +22,11 @@
         $titlePage = 'Đặt bàn';
         $active = 'order';
         $VIEW_PAGE = "order.php";
+        $order = [];
+
+        
+
+
     } else if(array_key_exists('contact_insert', $_REQUEST)){
         $titlePage = 'Liên hệ';
         $active = 'contact';
