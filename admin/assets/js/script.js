@@ -121,11 +121,25 @@ $('.content__header-item-btn-reset').on('click', () => {
 // tìm kiếm hóa đơn (be)
 $('.form__control-order').on('keyup', function() {
     var keyword = $(this).val();
+    var status = $(this).next().val();
+
+    order_search(keyword, status);
+});
+
+$('.form__select-order').on('change', function() {
+    var status = $(this).val();
+    var keyword = $(this).prev().val();
+
+    order_search(keyword, status);
+});
+
+function order_search(keyword, status) {
     $.ajax({
         url: admin_url + '/order/index.php',
         type: 'POST',
         data: {
-            keyword: keyword
+            keyword: keyword,
+            status: status
         },
         success: function(result) {
             if (result.trim()) {
@@ -140,16 +154,28 @@ $('.form__control-order').on('keyup', function() {
             console.log('Lỗi');
         }
     });
-});
+}
 
 // tìm kiếm đơn hàng của tôi (be)
 $('.form__control-my-order').on('keyup', function() {
     var keyword = $(this).val();
+    var status = $(this).next().val();
+    my_cart_search(keyword, status);
+});
+
+$('.form__select-my-order').on('change', function() {
+    var keyword = $(this).prev().val();
+    var status = $(this).val();
+    my_cart_search(keyword, status);
+});
+
+function my_cart_search(keyword, status) {
     $.ajax({
         url: admin_url + '/account/index.php',
         type: 'POST',
         data: {
-            keyword: keyword
+            keyword: keyword,
+            status: status
         },
         success: function(result) {
             if (result.trim()) {
@@ -164,7 +190,7 @@ $('.form__control-my-order').on('keyup', function() {
             console.log('Lỗi');
         }
     });
-});
+}
 
 // tìm kiếm sản phẩm trang be
 $('.form__control-product').on('keyup', function() {
