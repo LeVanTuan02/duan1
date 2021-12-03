@@ -497,12 +497,16 @@
         }
     }
 
-    function order_search($keyword, $id = 0) {
+    function order_search($keyword, $status = '', $id = 0) {
         $sql = "SELECT * FROM `order` WHERE (customer_name LIKE ? OR id LIKE ?)";
         if ($id) {
-            $sql .= ' AND user_id = ? ORDER BY id DESC';
-            return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%', $id);
+            $sql .= " AND user_id = $id";
         }
+
+        if ($status != '') {
+            $sql .= " AND status = $status";
+        }
+        
         $sql .= ' ORDER BY id DESC';
         return pdo_query($sql, '%'.$keyword.'%', '%'.$keyword.'%');
     }
