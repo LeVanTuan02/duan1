@@ -76,7 +76,7 @@
         $myCartInfo = order_select_by_id($id);
         $VIEW_PAGE = "cart_detail.php";
     } else if (array_key_exists('keyword', $_REQUEST)) {
-        $listOrder = order_search($keyword, $_SESSION['user']['id']);
+        $listOrder = order_search($keyword, $status, $_SESSION['user']['id']);
         function renderOrder($order_item) {
             global $ADMIN_URL;
             $html = '';
