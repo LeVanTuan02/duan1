@@ -42,52 +42,43 @@
                     <select name="status" id="">
                                 <option value="">-- Chọn Trạng thái bàn --</option>
                                 <?php if(isset($status)): ?>
-                                        <?php if($status): ?>
+                                        <?php if($status == 0): ?>
                                             <option value="0" selected>Còn trống</option>
                                             <option value="1">Có khach</option>
                                             <option value="2">Đã đặt trước</option>
-                                        <?php elseif($status): ?>
+                                        <?php elseif($status == 1): ?>
+                                            <option value="0">Còn trống</option>
                                             <option value="1" selected>Có khách</option>
-                                            <option value="0">Còn trống</option>
                                             <option value="2">Đã đặt trước</option>
-                                        <?php else:?>
-                                            <option value="2" selected>Đã đặt trước</option>
-                                            <option value="1">Có khách</option>
+                                        <?php elseif($status == 2): ?>
                                             <option value="0">Còn trống</option>
+                                            <option value="1">Có khách</option>
+                                            <option value="2" selected>Đã đặt trước</option>
+                                        <?php else:?>
+                                            <option value="0">Còn trống</option>
+                                            <option value="1">Có khách</option>
+                                            <option value="2">Đã đặt trước</option>
                                      <?php endif; ?>
-                                    <?php elseif(isset($tableInfo['status'])): ?>
-                                        <?php if($tableInfo['status']): ?>
-                                            <option value="1" selected>Có khách</option>
-                                            <option value="0">Còn trống</option>
-                                            <option value="2">Đã đặt trước</option>
-
-                                        <?php elseif($tableInfo['status']): ?>
+                                <?php elseif(isset($tableInfo['status'])): ?>
+                                        <?php if($tableInfo['status'] == 0): ?>
                                             <option value="0" selected>Còn trống</option>
-                                            <option value="1" >Có khách</option>
+                                            <option value="1">Có khách</option>
                                             <option value="2">Đã đặt trước</option>
 
-                                        <?php else:?>
+                                        <?php elseif($tableInfo['status'] == 1): ?>
+                                            <option value="0">Còn trống</option>
+                                            <option value="1" selected>Có khách</option>
+                                            <option value="2">Đã đặt trước</option>
+                                        <?php elseif($tableInfo['status'] == 2): ?>
+                                            <option value="0">Còn trống</option>
+                                            <option value="1">Có khách</option>
                                             <option value="2" selected>Đã đặt trước</option>
-                                            <option value="1">Có khách</option>
-                                            <option value="0">Còn trống</option>  
-                                    <?php endif; ?>
-                                    <?php else: ?>
-                                        <?php if($tableInfo['status']): ?>
-                                        <option value="2" selected>Đã đặt trước</option>
-                                            <option value="1">Có khách</option>
-                                            <option value="0">Còn trống</option>
-
-                                        <?php elseif($tableInfo['status']): ?>
-                                            <option value="1" selected>Có khách</option>
-                                            <option value="0" >Còn trống</option>
-                                            <option value="2">Đã đặt trước</option>
-
                                         <?php else:?>
-                                            <option value="0" selected>Còn trống</option>
+                                            <option value="0">Còn trống</option>  
                                             <option value="1">Có khách</option>
-                                            <option value="2">Đã đặt trước</option>  
-                                    <?php endif; ?>
-                                    <?php endif;?>
+                                            <option value="2">Đã đặt trước</option>
+                                        <?php endif;?>
+                                <?php endif;?>
                     </select>
                     <span class="form-message">
                             <?= isset($errorMessage['status']) ? $errorMessage['status'] : ''; ?>
