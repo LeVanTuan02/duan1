@@ -151,6 +151,13 @@
 
                 </div>
 
+                <!-- thống kê sản phẩm bán chạy -->
+                <div class="content__table-wrap">
+                    <section class="content__analytics">
+                        <div id="chart_product-trend"></div>
+                    </section>
+                </div>
+
                 <!-- thống kê người dùng đăng ký theo tháng -->
                 <div class="content__table-wrap">
                     <section class="content__analytics">
@@ -249,10 +256,87 @@
                         categories: [<?php foreach ($userRegAnalytics as $item) { echo "'Tháng $item[month]', ";}?>],
                     }
                 };
-
                 var chartUserReg = new ApexCharts(document.querySelector("#chart_user-register"), optionsChartUserReg);
                 chartUserReg.render();
 
+                // sản phẩm bán chạy
+                var optionsProductTrend = {
+                    series: [{
+                        name: 'Đã bán',
+                        data: [<?php foreach ($analyticsProductTrend as $item) {echo $item['total'] . ', ';};?>]
+                    }],
+                    // annotations: {
+                    //     points: [{
+                    //         x: 'Bananas',
+                    //         seriesIndex: 0,
+                    //         label: {
+                    //             borderColor: '#775DD0',
+                    //             offsetY: 0,
+                    //         style: {
+                    //             color: '#fff',
+                    //             background: '#775DD0',
+                    //         },
+                    //             text: 'Bananas are good',
+                    //         }
+                    //     }]
+                    // },
+                    chart: {
+                        height: 350,
+                        type: 'bar',
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 10,
+                            columnWidth: '50%',
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        width: 2
+                    },
+                    
+                    grid: {
+                        row: {
+                            colors: ['#fff', '#f2f2f2']
+                        }
+                    },
+                    xaxis: {
+                        labels: {
+                            rotate: -45
+                        },
+                        categories: [<?php foreach ($analyticsProductTrend as $item) {echo "'$item[product_name]', ";}?>],
+                        tickPlacement: 'on'
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Top Product',
+                        },
+                        labels: {
+                            formatter: function(val, index) {
+                                return val;
+                            }
+                        }
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shade: 'light',
+                            type: "horizontal",
+                            shadeIntensity: 0.25,
+                            gradientToColors: undefined,
+                            inverseColors: true,
+                            opacityFrom: 0.85,
+                            opacityTo: 0.85,
+                            stops: [50, 0, 100]
+                        },
+                    }
+                };
+
+                var chartProductTrend = new ApexCharts(document.querySelector("#chart_product-trend"), optionsProductTrend);
+                chartProductTrend.render();
+                
                 // thống kê doanh thu
                 var optionsChartPrice = {
                     series: [{
