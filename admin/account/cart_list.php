@@ -18,6 +18,14 @@
 
                         <form action="" class="content__table-heading-form" method="POST">
                             <input type="text" class="content__table-heading-form-control form__control-my-order" name="keyword" placeholder="Nhập tên KH hoặc mã ĐH">
+                            <select name="status" class="content__table-heading-form-select form__select-my-order">
+                                <option value="">-- Trạng thái --</option>
+                                <option value="0">Đơn hàng mới</option>
+                                <option value="1">Đã xác nhận</option>
+                                <option value="2">Đang giao hàng</option>
+                                <option value="3">Đã giao hàng</option>
+                                <option value="4">Đã hủy</option>
+                            </select>
                             <button type="button" class="content__table-heading-form-btn">
                                 <i class="fas fa-search"></i>
                             </button>
