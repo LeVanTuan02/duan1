@@ -130,6 +130,7 @@
         // jquery ajax
         function renderCart($cart_item) {
             global $IMG_URL;
+            global $SITE_URL;
             return '
                 <tr data-id="' . $cart_item['id'] . '">
                     <td>
@@ -140,12 +141,12 @@
                         </a>
                     </td>
                     <td>
-                        <a href="" class="content__cart-detail-table-link">
+                        <a href="'. $SITE_URL .'/product/?detail&id='. $cart_item['id'] .'" class="content__cart-detail-table-link">
                             <img src="' . $IMG_URL . '/' . $cart_item['product_image'] . '" alt="" class="content__cart-detail-table-img">
                         </a>
                     </td>
                     <td>
-                        <a href="" class="content__cart-detail-table-link">' . $cart_item['product_name'] . '</a>
+                        <a href="'. $SITE_URL .'/product/?detail&id='. $cart_item['id'] .'" class="content__cart-detail-table-link">' . $cart_item['product_name'] . '</a>
                     </td>
                     <td class="content__cart-detail-size">' . $cart_item['size'] . '</td>
                     <td class="content__cart-detail-price">
