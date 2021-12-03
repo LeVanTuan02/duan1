@@ -8,6 +8,11 @@
         return pdo_execute($sql, $user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at, $updated_at);
     }
 
+    function order_show($start = '', $limit = ''){
+        $sql = "SELECT COUNT(*)as tong, DATE(created_at) as ngay, SUM(total_price) as tien FROM `order` GROUP BY DATE(created_at)";
+      return  pdo_query($sql);
+    }
+
     // function order_update($user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at, $id) {
     //     $sql = "UPDATE `order` SET user_id = ?, customer_name = ?, address = ?, phone = ?, total_price = ?, message = ?, status = ?, created_at = ? WHERE id = ?";
     //     pdo_execute($sql, $user_id, $customer_name, $address, $phone, $total_price, $message, $status, $created_at, $id);

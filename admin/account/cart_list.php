@@ -50,7 +50,6 @@
                                 <th>Ngày đặt</th>
                                 <th>Tổng giá trị đơn hàng</th>
                                 <th>Trạng thái</th>
-                                <th>Hành động</th>
                             </tr>
                         </thead>
 
@@ -100,6 +99,8 @@
                                 <td>
                                     <a href="<?=$ADMIN_URL;?>/account/?cart_detail&id=<?=$item['id'];?>" class="content__table-stt-active">Chi tiết</a>
                                 </td>
+                                
+                            
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
