@@ -39,7 +39,9 @@
 
         // tổng doanh thu
         $totalMoney = analytics_total_money();
-        // var_dump($totalMoney);
+        
+        // thống kê sp bán chạy
+        $analyticsProductTrend = analytics_product_trend();
 
         // thống kê kh đky theo tháng
         $userRegAnalytics = analytics_user_reg();
