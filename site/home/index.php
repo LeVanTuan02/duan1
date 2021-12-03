@@ -2,6 +2,7 @@
 
     require_once '../../global.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/slide.php';
     require_once '../../dao/category.php';
     require_once '../../dao/contact.php';
     require_once '../../dao/booking.php';
@@ -155,6 +156,9 @@
 
         // danh mục sản phẩm
         $categoryInfo = category_home_select_all();
+
+        // danh sách slide
+        $listSlide = slide_select_all();
         $VIEW_PAGE = "home.php";
     }
 
