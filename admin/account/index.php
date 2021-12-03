@@ -16,11 +16,10 @@
     if (array_key_exists('cart', $_REQUEST)) {
         $titlePage = 'My Cart';
         // phân trang
+        $totalOrder = count(order_select_all_by_user_id($_SESSION['user']['id']));
         $limit = 10;
         $totalPage = ceil($totalOrder / $limit);
-        // $tong = [];
-        // $tong['total_price'] = $tong_ngay ?? '';
-        // var_dump($tong_ngay);
+
         $currentPage = $page ?? 1;
 
         if ($currentPage <= 0) {
@@ -33,12 +32,7 @@
 
         $myCarts = order_select_all_by_user_id($_SESSION['user']['id'], $start, $limit);
         $VIEW_PAGE = "cart_list.php";
-    }else if(array_key_exists('btn_test', $_REQUEST)){
-        $thong_ke = order_show($start = '', $limit = '');
-        
-        $VIEW_PAGE = 'test.php';
-    }
-     else if (array_key_exists('cart_cancel', $_REQUEST)) {
+    } else if (array_key_exists('cart_cancel', $_REQUEST)) {
         // đơn hàng đã/đang giao không thể hủy
         if (order_check_delivered($id)) {
             echo '<script>
