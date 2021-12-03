@@ -85,14 +85,14 @@
                         </a>
                     </li>
 
-                    <li class="sidebar__menu-item">
+                    <!-- <li class="sidebar__menu-item">
                         <a href="<?=$ADMIN_URL;?>/account/?btn_test" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                             <i class="fas fa-align-left"></i>
                             </span>
                             <span class="sidebar__menu-text">Thống kê theo ngày</span>
                         </a>
-                    </li>
+                    </li> -->
     
                     <!-- nếu là admin -->
                     <?php if($_SESSION['user']['role']): ?>
