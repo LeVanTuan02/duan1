@@ -46,4 +46,16 @@
         $sql = "SELECT SUM(total_price) AS total FROM `order` WHERE status = 3";
         return pdo_query_one($sql);
     }
+
+    // thống kê sp bán chạy
+    function analytics_product_trend() {
+        $sql = "SELECT p.*, COUNT(*) AS total
+        FROM ((order_detail o JOIN product p ON o.product_id = p.id)
+        JOIN `order` od ON o.order_id = od.id)
+        WHERE od.`status` = 3
+        GROUP BY p.id
+        ORDER BY COUNT(*) DESC
+        LIMIT 10";
+        return pdo_query($sql);
+    }
 ?>
