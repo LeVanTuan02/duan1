@@ -70,7 +70,7 @@
         require_once 'invoice.php';
         exit();
     } else if(array_key_exists('keyword', $_REQUEST)) {
-        $listOrder = order_search($keyword);
+        $listOrder = order_search($keyword, $status);
         function renderOrder($order_item) {
             global $ADMIN_URL;
             $html = '';
