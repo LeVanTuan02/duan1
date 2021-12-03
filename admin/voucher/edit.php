@@ -44,24 +44,21 @@
                                     <option value="">-- Vui lòng chọn loại giảm --</option>
                                     <?php if(isset($condition)): ?>
                                         <?php if($condition): ?>
-                                            <option value="1" selected>Giảm theo tiền</option>
                                             <option value="0">Giảm theo %</option>
+                                            <option value="1" selected>Giảm theo tiền</option>
                                         <?php else: ?>
                                             <option value="0" selected>Giảm theo %</option>
                                             <option value="1">Giảm theo tiền</option>
                                         <?php endif; ?>
                                     <?php elseif(isset($voucherInfo['condition'])): ?>
                                         <?php if($voucherInfo['condition']): ?>
-                                            <option value="1" selected>Giảm theo tiền</option>
                                             <option value="0">Giảm theo %</option>
+                                            <option value="1" selected>Giảm theo tiền</option>
                                         <?php else: ?>
-                                            <option value="1">Giảm theo tiền</option>
                                             <option value="0" selected>Giảm theo %</option>
+                                            <option value="1">Giảm theo tiền</option>
                                         <?php endif; ?>
-                                    <!-- <?php else: ?>
-                                        <option value="1">Giảm theo tiền</option>
-                                        <option value="0">Giảm theo %</option>
-                                    <?php endif; ?> -->
+                                    <?php endif; ?>
                                 </select>
                                 <span class="form-message">
                                     <?=$errorMessage['condition'] ?? '';?>
@@ -120,9 +117,6 @@
                                             <option value="1">Kích hoạt</option>
                                             <option value="0" selected>Khóa</option>
                                         <?php endif; ?>
-                                    <?php else: ?>
-                                        <option value="1">Kích hoạt</option>
-                                        <option value="0">Khóa</option>
                                     <?php endif; ?>
                                 </select>
                                 <span class="form-message">
