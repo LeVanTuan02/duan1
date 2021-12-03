@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="form__group">
-                            <label for="status">Loại hàng</label>
+                            <label for="status">Trạng thái</label>
                             <div class="form-control">
                                 <select name="status" id="">
                                     <option value="">-- Vui lòng chọn trạng thái VC --</option>
