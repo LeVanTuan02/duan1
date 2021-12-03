@@ -37,12 +37,12 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="" class="content__cart-detail-table-link">
+                                        <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__cart-detail-table-link">
                                             <img src="<?=$IMG_URL . '/' . $item['product_image'];?>" alt="" class="content__cart-detail-table-img">
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="" class="content__cart-detail-table-link">
+                                        <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__cart-detail-table-link">
                                             <?=$item['product_name'];?>
                                         </a>
                                     </td>
