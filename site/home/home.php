@@ -3,15 +3,11 @@
             <!-- slider -->
             <section class="slider">
                 <ul class="slider__list">
+                    <?php foreach ($listSlide as $item): ?>
                     <li class="slider__list-item">
-                        <a href="" class="slider__list-item-link" style="background-image: url('<?=$SITE_URL;?>/assets/images/slider_1.jpg')"></a>
+                        <a href="<?=$item['url'];?>" href="<?=$item['title'];?>" target="_blank" class="slider__list-item-link" style="background-image: url('<?=$IMG_URL . '/' . $item['slide_image'];?>')"></a>
                     </li>
-                    <li class="slider__list-item">
-                        <a href="" class="slider__list-item-link" style="background-image: url('<?=$SITE_URL;?>/assets/images/slider_1.jpg')"></a>
-                    </li>
-                    <li class="slider__list-item">
-                        <a href="" class="slider__list-item-link" style="background-image: url('<?=$SITE_URL;?>/assets/images/slider_1.jpg')"></a>
-                    </li>
+                    <?php endforeach; ?>
                 </ul>
             </section>
             <!-- end slider -->
