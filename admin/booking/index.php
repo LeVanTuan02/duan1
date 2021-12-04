@@ -4,6 +4,7 @@
     require_once '../../dao/booking.php';
     require_once '../../dao/table.php';
 
+    check_login();
     extract($_REQUEST);
 
     if (array_key_exists('', $_REQUEST)) {
