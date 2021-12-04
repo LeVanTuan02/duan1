@@ -1,6 +1,5 @@
 
 <?php
-
     require_once 'pdo.php';
 
     function category_insert($cate_name, $cate_image) {
@@ -15,9 +14,9 @@
     }
 
     function category_delete($id) {
-        $sql = "DELETE FROM category WHERE id = ?";
-
-        if (is_array($id)) {
+       $sql = "DELETE FROM category WHERE id = ?";
+ 
+        if(is_array($id)) {
             foreach ($id as $id_item) {
                 pdo_execute($sql, $id_item);
             }
