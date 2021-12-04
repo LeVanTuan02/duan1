@@ -154,8 +154,8 @@
                 </td>
                 <td>
                     <div class="user_list-action">
-                        <a onclick="return confirm("Bạn có chắc muốn xóa sản phẩm này không?") ?
-                        window.location.href = "?btn_delete&id="' . $product_item['id'] . ' : false;
+                        <a onclick="return confirm(\'Bạn có chắc muốn xóa sản phẩm này không?\') ?
+                        window.location.href = \'?btn_delete&id=' . $product_item['id'] . '\' : false;
                         " class="content__table-action danger">
                             <i class="fas fa-trash"></i>
                         </a>

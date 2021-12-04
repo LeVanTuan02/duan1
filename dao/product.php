@@ -148,13 +148,16 @@
     }
 
     // sp theo danh mục
-    function product_home_select_by_cate($cate_id) {
+    function product_home_select_by_cate($cate_id, $start = '', $limit = '') {
         $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price, c.cate_name
         FROM ((product p JOIN attribute a ON p.id = a.product_id)
         JOIN category c ON p.cate_id = c.id)
         WHERE p.cate_id = ?
         GROUP BY p.id
         ORDER BY p.id DESC";
+        if ($limit && $start >= 0) {
+            $sql .= " LIMIT $start, $limit";
+        }
         return pdo_query($sql, $cate_id);
     }
 
