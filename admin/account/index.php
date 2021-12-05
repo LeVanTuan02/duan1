@@ -227,7 +227,7 @@
         $VIEW_PAGE = "edit_info.php";
     }  else if (array_key_exists('btn_logout', $_REQUEST)) {
         unset($_SESSION['user']);
-        header('Location: ' . $SITE_URL);
+        header('Location: ' . $SITE_URL . '/account');
     } else if (array_key_exists('booking_detail', $_REQUEST)) {
         $titlePage = 'Booking Detail';
         $bookingInfo = booking_select_by_id($id);

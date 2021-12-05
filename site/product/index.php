@@ -16,7 +16,22 @@
         $itemData = product_home_search($keyword);
         $VIEW_PAGE = "search.php";
     } else if (array_key_exists('category', $_REQUEST)) {
-        $itemData = product_home_select_by_cate($cate_id);
+        // phân trang
+        $totalProduct = count(product_home_select_by_cate($cate_id));
+        $limit = 12;
+        $totalPage = ceil($totalProduct / $limit);
+
+        $currentPage = $page ?? 1;
+
+        if ($currentPage <= 0) {
+            header('Location: ' . $SITE_URL . '/product/?page=1');
+        } else if ($currentPage > $totalPage) {
+            $currentPage = $totalPage;
+        }
+
+        $start = ($currentPage - 1) * $limit;
+
+        $itemData = product_home_select_by_cate($cate_id, $start, $limit);
         $VIEW_PAGE = "category.php";
     } else if (array_key_exists('detail', $_REQUEST)) {
         // update view
@@ -234,7 +249,6 @@
         }
 
         $start = ($currentPage - 1) * $limit;
-        $title = "Sản phẩm";
         $item = product_home_select_all($start, $limit);
 
         $listCategory = category_select_all();

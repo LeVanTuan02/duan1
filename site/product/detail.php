@@ -145,7 +145,9 @@
                                 isset($_SESSION['user']['id']) && $cmt['user_id'] == $_SESSION['user']['id']): ?>
                                 <li class="info_cmt-action info_cmt-action--delete" onclick="deleteComment(<?=$cmt['id'];?>);">Xóa</li>
                                 <?php endif; ?>
+                                <?php if (isset($_SESSION['user']['id'])): ?>
                                 <li class="info_cmt-action info_cmt-action--rep" onclick="repCmt(event);">Trả lời</li>
+                                <?php endif; ?>
                             </ul>
 
                             <div action="" class="comment__rep">
@@ -174,7 +176,9 @@
                                                     isset($_SESSION['user']['id']) && $cmtRep['user_id'] == $_SESSION['user']['id']): ?>
                                                     <li class="info_cmt-action info_cmt-action--delete" onclick="deleteComment(<?=$cmtRep['id'];?>);">Xóa</li>
                                                     <?php endif; ?>
+                                                    <?php if (isset($_SESSION['user']['id'])): ?>
                                                     <li class="info_cmt-action info_cmt-action--rep" onclick="repCmt(event);">Trả lời</li>
+                                                    <?php endif; ?>
                                                 </ul>
                                             </div>
                                         </li>

@@ -45,7 +45,7 @@
         }
 
         if (empty($errorMessage)) {
-            $hinh = save_file('cate_image', $PATH_IMG . '/');
+            $hinh = save_file('cate_image', $IMG_PATH . '/');
             $hinh = strlen($hinh) > 0 ? $hinh : $categoryData['cate_image'];
             category_update($ten_loai, $hinh, $id);
             $MESSAGE = 'Cập nhật thành công, vui lòng đợi 3s';

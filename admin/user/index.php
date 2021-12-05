@@ -3,7 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/user.php';
     
-    check_login(1);
+    check_login();
 
     extract($_REQUEST);
 
@@ -152,10 +152,6 @@
     } else if (array_key_exists('btn_edit', $_REQUEST)) {
         $titlePage = 'Edit User';
         $userData = user_select_by_id($ma_kh);
-        // echo "<pre>";
-        // var_dump($userData);
-
-        // extract($userData);
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         // không xóa chính mình
@@ -174,7 +170,7 @@
             }
         } else {
             if ($_SESSION['user']['id'] != $ma_kh) {
-                user_delete($id);
+                user_delete($ma_kh);
                 header('Location: ' . $ADMIN_URL . '/user');
             } else {
                 echo

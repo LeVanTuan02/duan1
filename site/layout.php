@@ -204,7 +204,7 @@
                             <a href="<?=$SITE_URL;?>/home?contact" class="menu__mobile-item-link">Liên hệ</a>
                         </li>
                         <li class="menu__mobile-item">
-                            <a href="#" class="menu__mobile-item-link">Đặt bàn</a>
+                            <a href="<?=$SITE_URL;?>/home?order" class="menu__mobile-item-link">Đặt bàn</a>
                         </li>
                     </ul>
                 </div>
