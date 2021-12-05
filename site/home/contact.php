@@ -48,20 +48,20 @@
                                 <form action="" class="content__contact-item-form-inner" method="POST">
                                     
                                     <input type="text" class="content__contact-item-form-control" name="name" placeholder="Nhập tên của bạn" 
-                                    value="<?=$contact['name'] ?? '';?>">
+                                    value="<?=$contact['name'] ?? $_SESSION['user']['fullName'] ?? '';?>">
                                     <span class="content__contact-item-form-message">
                                         <?=$errorMessage['name'] ?? '';?>
                                     </span>
 
                                     <input type="text" class="content__contact-item-form-control" name="email" placeholder="Email của bạn"
-                                    value="<?=$contact['email'] ?? '';?>">
+                                    value="<?=$contact['email'] ?? $_SESSION['user']['email'] ?? '';?>">
                                     <span class="content__contact-item-form-message">
                                         <?=$errorMessage['email'] ?? '';?>
                                     </span>
                                     
                                     
                                     <input type="text" class="content__contact-item-form-control" name="phone" placeholder="Số điện thoại"
-                                    value="<?=$contact['phone'] ?? '';?>">
+                                    value="<?=$contact['phone'] ?? $_SESSION['user']['phone'] ?? '';?>">
                                     <span class="content__contact-item-form-message">
                                         <?=$errorMessage['phone'] ?? '';?>
                                     </span>

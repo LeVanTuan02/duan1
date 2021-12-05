@@ -138,7 +138,9 @@
         }
 
         if (empty($errorMessage)) {
+            $user_id = $_SESSION['user']['id'] ?? 0;
             $created_at = Date('Y-m-d H:i:s');
+            // Thêm lh
             contact_insert($name, $content, $email, $phone, $created_at);
             unset($contact);
             $MESSAGE = 'Gửi góp ý thành công';
