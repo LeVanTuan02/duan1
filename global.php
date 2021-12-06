@@ -29,9 +29,9 @@
 
     // phpMailer settings
     $PATH_URL = 'http://localhost' . $SITE_URL;
-    $SMTP_UNAME = 'accnoname8@gmail.com';
+    $SMTP_UNAME = 'levantuan.fpoly@gmail.com';
     $ADMIN_MAIL = 'tuanlvph14271@fpt.edu.vn';
-    $SMTP_PASS = 'Levantuan2k2';
+    $SMTP_PASS = 'hlloutphdgmcgtue';
 
     // check login
     function check_login($role = 1) {
