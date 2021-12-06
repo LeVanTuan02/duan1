@@ -69,7 +69,7 @@
                                 </label>
                                 <input type="password" name="confirm" id="password" placeholder="*************" value="<?=$user_dk['confirm'] ?? '';?>">
                                 <span class="form-message">
-                                    <?=$errorMessage['comfirm'] ?? '';?>
+                                    <?=$errorMessage['confirm'] ?? '';?>
                                 </span>
                             </div>
                             <!--  -->
