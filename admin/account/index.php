@@ -217,7 +217,7 @@
             $user = $_SESSION['user'];
             $avatar = save_file('avatar', $IMG_PATH . '/');
             $avatar = strlen($avatar) > 0 ? $avatar : $user['avatar'];
-            user_update($user['username'], $user['password'], $email, $phone, $fullName, $address, $avatar, $user['active'], $user['role'], $user['id']);
+            user_update($user['password'], $email, $phone, $fullName, $address, $avatar, $user['active'], $user['role'], $user['id']);
             // cập nhật session
             $user = user_select_by_id($_SESSION['user']['id']);
             $_SESSION['user'] = $user;
