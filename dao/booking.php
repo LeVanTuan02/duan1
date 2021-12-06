@@ -113,7 +113,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt bàn</td>
-                                    <td style="padding: 10px 12px;">' . date('y/m/Y', strtotime($date_book)) . ' ' . date('H:i', strtotime($time_book)) . '</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y', strtotime($date_book)) . ' ' . date('H:i', strtotime($time_book)) . '</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -136,6 +136,7 @@
     function booking_send_mail_admin($id, $email, $name, $phone, $tableInfo, $date_book, $time_book) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
+        global $ADMIN_MAIL;
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         try {
@@ -151,7 +152,7 @@
             $mail->Port = 465; // TCP port to connect to
             //Recipients
             $mail->setFrom($SMTP_UNAME, 'Tea House');
-            $mail->addAddress('levantuan.fpoly@gmail.com', 'Tea House'); // Add a recipient
+            $mail->addAddress($ADMIN_MAIL, 'Tea House'); // Add a recipient
             $mail->addReplyTo($SMTP_UNAME, 'Tea House');
             $htmlStr = '
             <div class="wrapper" style="background-color: #EFEFEF; padding: 0 15px;">
@@ -191,7 +192,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt bàn</td>
-                                    <td style="padding: 10px 12px;">' . date('y/m/Y', strtotime($date_book)) . ' ' . date('H:i', strtotime($time_book)) . '</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y', strtotime($date_book)) . ' ' . date('H:i', strtotime($time_book)) . '</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -292,6 +293,7 @@
     function booking_send_mail_admin_cancel($bookingInfo) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
+        global $ADMIN_MAIL;
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         try {
@@ -307,7 +309,7 @@
             $mail->Port = 465; // TCP port to connect to
             //Recipients
             $mail->setFrom($SMTP_UNAME, 'Tea House');
-            $mail->addAddress('levantuan.fpoly@gmail.com', 'Tea House'); // Add a recipient
+            $mail->addAddress($ADMIN_MAIL, 'Tea House'); // Add a recipient
             $mail->addReplyTo($SMTP_UNAME, 'Tea House');
             $htmlStr = '
             <div class="wrapper" style="background-color: #EFEFEF; padding: 0 15px;">
