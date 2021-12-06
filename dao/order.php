@@ -184,7 +184,6 @@
     function order_send_mail_customer($email, $name, $address, $phone, $customer_message, $total_price, $totalPriceVoucher) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
-
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         try {
             //Server settings
@@ -342,6 +341,7 @@
     function order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message, $total_price, $totalPriceVoucher) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
+        global $ADMIN_MAIL;
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         try {
@@ -359,7 +359,7 @@
             $mail->Port = 465; // TCP port to connect to
             //Recipients
             $mail->setFrom($SMTP_UNAME, 'Tea House');
-            $mail->addAddress('levantuan.fpoly@gmail.com', 'Admin'); // Add a recipient
+            $mail->addAddress($ADMIN_MAIL, 'Admin'); // Add a recipient
             // $mail->addAddress('ellen@example.com'); // Name is optional
             $mail->addReplyTo($SMTP_UNAME, 'Tea House');
             // $mail->addCC('cc@example.com');
@@ -786,6 +786,7 @@
     function order_cancel_noti_admin($orderDetail, $orderInfo) {
         global $SMTP_UNAME;
         global $SMTP_PASS;
+        global $ADMIN_MAIL;
 
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         try {
@@ -801,7 +802,7 @@
             $mail->Port = 465; // TCP port to connect to
             //Recipients
             $mail->setFrom($SMTP_UNAME, 'Tea House');
-            $mail->addAddress('levantuan.fpoly@gmail.com', 'Tea House'); // Add a recipient
+            $mail->addAddress($ADMIN_MAIL, 'Tea House'); // Add a recipient
             // $mail->addAddress('ellen@example.com'); // Name is optional
             $mail->addReplyTo($SMTP_UNAME, 'Tea House');
             // $mail->addCC('cc@example.com');
