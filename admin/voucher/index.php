@@ -25,7 +25,7 @@
             $errorMessage['code'] = 'Vui lòng lại, Voucher đã tồn tại';
         }
 
-        if (!$voucher['quantity']) {
+        if ($voucher['quantity'] == '') {
             $errorMessage['quantity'] = 'Vui lòng nhập số lượng sử dụng Voucher';
         } else if (!is_numeric($voucher['quantity']) || $voucher['quantity'] < 0) {
             $errorMessage['quantity'] = 'Vui lòng nhập lại';
@@ -94,7 +94,7 @@
             $errorMessage['code'] = 'Vui lòng lại, Voucher đã tồn tại';
         }
 
-        if (!$voucher['quantity']) {
+        if ($voucher['quantity'] == '') {
             $errorMessage['quantity'] = 'Vui lòng nhập số lượng sử dụng Voucher';
         } else if (!is_numeric($voucher['quantity']) || $voucher['quantity'] < 0) {
             $errorMessage['quantity'] = 'Vui lòng nhập lại';
