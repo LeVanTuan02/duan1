@@ -71,7 +71,11 @@
                                            <select name="table_id">
                                                <option value="">Số bàn đang trống</option>
                                                <?php foreach ($listTableExits as $table): ?>
-                                               <option value="<?=$table['id'];?>"><?=$table['name'];?> (<?=$table['guest_number'] . ' người';?>)</option>
+                                                <?php if (isset($order['table_id']) && $order['table_id'] == $table['id']): ?>
+                                               <option value="<?=$table['id'];?>" selected><?=$table['name'];?> (<?=$table['guest_number'] . ' người';?>)</option>
+                                               <?php else: ?>
+                                                <option value="<?=$table['id'];?>"><?=$table['name'];?> (<?=$table['guest_number'] . ' người';?>)</option>
+                                                <?php endif; ?>
                                                <?php endforeach; ?>
                                            </select>
                                            <div class="form-message">
