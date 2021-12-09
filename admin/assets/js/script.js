@@ -396,3 +396,57 @@ $('.form__control-my-booking').on('keyup', function() {
         }
     });
 });
+
+// button logs
+$('.content__header-item-btn--log').on('click', function() {
+    var order_id = $(this).attr('data-order-id');
+
+    $.ajax({
+        url: admin_url + '/order/index.php',
+        type: 'POST',
+        data: {
+            btn_log: '',
+            order_id: order_id
+        }, success: function(data) {
+            $('.logs__inner-body').html(data);
+            toggleLogs();
+        }, error: function() {
+            alert('Có lỗi xảy ra, vui lòng thử lại');
+        }
+    });
+});
+
+// my cart log
+$('.btn-my-cart-log').on('click', function() {
+    var order_id = $(this).attr('data-order-id');
+
+    $.ajax({
+        url: admin_url + '/account/index.php',
+        type: 'POST',
+        data: {
+            my_cart_log: '',
+            order_id: order_id
+        }, success: function(data) {
+            $('.logs__inner-body').html(data);
+            toggleLogs();
+        }, error: function() {
+            alert('Có lỗi xảy ra, vui lòng thử lại');
+        }
+    });
+});
+
+$('.logs__inner-header-icon').on('click', function() {
+    toggleLogs();
+});
+
+$('.logs__overlay').on('click', function() {
+    toggleLogs();
+});
+
+$('.logs__inner-footer-close').on('click', function() {
+    toggleLogs();
+});
+
+function toggleLogs() {
+    $('.logs__wrapper').toggleClass('active');
+}

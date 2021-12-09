@@ -9,6 +9,23 @@
     // thông tin hóa đơn
     $orderInfo = order_select_by_id($id);
 
+    // mảng voucher
+    $vouchers = explode(',', $orderInfo['voucher']);
+    $voucherData = '';
+    foreach ($vouchers as $voucher) {
+        if ($voucher) {
+            $voucherInfo = voucher_select_by_id($voucher);
+            $voucherData .= $voucherInfo['code'] . ' (';
+            if ($voucherInfo['condition']) {
+                // nếu giảm theo tiền
+                $voucherData .= 'Giảm ' . number_format($voucherInfo['voucher_number']) . ' VNĐ';
+            } else {
+                $voucherData .= 'Giảm ' . $voucherInfo['voucher_number'] . '%';
+            }
+            $voucherData .= '), ';
+        }
+    }
+
     // thông tin website
     $infoWebsite = settings_select_all();
 
@@ -20,7 +37,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hóa đơn</title>
+        <title>Hóa đơn - '.$orderInfo['customer_name'].'</title>
         <style>
             * {
                 font-family: DejaVu Sans, sans-serif;
@@ -74,7 +91,7 @@
                 padding: 6px 0;
             }
     
-            .table__content td {
+            .table__content td, tfoot td {
                 padding: 4px 12px;
             }
     
@@ -133,7 +150,18 @@
                             <div class="header__bottom-group">
                                 <label for="" class="header__bottom-label">Mã hóa đơn:</label>
                                 ' . $orderInfo['id'] . '
-                            </div>
+                            </div>';
+
+                            if ($voucherData) {
+                                $html .= '
+                                <div class="header__bottom-group">
+                                    <label for="" class="header__bottom-label">Voucher:</label>
+                                    ' . substr($voucherData, 0, -2) . '
+                                </div>
+                                ';
+                            }
+
+                            $html .= '
                             <div class="header__bottom-group">
                                 <label for="" class="header__bottom-label">Khách hàng:</label>
                                 ' . $orderInfo['customer_name'] . '
@@ -189,7 +217,9 @@
                 <tbody class="table__content">';
 
                 $stt = 0;
+                $totalPrice = 0;
                 foreach ($listOrderDetail as $item) {
+                    $totalPrice += $item['quantity'] * $item['price'];
                     $stt++;
                     $html .= '
                     <tr>
@@ -202,8 +232,40 @@
                     </tr>';
                 }
 
+                // tính tổng tiền được giảm khi áp vc
+                $totalPriceVc = 0;
+                foreach ($vouchers as $voucher) {
+                    if ($voucher) {
+                        $voucherInfo = voucher_select_by_id($voucher);
+                        if ($voucherInfo['condition']) {
+                            // nếu giảm theo tiền
+                            $totalPriceVc += $voucherInfo['voucher_number'];
+                        } else {
+                            $totalPriceVc += $totalPrice * $voucherInfo['voucher_number'] / 100;
+                        }
+                    }
+                }
+
                 $html .= '
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            Tạm tính
+                        </td>
+                        <td colspan="4">
+                            '. number_format($totalPrice, 0, '', '.') .' VNĐ
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Tổng giảm
+                        </td>
+                        <td colspan="4">
+                            '. number_format($totalPriceVc, 0, '', '.') .' VNĐ
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
             <footer class="footer">
                 <div class="footer__totalPrice">

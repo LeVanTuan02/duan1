@@ -197,9 +197,9 @@
                         <li class="menu__mobile-item">
                             <a href="<?=$SITE_URL;?>/product" class="menu__mobile-item-link">Thực đơn</a>
                         </li>
-                        <li class="menu__mobile-item">
+                        <!-- <li class="menu__mobile-item">
                             <a href="#" class="menu__mobile-item-link">Tin tức</a>
-                        </li>
+                        </li> -->
                         <li class="menu__mobile-item">
                             <a href="<?=$SITE_URL;?>/home?contact" class="menu__mobile-item-link">Liên hệ</a>
                         </li>

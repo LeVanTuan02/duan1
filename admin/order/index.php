@@ -2,8 +2,10 @@
 
     require_once '../../global.php';
     require_once '../../dao/order.php';
+    require_once '../../dao/voucher.php';
     require_once '../../dao/attribute.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/order_logs.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/order_detail.php';
 
@@ -54,6 +56,8 @@
             default:
                 order_update_status($status, $updated_at, $id);
         }
+
+        log_insert($id, $status, $_SESSION['user']['id'], $updated_at);
         header('Location: ' . $ADMIN_URL . '/order/?detail&id=' . $id);
     } else if (array_key_exists('detail', $_REQUEST)) {
         $titlePage = 'Order Details';
@@ -62,6 +66,9 @@
 
         // thông tin hóa đơn
         $orderInfo = order_select_by_id($id);
+
+        // mảng voucher
+        $vouchers = explode(',', $orderInfo['voucher']);
 
         $VIEW_PAGE = "detail.php";
     } else if (array_key_exists('invoice', $_REQUEST)) {
@@ -127,6 +134,76 @@
         }
         $html = array_map('renderOrder', $listOrder);
         echo join('', $html);
+        die();
+    } else if (array_key_exists('btn_log', $_REQUEST)) {
+        $logInfo = log_select_by_oid($order_id);
+        $htmlLog = '';
+
+        $htmlLog .= '
+        <div class="logs__inner-body-item">
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Tên khách hàng</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . $logInfo[0]['customer_name'] . '">
+            </div>
+
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Số điện thoại</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . $logInfo[0]['phone'] . '">
+            </div>
+
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Email</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . $logInfo[0]['email'] . '">
+            </div>
+
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Địa chỉ giao hàng</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . $logInfo[0]['address'] . '">
+            </div>
+
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Thời gian đặt hàng</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . date('d/m/Y H:i', strtotime($logInfo[0]['time_order'])) . '">
+            </div>
+
+            <div class="logs__inner-body-group">
+                <label for="" class="logs__inner-body-label">Ghi chú</label>
+                <input type="text" class="logs__inner-body-control" disabled value="' . $logInfo[0]['message'] . '">
+            </div>
+        </div>
+        <div class="logs__inner-body-item logs__inner-body-item-log">
+            <table class="logs__inner-body-item-table">
+        ';
+
+        foreach ($logInfo as $key => $item) {
+            if ($item['status'] == 0) {
+                $status = 'Mới đặt hàng';
+            } else if ($item['status'] == 1) {
+                $status = 'Đã xác nhận';
+            } else if ($item['status'] == 2) {
+                $status = 'Đang giao hàng';
+            } else if ($item['status'] == 3) {
+                $status = 'Đã giao hàng';
+            } else if ($item['status'] == 4) {
+                $status = 'Đã hủy';
+            }
+
+            $userInfo = $item['user_id'] ? $item['fullName'] . ' (' . $item['username'] . ')' : $logInfo[0]['customer_name'];
+
+            $htmlLog .= '
+            <tr>
+                <td>'.($key + 1).'</td>
+                <td>'. $status .'</td>
+                <td>' . $userInfo . '</td>
+                <td>'. date('d/m/Y H:i', strtotime($item['created_at'])) .'</td>
+            </tr>
+            ';
+        }
+
+        $htmlLog .= '</table>
+        </div>';
+
+        echo $htmlLog;
         die();
     } else {
         $titlePage = 'List Order';

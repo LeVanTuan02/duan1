@@ -55,6 +55,7 @@
                                 <th>Ngày tạo</th>
                                 <td>Số lượng</td>
                                 <td>Loại hàng</td>
+                                <td>Rating</td>
                                 <th>Trạng thái</th>
                                 <th>Hành động</th>
                             </tr>
@@ -86,6 +87,7 @@
                                 </td>
                                 <td><?=$item['totalProduct'] ?? 0;?></td>
                                 <td><?=$item['cate_name'];?></td>
+                                <td><?=number_format($item['rating'], 1);?>/5</td>
                                 <td>
                                     <?php if ($item['status']): ?>
                                     <span class="content__table-stt-active">Còn hàng</span>

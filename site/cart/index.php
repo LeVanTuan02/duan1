@@ -7,6 +7,7 @@
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
     require_once '../../dao/voucher.php';
+    require_once '../../dao/order_logs.php';
 
     $isWebsiteOpen = settings_select_all();
     if (!$isWebsiteOpen || !$isWebsiteOpen['status']) header('Location: ' . $SITE_URL . '/home/close.php');
@@ -268,21 +269,26 @@
 
             // cập nhật số lượng voucher và tính tổng tiền giảm
             $totalPriceVoucher = 0; //tổng tiền được giảm từ voucher
-            foreach ($_SESSION['voucher'] as $voucher) {
-                voucher_update_qnt($voucher['id']);
+            $voucher = '';
+            foreach ($_SESSION['voucher'] as $voucherItem) {
+                voucher_update_qnt($voucherItem['id']);
                 // nếu giảm theo tiền
-                if($voucher['condition']) {
-                    $totalPriceVoucher += $voucher['voucher_number'];
+                if($voucherItem['condition']) {
+                    $totalPriceVoucher += $voucherItem['voucher_number'];
                 } else {
                     // giảm theo % tổng đơn
-                    $totalPriceVoucher += ($total_price * $voucher['voucher_number'])/100;
+                    $totalPriceVoucher += ($total_price * $voucherItem['voucher_number'])/100;
                 }
+
+                $voucher .= $voucherItem['id'] . ',';
             }
+            if ($voucher) $voucher = substr($voucher, 0, -1);
+
             $total_price = $total_price - $totalPriceVoucher;
             $total_price = $total_price > 0 ? $total_price : 0; //tổng tiền đã trừ voucher
 
             // insert order
-            $orderId = order_insert($user_id, $customer_name, $customer_address, $customer_phone, $customer_email, $total_price, $customer_message, 0, $created_at, $created_at);
+            $orderId = order_insert($user_id, $customer_name, $customer_address, $customer_phone, $customer_email, $total_price, $customer_message, 0, $voucher, $created_at, $created_at);
 
             // insert order_detail và giảm số lượng sp
             foreach ($_SESSION['cart'] as $item) {
@@ -301,6 +307,9 @@
             // thông báo cho admin
             order_send_mail_admin($customer_email, $customer_name, $customer_address, $customer_phone, $customer_message, $total_price, $totalPriceVoucher);
 
+            // lưu vào logs
+            log_insert($orderId, 0, $user_id, $created_at);
+            
             // xóa session giỏ hàng
             unset($_SESSION['cart']);
             // xóa voucher

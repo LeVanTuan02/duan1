@@ -31,6 +31,8 @@
                         <?php endif; ?>
 
                         <a href="<?=$ADMIN_URL;?>/order" class="content__header-item-btn">DS hóa đơn</a>
+
+                        <button class="content__header-item-btn content__header-item-btn--log" data-order-id="<?=$orderInfo['id'];?>">Logs</button>
                     </div>
                 </div>
             </header>
@@ -122,6 +124,62 @@
                     </table>
                 </div>
 
+                <!-- thông tin chi tiết -->
+                <div class="content__table-wrap">
+                    <div class="content__table-heading-wrap">
+                        <div class="content__table-heading">
+                            <h3 class="content__table-title">Thông tin chi tiết đơn hàng</h3>
+                        </div>
+                    </div>
+
+                    <table class="content__table-table content__table-ship">
+                        <tbody class="content__table-body">
+                            <tr>
+                                <td>Tiền tạm tính:</td>
+                                <td><?=number_format($totalPrice);?> VNĐ</td>
+                            </tr>
+                            <?php
+                                // tính tổng tiền được giảm khi áp vc
+                                $totalPriceVc = 0;
+                                $voucherData = '';
+                                foreach ($vouchers as $voucher) {
+                                    if ($voucher) {
+                                        $voucherInfo = voucher_select_by_id($voucher);
+                                        $voucherData .= $voucherInfo['code'] . ' (';
+                                        if ($voucherInfo['condition']) {
+                                            // nếu giảm theo tiền
+                                            $totalPriceVc += $voucherInfo['voucher_number'];
+                                            $voucherData .= 'Giảm ' . number_format($voucherInfo['voucher_number']) . ' VNĐ';
+                                        } else {
+                                            $totalPriceVc += $totalPrice * $voucherInfo['voucher_number'] / 100;
+                                            $voucherData .= 'Giảm ' . $voucherInfo['voucher_number'] . '%';
+                                        }
+                                        $voucherData .= '), ';
+                                    }
+                                }
+                            ?>
+
+                            <!-- nếu áp voucher -->
+                            <?php if ($voucherData): ?>
+                                <tr>
+                                    <td>Voucher đã sử dụng:</td>
+                                    <td><?=substr($voucherData, 0, -2);?></td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng giảm:</td>
+                                    <td><?=number_format($totalPriceVc);?> VNĐ</td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <tr>
+                                <td>Tổng tiền:</td>
+                                <td><?=number_format($orderInfo['total_price']);?> VNĐ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- thông tin vận chuyển -->
                 <div class="content__table-wrap">
                     <div class="content__table-heading-wrap">
                         <div class="content__table-heading">
@@ -157,6 +215,34 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- lịch sử -->
+            <div class="logs__wrapper">
+                <div class="logs__overlay"></div>
+
+                <div class="logs__inner">
+                    <div class="logs__inner-header">
+                        <h2 class="logs__inner-header-title">
+                            <div class="logs__inner-header-title-icon">
+                                <i class="fas fa-sync"></i>
+                            </div>
+                            Chi tiết đơn hàng
+                        </h2>
+
+                        <div class="logs__inner-header-icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
+
+                    <div class="logs__inner-body">
+                                
+                    </div>
+
+                    <div class="logs__inner-footer">
+                        <button class="logs__inner-footer-close">Close</button>
+                    </div>
                 </div>
             </div>
         </main>

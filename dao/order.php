@@ -2,10 +2,10 @@
 
     require_once 'pdo.php';
 
-    function order_insert($user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at, $updated_at) {
-        $sql = "INSERT INTO `order`(user_id, customer_name, address, phone, email, total_price, message, status, created_at, updated_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return pdo_execute($sql, $user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $created_at, $updated_at);
+    function order_insert($user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $voucher, $created_at, $updated_at) {
+        $sql = "INSERT INTO `order`(user_id, customer_name, address, phone, email, total_price, message, status, voucher, created_at, updated_at)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return pdo_execute($sql, $user_id, $customer_name, $address, $phone, $email, $total_price, $message, $status, $voucher, $created_at, $updated_at);
     }
 
     // function order_show($start = '', $limit = ''){

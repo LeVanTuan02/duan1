@@ -142,6 +142,7 @@
                 </td>
                 <td>' . ($product_item['totalProduct'] ?? 0) . '</td>
                 <td>' . $product_item['cate_name'] . '</td>
+                <td>' . number_format($product_item['rating'], 1) . '/5</td>
                 <td>';
                 
                 if ($product_item['status']) {

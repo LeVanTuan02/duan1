@@ -281,7 +281,7 @@
                     </li>
 
                     <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/analytics/?feedback" class="sidebar__menu-link">
+                        <a href="<?=$ADMIN_URL;?>/feedback" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
                                 <i class="fas fa-chart-line"></i>
                             </span>

@@ -26,9 +26,10 @@
     }
 
     function product_select_all($start = 0, $limit = 0) {
-        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct
-        FROM ((product p LEFT JOIN attribute a ON p.id = a.product_id)
+        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct, AVG(r.rating_number) AS rating
+        FROM (((product p LEFT JOIN attribute a ON p.id = a.product_id)
         JOIN category c ON p.cate_id = c.id)
+        LEFT JOIN rating r ON p.id = r.product_id)
         GROUP BY p.id
         ORDER BY id DESC";
         if ($limit) {
@@ -39,9 +40,11 @@
 
     // tìm kiếm backend
     function product_search($keyword, $cate_id) {
-        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct
-        FROM ((product p LEFT JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id) WHERE 1";
+        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct, AVG(r.rating_number) AS rating
+        FROM (((product p LEFT JOIN attribute a ON p.id = a.product_id)
+        JOIN category c ON p.cate_id = c.id)
+        LEFT JOIN rating r ON p.id = r.product_id)
+        WHERE 1";
 
         $sql_last = " GROUP BY p.id ORDER BY id DESC";
 
