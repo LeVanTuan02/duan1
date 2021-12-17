@@ -60,4 +60,45 @@
         $sql = "UPDATE voucher SET quantity = quantity - 1 WHERE id = ?";
         pdo_execute($sql, $id);
     }
+
+    // kiểm tra khách hàng đã sd voucher
+    function voucher_check_user_used($user_id, $voucher_code) {
+        $sql = "SELECT * FROM voucher WHERE `code` = ?";
+        $used_ids = pdo_query_one($sql, $voucher_code);
+
+        // nếu chưa có id user nào
+        if (!$used_ids['used_id']) {
+            return false;
+        } else {
+            $used_ids = explode(',', $used_ids['used_id']);
+            $isUserUsed = false;
+
+            foreach ($used_ids as $id) {
+                if ($id == $user_id) {
+                    $isUserUsed = true;
+                }
+            }
+
+            return $isUserUsed;
+        }
+
+    }
+
+    // insert id người sd voucher
+    function voucher_insert_user_used($user_id, $voucher_id) {
+        $sql = "SELECT * FROM voucher WHERE id = ?";
+        $used_ids = pdo_query_one($sql, $voucher_id);
+
+        $sql_update_used_id = "UPDATE voucher SET used_id = ? WHERE id = ?";
+
+        // nếu chưa có id nào sử dụng vc
+        if (!$used_ids['used_id']) {
+            pdo_execute($sql_update_used_id, $user_id, $voucher_id);
+        } else {
+            $used_id_arr = explode(',', $used_ids['used_id']);
+            $used_id_arr[] = $user_id;
+            $user_id_str = implode(',', $used_id_arr);
+            pdo_execute($sql_update_used_id, $user_id_str, $voucher_id);
+        }
+    }
 ?>

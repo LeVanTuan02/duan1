@@ -15,6 +15,8 @@
 
         $product['product_name'] = $product_name ?? '';
         $product['cate_id'] = $cate_id ?? '';
+        $product['price'] = $price ?? '';
+        $product['status'] = $status ?? '';
         $product['discount'] = $discount ?? '';
         $product['description'] = $description ?? '';
 
@@ -26,6 +28,18 @@
 
         if (!$product['cate_id']) {
             $errorMessage['cate_id'] = 'Vui lòng chọn loại hàng';
+        }
+
+        if ($product['price'] == '') {
+            $errorMessage['price'] = 'Vui lòng nhập giá sản phẩm';
+        } else if (!is_numeric($product['price'])) {
+            $errorMessage['price'] = 'Vui lòng nhập giá sản phẩm';
+        } else if ($product['price'] < 0) {
+            $errorMessage['price'] = 'Vui lòng nhập giá là số dương';
+        }
+
+        if ($product['status'] == '') {
+            $errorMessage['status'] = 'Vui lòng chọn trạng thái sản phẩm';
         }
 
         if ($product['discount'] == '') {
@@ -45,7 +59,7 @@
             $product_image = save_file('product_image', $IMG_PATH . '/');
             $product_image = strlen($product_image) > 0 ? $product_image : 'image_default.png';
 
-            product_insert($product_name, $product_image, $description, $cate_id, $discount, $date, $date);
+            product_insert($product_name, $product_image, $price, $description, $cate_id, $discount, $status, $date, $date);
 
             $MESSAGE = "Thêm sản phẩm thành công";
             unset($product);
@@ -65,6 +79,8 @@
 
         $product['product_name'] = $product_name ?? '';
         $product['cate_id'] = $cate_id ?? '';
+        $product['price'] = $price ?? '';
+        $product['status'] = $status ?? '';
         $product['discount'] = $discount ?? '';
         $product['description'] = $description ?? '';
 
@@ -76,6 +92,18 @@
 
         if (!$product['cate_id']) {
             $errorMessage['cate_id'] = 'Vui lòng chọn loại hàng';
+        }
+
+        if ($product['price'] == '') {
+            $errorMessage['price'] = 'Vui lòng nhập giá sản phẩm';
+        } else if (!is_numeric($product['price'])) {
+            $errorMessage['price'] = 'Vui lòng nhập giá sản phẩm';
+        } else if ($product['price'] < 0) {
+            $errorMessage['price'] = 'Vui lòng nhập giá là số dương';
+        }
+
+        if ($product['status'] == '') {
+            $errorMessage['status'] = 'Vui lòng chọn trạng thái sản phẩm';
         }
 
         if ($product['discount'] == '') {
@@ -95,7 +123,7 @@
             $product_image = save_file('product_image', $IMG_PATH . '/');
             $product_image = strlen($product_image) > 0 ? $product_image : $productInfo['product_image'];
 
-            product_update($product_name, $product_image, $description, $cate_id, $discount, $date, $id);
+            product_update($product_name, $product_image, $price, $description, $cate_id, $discount, $status, $date, $id);
 
             $MESSAGE = "Cập nhật sản phẩm thành công, hệ thống tự động chuyển hướng sau 3s";
             header('Refresh: 3; URL = ' . $ADMIN_URL . '/product');
@@ -135,20 +163,20 @@
                 <td>
                     ' . $product_item['view'] . '
                 </td>
+                <td>' . number_format($product_item['price']) . ' VNĐ</td>
                 <td>
                     <span class="content__table-text-success">
                         ' . date_format(date_create($product_item['created_at']), 'd/m/Y') . '
                     </span>
                 </td>
-                <td>' . ($product_item['totalProduct'] ?? 0) . '</td>
                 <td>' . $product_item['cate_name'] . '</td>
                 <td>' . number_format($product_item['rating'], 1) . '/5</td>
                 <td>';
                 
                 if ($product_item['status']) {
-                    $html .= '<span class="content__table-stt-active">Còn hàng</span>';
+                    $html .= '<span class="content__table-stt-active">Hiển thị</span>';
                 } else {
-                    $html .= '<span class="content__table-stt-locked">Hết hàng</span>';
+                    $html .= '<span class="content__table-stt-locked">Ẩn</span>';
                 }
 
                 $html .= '
@@ -182,7 +210,7 @@
         $currentPage = $page ?? 1;
 
         if ($currentPage <= 0) {
-            header('Location: ' . $ADMIN_URL . '/order/?page=1');
+            header('Location: ' . $ADMIN_URL . '/product/?page=1');
         } else if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
         }

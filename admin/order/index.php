@@ -3,8 +3,6 @@
     require_once '../../global.php';
     require_once '../../dao/order.php';
     require_once '../../dao/voucher.php';
-    require_once '../../dao/attribute.php';
-    require_once '../../dao/product.php';
     require_once '../../dao/order_logs.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/order_detail.php';
@@ -26,14 +24,6 @@
         switch ($status) {
             // 0 - đơn mới, 1 - đã xác nhận, 2 - đang giao, 3 - đã giao, 4 - hủy
             case '4':
-                // cập nhật sl của sp
-                foreach ($orderDetail as $order) {
-                    attribute_update_more_quantity($order['product_id'], $order['product_size'], $order['quantity']);
-
-                    // cập nhật trạng thái sp (còn hàng, hết hàng)
-                    product_update_status($order['product_id']);
-                }
-
                 // cập nhật trạng thái đơn hàng
                 order_update_status($status, $updated_at, $id);
 

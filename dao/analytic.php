@@ -27,11 +27,10 @@
     }
 
     // thống kê giá sản phẩm theo danh mục
-    function analytics_price_product_by_cate() {
-        $sql = "SELECT c.cate_name, c.id, MAX(price) AS maxPrice, MIN(price) AS minPrice, AVG(price) AS avgPrice
-        FROM ((product p JOIN category c ON p.cate_id = c.id) LEFT JOIN attribute a ON p.id = a.product_id)
-        GROUP BY c.id
-        ORDER BY c.id DESC";
+    function analytics_cate_by_product() {
+        $sql = "SELECT c.cate_name, COUNT(*) AS totalProduct, MIN(p.price) AS minPrice, MAX(p.price) AS maxPrice, AVG(p.price) AS avgPrice
+        FROM category c JOIN product p ON c.id = p.cate_id
+        GROUP BY c.id";
         return pdo_query($sql);
     }
 
@@ -49,12 +48,12 @@
 
     // thống kê sp bán chạy
     function analytics_product_trend() {
-        $sql = "SELECT p.*, COUNT(*) AS total
+        $sql = "SELECT p.*, SUM(o.quantity) AS total
         FROM ((order_detail o JOIN product p ON o.product_id = p.id)
         JOIN `order` od ON o.order_id = od.id)
         WHERE od.`status` = 3
         GROUP BY p.id
-        ORDER BY COUNT(*) DESC
+        ORDER BY SUM(o.quantity) DESC
         LIMIT 10";
         return pdo_query($sql);
     }

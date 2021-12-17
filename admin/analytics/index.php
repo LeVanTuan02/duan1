@@ -32,7 +32,6 @@
 
         // tổng sp hiện có
         $totalProduct = count(product_select_all());
-        // var_dump(product_select_all());
 
         // tổng tài khoản
         $totalUser = count(user_select_all());
@@ -70,18 +69,8 @@
         header('location: '. $ADMIN_URL.'/analytics?feedback');
     }else {
         $titlePage = 'Product Analytics';
-        $quantityAnalytics = analytics_quantity_product_by_cate();
-        $priceAnalytics = analytics_price_product_by_cate();
         
-        $dataAnalytics = [];
-        foreach ($quantityAnalytics as $qnt) {
-            foreach ($priceAnalytics as $price) {
-                if ($qnt['id'] == $price['id']) {
-                    $newArr = array_merge($qnt, $price);
-                    array_push($dataAnalytics, $newArr);
-                }
-            }
-        }
+        $categoryAnalytics = analytics_cate_by_product();
 
         $VIEW_PAGE = "list.php";
     }

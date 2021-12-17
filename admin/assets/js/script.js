@@ -156,42 +156,6 @@ function order_search(keyword, status) {
     });
 }
 
-// tìm kiếm đơn hàng của tôi (be)
-$('.form__control-my-order').on('keyup', function() {
-    var keyword = $(this).val();
-    var status = $(this).next().val();
-    my_cart_search(keyword, status);
-});
-
-$('.form__select-my-order').on('change', function() {
-    var keyword = $(this).prev().val();
-    var status = $(this).val();
-    my_cart_search(keyword, status);
-});
-
-function my_cart_search(keyword, status) {
-    $.ajax({
-        url: admin_url + '/account/index.php',
-        type: 'POST',
-        data: {
-            keyword: keyword,
-            status: status
-        },
-        success: function(result) {
-            if (result.trim()) {
-                $('.content__table-table tbody').html(result);
-            } else {
-                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy đơn hàng nào</div>`);
-            }
-            // ẩn phân trang
-            $('.content__table-pagination').hide();
-        },
-        error: function() {
-            console.log('Lỗi');
-        }
-    });
-}
-
 // tìm kiếm sản phẩm trang be
 $('.form__control-product').on('keyup', function() {
     var keyword = $(this).val();
@@ -372,31 +336,6 @@ $('.form__control-booking').on('keyup', function() {
     });
 });
 
-// đặt bàn của tôi//
-$('.form__control-my-booking').on('keyup', function() {
-    var keyword = $(this).val();
-    $.ajax({
-        url: admin_url + '/account/index.php',
-        type: 'POST',
-        data: {
-            booking_search: '',
-            bk_keyword: keyword
-        },
-        success: function(result) {
-            if (result.trim()) {
-                $('.content__table-table tbody').html(result);
-            } else {
-                $('.content__table-table tbody').html(`<div class="alert alert-success">Không tìm thấy kết quả nào</div>`);
-            }
-            // ẩn phân trang
-            $('.content__table-pagination').hide();
-        },
-        error: function() {
-            console.log('Lỗi');
-        }
-    });
-});
-
 // button logs
 $('.content__header-item-btn--log').on('click', function() {
     var order_id = $(this).attr('data-order-id');
@@ -406,25 +345,6 @@ $('.content__header-item-btn--log').on('click', function() {
         type: 'POST',
         data: {
             btn_log: '',
-            order_id: order_id
-        }, success: function(data) {
-            $('.logs__inner-body').html(data);
-            toggleLogs();
-        }, error: function() {
-            alert('Có lỗi xảy ra, vui lòng thử lại');
-        }
-    });
-});
-
-// my cart log
-$('.btn-my-cart-log').on('click', function() {
-    var order_id = $(this).attr('data-order-id');
-
-    $.ajax({
-        url: admin_url + '/account/index.php',
-        type: 'POST',
-        data: {
-            my_cart_log: '',
             order_id: order_id
         }, success: function(data) {
             $('.logs__inner-body').html(data);

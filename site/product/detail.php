@@ -1,16 +1,13 @@
         <div class="content">
-            <div class="content_1">
+            <div class="content_1 grid">
 
                 <div class="content_on">
 
                     <div class="content_pro">
-                        <button class="content__menu-item-icon-heart" data-id="<?=$itemData['id'];?>">
+                        <button class="content__menu-item-icon-heart <?=$isProductFavorite ? 'heart-active' : '';?>" data-id="<?=$itemData['id'];?>">
                             <i class="fas fa-heart"></i>
                         </button>
-                        <img src="<?=$IMG_URL . '/' . $itemData['product_image'];?>" alt="" width="80%" height="auto">
-                        <!-- <button><a href="#"><span class="material-icons-outlined">
-                                    zoom_out_map
-                                </span></a></button> -->
+                        <img src="<?=$IMG_URL . '/' . $itemData['product_image'];?>" alt="">
                     </div>
 
                 </div>
@@ -22,28 +19,77 @@
                         /
                         <a href="<?=$SITE_URL . '/product/?category&cate_id=' . $itemData['cate_id'];?>"><?=$itemData['cate_name'];?></a>
                     </nav>
-                    <H1><?= $itemData['product_name']; ?></H1>
-                    <div>
-                        -----
-                    </div>
-                    <span class="product_price"><?= $itemData['quantity'] ? number_format($itemData['price']) . 'đ' : 'Hết hàng';?></span>
+                    
+                    <h1><?= $itemData['product_name']; ?></h1>
+                    <ul class="product__analytics">
+                        <?php if ($productRating['total'] > 0): ?>
+                        <li class="product__analytics-item">
+                            <div class="stars">
+                                <!-- số sao còn lại -->
+                                <?php for($i = 1; $i <= (5 - ceil($productRating['rating'])); $i++):?>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <?php endfor; ?>
+
+                                <!-- số đánh giá -->
+                                <?php for($i = 1; $i <= ceil($productRating['rating']); $i++):?>
+                                <div class="star star__item--active">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <?php endfor; ?>
+                            </div>
+                        </li>
+
+                        <li class="product__analytics-item"><?=$productRating['total']?> Đánh giá</li>
+                        <?php else: ?>
+                        <li class="product__analytics-item">
+                            <div class="stars">
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="product__analytics-item">0 Đánh giá</li>
+                        <?php endif; ?>
+
+                        <li class="product__analytics-item"><?=$productSold['total'] > 0 ? $productSold['total'] : 0;?> Đã bán</li>
+                    </ul>
+                    
+                    <span class="product_price"><?=number_format($itemData['price']);?> ₫</span>
                     <div class="info">
                         <?=$itemData['description'];?>
                     </div>
 
-                    <p class="status product__quantity">Còn <?=$itemData['quantity'];?> sản phẩm</p>
 
                     <form class="cart" action="" onsubmit="return false;">
 
                         <select name="size" id="" data-id="<?= $itemData['id']; ?>">
-                            <option value="S" <?=$itemData['size'] == 'S' ? 'selected': '';?> >Size S</option>
-                            <option value="M" <?=$itemData['size'] == 'M' ? 'selected': '';?> >Size M</option>
-                            <option value="L" <?=$itemData['size'] == 'L' ? 'selected': '';?> >Size L</option>
+                            <option value="S">Size S</option>
+                            <?php foreach($listSize as $size): ?>
+                                <option value="<?=$size['product_size'];?>">Size <?=$size['product_size'];?></option>
+                            <?php endforeach; ?>
                         </select>
 
-                        <input class="minus" type="submit" value="-" onclick="quantity.value = Number(quantity.value) - 1;">
-                        <input class="text" type="number" value="1" name="quantity" min="1">
-                        <input class="plus" onclick="quantity.value = Number(quantity.value) + 1;" type="submit" value="+">
+                        <div class="add-cart-quantity">
+                            <input class="minus" type="submit" value="-" onclick="updateQuantity(event, 'minus')">
+                            <input class="text" type="number" value="1" name="quantity" min="0">
+                            <input class="plus" onclick="updateQuantity(event, 'plus')" type="submit" value="+">
+                        </div>
+
 
                         <button class="submit" name="submit">THÊM VÀO GIỎ HÀNG</button>
                     </form>
@@ -53,7 +99,7 @@
             </div>
             <!-- end_under -->
 
-            <div class="feedback">
+            <div class="feedback grid">
                 
                 <ul>
                     <li>Đánh giá</li>
@@ -96,9 +142,9 @@
                         </p>
 
                         <label class="nx" for="">Nhận xét của bạn*</label>
-                        <textarea name="" id="" cols="30" rows="10" class="form__comment-content"></textarea>
+                        <textarea name="" id="" cols="30" rows="10" class="form__comment-content input"></textarea>
 
-                        <input type="submit" value="Gửi đi" class="form__comment_btn">
+                        <input type="submit" value="Gửi đi" class="form__comment_btn btn">
                     </form>
                 </div>
                 <?php endif; ?>

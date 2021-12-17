@@ -41,4 +41,10 @@
         return pdo_query_one($sql, $p_id, $u_id);;
     }
 
+    // lấy số lượt đánh giá
+    function rating_select_by_p_id($product_id) {
+        $sql = "SELECT COUNT(*) AS total, AVG(rating_number) AS rating FROM rating WHERE product_id = ?";
+        return pdo_query_one($sql, $product_id);
+    }
+
 ?>

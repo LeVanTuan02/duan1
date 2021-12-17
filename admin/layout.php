@@ -30,8 +30,6 @@
 
             <div class="sidebar__menu-wrapper">
                 <ul class="sidebar__menu-nav">
-                    <!-- nếu là admin -->
-                    <?php if($_SESSION['user']['role']): ?>
                     <li class="sidebar__menu-item">
                         <a href="<?=$ADMIN_URL;?>/analytics/?chart" class="sidebar__menu-link">
                             <span class="sidebar__menu-icon">
@@ -40,7 +38,6 @@
                             <span class="sidebar__menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <?php endif; ?>
 
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">Profile</h4>
@@ -67,35 +64,6 @@
                         </a>
                     </li>
 
-                    <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/account/?cart" class="sidebar__menu-link">
-                            <span class="sidebar__menu-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </span>
-                            <span class="sidebar__menu-text">Đơn hàng của tôi</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/account/?booking" class="sidebar__menu-link">
-                            <span class="sidebar__menu-icon">
-                                <i class="fas fa-calendar-times"></i>
-                            </span>
-                            <span class="sidebar__menu-text">Lịch sử đặt bàn</span>
-                        </a>
-                    </li>
-
-                    <!-- <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/account/?btn_test" class="sidebar__menu-link">
-                            <span class="sidebar__menu-icon">
-                            <i class="fas fa-align-left"></i>
-                            </span>
-                            <span class="sidebar__menu-text">Thống kê theo ngày</span>
-                        </a>
-                    </li> -->
-    
-                    <!-- nếu là admin -->
-                    <?php if($_SESSION['user']['role']): ?>
                     <li class="sidebar__menu-session">
                         <h4 class="sidebar__menu-session-text">Order</h4>
                         <div class="aside_menu-session-icon hide">
@@ -236,15 +204,6 @@
                             <span class="sidebar__menu-text">Danh sách sản phẩm</span>
                         </a>
                     </li>
-
-                    <li class="sidebar__menu-item">
-                        <a href="<?=$ADMIN_URL;?>/attribute" class="sidebar__menu-link">
-                            <span class="sidebar__menu-icon">
-                                <i class="fas fa-list"></i>
-                            </span>
-                            <span class="sidebar__menu-text">Danh sách thuộc tính</span>
-                        </a>
-                    </li>
     
                     <li class="sidebar__menu-item">
                         <a href="<?=$ADMIN_URL;?>/product/?btn_add" class="sidebar__menu-link">
@@ -252,6 +211,31 @@
                                 <i class="fas fa-plus"></i>
                             </span>
                             <span class="sidebar__menu-text">Thêm sản phẩm</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar__menu-session">
+                        <h4 class="sidebar__menu-session-text">Size</h4>
+                        <div class="aside_menu-session-icon hide">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </li>
+    
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/size" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-list"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Danh sách size </span>
+                        </a>
+                    </li>
+    
+                    <li class="sidebar__menu-item">
+                        <a href="<?=$ADMIN_URL;?>/size/?btn_add" class="sidebar__menu-link">
+                            <span class="sidebar__menu-icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="sidebar__menu-text">Thêm size</span>
                         </a>
                     </li>
 
@@ -329,7 +313,6 @@
                             <span class="sidebar__menu-text">Cấu hình hệ thống</span>
                         </a>
                     </li>
-                    <?php endif; ?>
                 </ul>
             </div>
         </aside>

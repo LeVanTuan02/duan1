@@ -91,7 +91,14 @@
                             <div class="content__menu-item-image">
                                 <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__menu-item-image-link" style="background-image: url('<?=$IMG_URL . '/' . $item['product_image'];?>')"></a>
                                 <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" class="content__menu-item-btn">Xem chi tiết</a>
-                                <button class="content__menu-item-icon content__menu-item-icon-heart" data-id="<?=$item['id'];?>">
+                                <?php
+                                    // kiểm tra sp yêu thích
+                                    $isProductFavorite = false;
+                                    if (isset($_SESSION['user']['id']) && favorite_exits($_SESSION['user']['id'], $item['id'])) {
+                                        $isProductFavorite = true;
+                                    }
+                                ?>
+                                <button class="content__menu-item-icon content__menu-item-icon-heart <?=$isProductFavorite ? 'heart-active' : '';?>" data-id="<?=$item['id'];?>">
                                     <i class="fas fa-heart"></i>
                                 </button>
                                 <!-- <a href="<?=$SITE_URL . '/cart/?add_cart&id=' . $item['id'];?>" class="content__menu-item-icon content__menu-item-icon-cart">
@@ -118,7 +125,7 @@
                         <div class="content__time-text">
                             <h2 class="content__time-text-title">THỜI GIAN MỞ CỬA</h2>
                             <p class="content__time-text-desc">
-                                “Cà phê nhé” – Một lời hẹn rất riêng của người Việt.
+                                “Trà chanh nhé” – Một lời hẹn rất riêng của người Việt.
                                 Một lời ngỏ mộc mạc để mình ngồi lại bên nhau và sẻ chia câu chuyện của riêng mình.
                             </p>
                             <p class="content__time-text-desc">T2 – T6: 7h00 – 22h00</p>

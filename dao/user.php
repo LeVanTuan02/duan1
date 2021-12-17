@@ -197,4 +197,11 @@
         $sql = "SELECT COUNT(*) FROM user";
         return pdo_query_value($sql);
     }
+
+    function check_user_logged() {
+        if (isset($_SESSION['user']['id'])) {
+            return true;
+        }
+        return false;
+    }
 ?>

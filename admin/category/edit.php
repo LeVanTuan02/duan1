@@ -22,7 +22,7 @@
                             <div class="form-control">
                                 <input type="text" name="ten_loai" placeholder="Nhập tên loại hàng" value="<?=$category['cate_name'] ?? $categoryData['cate_name'];?>">
                                 <span class="form-message">
-                                    <?=$errorMessage['image_name'] ?? '';?>
+                                    <?=$errorMessage['cate_name'] ?? '';?>
                                 </span>
                             </div>
                         </div>

@@ -155,9 +155,9 @@
         $VIEW_PAGE = 'edit.php';
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         // không xóa chính mình
-        if (is_array($ma_kh)) {
-            foreach ($ma_kh as $item) {
-                if ($_SESSION['auth']['id'] != $item) {
+        if (is_array($id)) {
+            foreach ($id as $item) {
+                if ($_SESSION['user']['id'] != $item) {
                     user_delete($item);
                 } else {
                     echo
@@ -169,8 +169,8 @@
                 }
             }
         } else {
-            if ($_SESSION['user']['id'] != $ma_kh) {
-                user_delete($ma_kh);
+            if ($_SESSION['user']['id'] != $id) {
+                user_delete($id);
                 header('Location: ' . $ADMIN_URL . '/user');
             } else {
                 echo

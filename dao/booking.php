@@ -270,7 +270,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt bàn</td>
-                                    <td style="padding: 10px 12px;">' . date('y/m/Y', strtotime($bookingInfo['date_book'])) . ' ' . date('H:i', strtotime($bookingInfo['time_book'])) . '</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y', strtotime($bookingInfo['date_book'])) . ' ' . date('H:i', strtotime($bookingInfo['time_book'])) . '</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -349,7 +349,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 10px 12px; font-weight: bold;">Thời gian đặt bàn</td>
-                                    <td style="padding: 10px 12px;">' . date('y/m/Y', strtotime($bookingInfo['date_book'])) . ' ' . date('H:i', strtotime($bookingInfo['time_book'])) . '</td>
+                                    <td style="padding: 10px 12px;">' . date('d/m/Y', strtotime($bookingInfo['date_book'])) . ' ' . date('H:i', strtotime($bookingInfo['time_book'])) . '</td>
                                 </tr>
                             </tbody>
                         </table>

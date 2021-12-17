@@ -1,6 +1,6 @@
 <div class="content">
 
-            <div class="on">
+            <div class="on grid">
                 <nav class="left">
                     <a class="tt" href="<?=$SITE_URL;?>">TRANG CHỦ</a>
                     <span class="">/</span>
@@ -25,7 +25,7 @@
 
             </div>
        
-            <div class="product_1">
+            <div class="product_1 grid">
             <?php foreach($item as $item):?>
                 <div class="pro">
                     <div class="cha">

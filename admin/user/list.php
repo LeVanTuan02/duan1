@@ -102,7 +102,7 @@
                                         <a onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản khách hàng này không?') ? window.location.href = '<?=$ADMIN_URL;?>/user/?btn_unlock&ma_kh=<?=$item['id'];?>' : false;" class="content__table-action success hide-on-mobile">
                                             <i class="fas fa-unlock"></i>
                                         </a>
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa khách hàng này không?') ? window.location.href = '<?=$ADMIN_URL;?>/user/?btn_delete&ma_kh=<?=$item['id'];?>' : false;" class="content__table-action danger">
+                                        <a onclick="return confirm('Bạn có chắc muốn xóa khách hàng này không?') ? window.location.href = '<?=$ADMIN_URL;?>/user/?btn_delete&id=<?=$item['id'];?>' : false;" class="content__table-action danger">
                                             <i class="fas fa-user-times"></i>
                                         </a>
                                         <a href="<?=$ADMIN_URL?>/user/?btn_edit&ma_kh=<?=$item['id'];?>" class="content__table-action info">

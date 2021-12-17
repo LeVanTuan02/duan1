@@ -26,13 +26,6 @@
                                 </span>
                             </div>
                         </div>
-    
-                        <!-- <div class="form__group">
-                            <label for="luot_xem">Số lượt xem</label>
-                            <div class="form-control disabled">
-                                <input type="text" name="view" value="0" disabled>
-                            </div>
-                        </div> -->
 
                         <div class="form__group">
                             <label for="password">Loại hàng</label>
@@ -67,6 +60,16 @@
                                 <img src="./assets/images/profile.png" alt="">
                             </div>
                         </div>
+
+                        <div class="form__group">
+                            <label for="giam_gia">Giá</label>
+                            <div class="form-control">
+                                <input type="number" name="price" placeholder="Nhập giá sản phẩm" value="<?=$product['price'] ?? '';?>">
+                                <span class="form-message">
+                                    <?=$errorMessage['price'] ?? '';?>
+                                </span>
+                            </div>
+                        </div>
     
                         <div class="form__group">
                             <label for="giam_gia">Giảm giá</label>
@@ -78,6 +81,35 @@
                             </div>
                         </div>
 
+                        <div class="form__group">
+                            <label for="condition">Trạng thái</label>
+                            <div class="form-control">
+                                <select name="status" id="">
+                                    <?php if (isset($product['status'])): ?>
+                                        <?php if ($product['status']): ?>
+                                        <option value="">-- Chọn trạng thái SP --</option>
+                                        <option value="0">Ẩn</option>
+                                        <option value="1" selected>Hiển thị</option>
+                                        <?php elseif ($product['status'] === '0'): ?>
+                                        <option value="">-- Chọn trạng thái SP --</option>
+                                        <option value="0" selected>Ẩn</option>
+                                        <option value="1">Hiển thị</option>
+                                        <?php else: ?>
+                                        <option value="" selected>-- Chọn trạng thái SP --</option>
+                                        <option value="0">Ẩn</option>
+                                        <option value="1">Hiển thị</option>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <option value="">-- Chọn trạng thái SP --</option>
+                                        <option value="0">Ẩn</option>
+                                        <option value="1" selected>Hiển thị</option>
+                                    <?php endif; ?>
+                                </select>
+                                <span class="form-message">
+                                    <?=$errorMessage['status'] ?? '';?>
+                                </span>
+                            </div>
+                        </div>
 
                         <div class="form__group">
                             <label for="mo_ta">Mô tả</label>
@@ -88,6 +120,7 @@
                                 </span>
                             </div>
                         </div>
+
 
                         <?=isset($MESSAGE) ? '<div class="alert alert-success">'.$MESSAGE.'</div>' : '';?>
 

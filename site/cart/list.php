@@ -56,9 +56,13 @@
                                     </td>
                                     <td>
                                         <form action="" class="content__cart-detail-table-qnt">
-                                            <button type="button" onclick="quantity.value = Number(quantity.value) - 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
+                                            <!-- <button type="button" onclick="quantity.value = Number(quantity.value) - 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
                                             <input type="number" min="0" name="quantity" class="content__cart-detail-table-qnt-control" value="<?=$item['quantity'];?>">
-                                            <button type="button" onclick="quantity.value = Number(quantity.value) + 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button>
+                                            <button type="button" onclick="quantity.value = Number(quantity.value) + 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button> -->
+
+                                            <button type="button" onclick="updateQuantity(event, 'minus')" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
+                                            <input type="number" min="0" name="quantity" class="content__cart-detail-table-qnt-control" value="<?=$item['quantity'];?>">
+                                            <button type="button" onclick="updateQuantity(event, 'plus')" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button>
                                         </form>
                                     </td>
                                     <td>

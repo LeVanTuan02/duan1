@@ -85,7 +85,7 @@
                 <td>
                     <div class="user_list-action">
                         <a onclick="return confirm(\'Bạn có chắc muốn xóa bình luận này không?\') ?
-                        window.location.href = \'btn_delete&p_id=' . $p_id  . '&id=' . $cmt_item['id'] .' : false;
+                        window.location.href = \'?btn_delete&p_id=' . $p_id  . '&id=' . $cmt_item['id'] .'\' : false;
                         " class="content__table-action danger">
                             <i class="fas fa-trash"></i>
                         </a>

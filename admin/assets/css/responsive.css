@@ -34,6 +34,19 @@
     .form-control.form-date select {
         width: 30%;
     }
+
+    .logs__inner-body-item {
+        width: 100%;
+    }
+
+    .logs__inner-body {
+        flex-wrap: wrap;
+    }
+
+    .logs__inner {
+        height: calc(100vh - 10%);
+        overflow-y: scroll;
+    }
 }
 
 /* tablet */

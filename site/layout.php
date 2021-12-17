@@ -90,7 +90,7 @@
                             <?php else: ?>
                             <li class="header__top-list-item header__top-list-item--separator">
                                 Xin chào,
-                                <a href="<?=$ADMIN_URL;?>/account" class="header__top-list-item-link"><?=$_SESSION['user']['fullName'];?></a>
+                                <a href="<?=$SITE_URL;?>/my-account" class="header__top-list-item-link"><?=$_SESSION['user']['fullName'];?></a>
                             </li>
                             <?php endif; ?>
                         <?php else: ?>
@@ -206,6 +206,29 @@
                         <li class="menu__mobile-item">
                             <a href="<?=$SITE_URL;?>/home?order" class="menu__mobile-item-link">Đặt bàn</a>
                         </li>
+
+                        <?php if (isset($_SESSION['user'])): ?>
+                            <?php if ($_SESSION['user']['role']): ?>
+                            <li class="menu__mobile-item">
+                                <a href="<?=$ADMIN_URL;?>" class="menu__mobile-item-link">
+                                    Xin chào, <?=$_SESSION['user']['fullName'];?>
+                                </a>
+                            </li>
+                            <?php else: ?>
+                            <li class="menu__mobile-item">
+                                <a href="<?=$SITE_URL;?>/my-account" class="menu__mobile-item-link">
+                                    Xin chào, <?=$_SESSION['user']['fullName'];?>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <li class="menu__mobile-item">
+                                <a href="<?=$SITE_URL;?>/account" class="menu__mobile-item-link">Đăng nhập</a>
+                            </li>
+                            <li class="menu__mobile-item">
+                                <a href="<?=$SITE_URL;?>/account/?register" class="menu__mobile-item-link">Đăng ký</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -334,6 +357,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="<?=$SITE_URL;?>/assets/js/loadingOverlay.js"></script>
         <!-- <script src="<?=$ROOT_URL;?>/vendor/realtime/realtime.js"></script> -->
+        <script src="<?=$ADMIN_URL;?>/assets/js/script.js"></script>
         <script src="<?=$SITE_URL;?>/assets/js/main.js"></script>
     </div>
 </body>

@@ -2,15 +2,15 @@
 
     require_once 'pdo.php';
 
-    function product_insert($product_name, $product_image, $description, $cate_id, $discount, $created_at, $update_at) {
-        $sql = "INSERT INTO product(product_name, product_image, description, cate_id, discount, created_at, update_at)
-        VALUES(?, ?, ?, ?, ?, ?, ?)";
-        pdo_execute($sql, $product_name, $product_image, $description, $cate_id, $discount, $created_at, $update_at);
+    function product_insert($product_name, $product_image, $price, $description, $cate_id, $discount, $status, $created_at, $update_at) {
+        $sql = "INSERT INTO product(product_name, product_image, price, description, cate_id, discount, status, created_at, update_at)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        pdo_execute($sql, $product_name, $product_image, $price, $description, $cate_id, $discount, $status, $created_at, $update_at);
     }
 
-    function product_update($product_name, $product_image, $description, $cate_id, $discount, $update_at, $id) {
-        $sql = "UPDATE product SET product_name = ?, product_image = ?, description = ?, cate_id = ?, discount = ?, update_at = ? WHERE id = ?";
-        pdo_execute($sql, $product_name, $product_image, $description, $cate_id, $discount, $update_at, $id);
+    function product_update($product_name, $product_image, $price, $description, $cate_id, $discount, $status, $update_at, $id) {
+        $sql = "UPDATE product SET product_name = ?, product_image = ?, price = ?, description = ?, cate_id = ?, discount = ?, status = ?, update_at = ? WHERE id = ?";
+        pdo_execute($sql, $product_name, $product_image, $price, $description, $cate_id, $discount, $status, $update_at, $id);
     }
 
     function product_delete($id) {
@@ -25,14 +25,18 @@
         }
     }
 
-    function product_select_all($start = 0, $limit = 0) {
-        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct, AVG(r.rating_number) AS rating
-        FROM (((product p LEFT JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)
-        LEFT JOIN rating r ON p.id = r.product_id)
-        GROUP BY p.id
-        ORDER BY id DESC";
-        if ($limit) {
+    function product_select_all($start = 0, $limit = 0, $selectHideProduct = true) {
+        $sql = "SELECT p.*, c.cate_name, AVG(r.rating_number) AS rating
+        FROM ((product p JOIN category c ON p.cate_id = c.id)
+        LEFT JOIN rating r ON p.id = r.product_id)";
+
+        if (!$selectHideProduct) {
+            $sql .= " WHERE p.status = 1";
+        }
+
+        $sql .= " GROUP BY p.id ORDER BY id DESC";
+
+        if ($limit && $start >= 0) {
             $sql .= " LIMIT $start, $limit";
         }
         return pdo_query($sql);
@@ -40,9 +44,8 @@
 
     // tìm kiếm backend
     function product_search($keyword, $cate_id) {
-        $sql = "SELECT p.*, c.cate_name, SUM(a.quantity) AS totalProduct, AVG(r.rating_number) AS rating
-        FROM (((product p LEFT JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)
+        $sql = "SELECT p.*, c.cate_name, AVG(r.rating_number) AS rating
+        FROM ((product p JOIN category c ON p.cate_id = c.id)
         LEFT JOIN rating r ON p.id = r.product_id)
         WHERE 1";
 
@@ -64,40 +67,8 @@
         
     }
 
-    // sản phẩm trang khách hàng
-    function product_home_select_all($start = 0, $limit = 0) {
-        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price
-        FROM product p JOIN attribute a ON p.id = a.product_id
-        GROUP BY p.id
-        ORDER BY p.id DESC";
-
-        if ($limit && $start >= 0) {
-            $sql .= " LIMIT $start, $limit";
-            // return pdo_query($sql, $start, $limit);
-        }
-
-        return pdo_query($sql);
-    }
-
     function product_select_by_id($id) {
-        $sql = "SELECT * FROM product WHERE id = ?";
-        return pdo_query_one($sql, $id);
-    }
-
-    // lấy sản phẩm theo id trang khách hàng
-    function product_home_select_by_id($id, $size = '') {
-        $sql = "SELECT p.*, a.price, a.size, a.quantity, c.cate_name, p.cate_id FROM ((product p JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)
-        WHERE p.id = ?";
-
-        if ($size) {
-            $sql .= " AND a.size = ?";
-            // return $sql;
-            return pdo_query_one($sql, $id, $size);
-        }
-
-        $sql .= " ORDER BY a.price";
-
+        $sql = "SELECT p.*, c.cate_name FROM product p JOIN category c ON p.cate_id = c.id WHERE p.id = ?";
         return pdo_query_one($sql, $id);
     }
 
@@ -106,35 +77,16 @@
         return pdo_query_value($sql, $id) > 0;
     }
 
-    // cập nhật trạng thái sản phẩm (còn hàng, hết hàng)
-    function product_update_status($id) {
-        $status = 0;
-        $sql_get_quantity = "SELECT SUM(quantity) FROM attribute WHERE product_id = $id";
-        if (pdo_query_value($sql_get_quantity) > 0) {
-            $status = 1;
-        }
-        $sql = "UPDATE product SET status = $status WHERE id = ?";
-        pdo_execute($sql, $id);
-        return $status;
-    }
-
     // kiểm tra tên sản phẩm tồn tại không
     function product_name_exits($product_name) {
         $sql = "SELECT * FROM product WHERE product_name = ?";
         return pdo_query_one($sql, $product_name);
     }
 
-    // lấy giá, số lượng sp từ size và id sp
-    function product_get_price_qnt_from_size($id, $size) {
-        $sql = "SELECT a.price, a.quantity FROM product p JOIN attribute a ON p.id = a.product_id WHERE p.id = ? AND a.size = ?";
-        return pdo_query_one($sql, $id, $size);
-    }
-
     // sản phẩm cùng loại
     function product_relation($id, $cate_id) {
-        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price
-        FROM product p JOIN attribute a ON p.id = a.product_id
-        WHERE NOT p.id = ? AND p.cate_id = ?
+        $sql = "SELECT * FROM product p
+        WHERE NOT p.id = ? AND p.cate_id = ? AND status = 1
         GROUP BY p.id
         ORDER BY p.id DESC LIMIT 4";
         return pdo_query($sql, $id, $cate_id);
@@ -142,20 +94,17 @@
 
     // tìm kiếm sp
     function product_home_search($keyword) {
-        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price
-        FROM product p JOIN attribute a ON p.id = a.product_id
-        WHERE p.product_name LIKE ?
-        GROUP BY p.id
-        ORDER BY p.id DESC";
+        $sql = "SELECT * FROM product
+        WHERE status = 1 AND product_name LIKE ?
+        GROUP BY id
+        ORDER BY id DESC";
         return pdo_query($sql, '%'.$keyword.'%');
     }
 
     // sp theo danh mục
     function product_home_select_by_cate($cate_id, $start = '', $limit = '') {
-        $sql = "SELECT p.id, p.product_name, p.product_image, MIN(a.price) as price, c.cate_name
-        FROM ((product p JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)
-        WHERE p.cate_id = ?
+        $sql = "SELECT p.*, c.cate_name FROM product p JOIN category c ON p.cate_id = c.id
+        WHERE p.cate_id = ? AND p.status = 1
         GROUP BY p.id
         ORDER BY p.id DESC";
         if ($limit && $start >= 0) {
@@ -172,11 +121,10 @@
 
     // lọc sp
     function product_filter($type, $cate_id = '') {
-        $sql = "SELECT p.*, MIN(a.price) as price, c.cate_name
-        FROM ((product p JOIN attribute a ON p.id = a.product_id)
-        JOIN category c ON p.cate_id = c.id)";
+        $sql = "SELECT p.* FROM product p JOIN category c ON p.cate_id = c.id WHERE p.status = 1";
+
         if ($cate_id) {
-            $sql .= " WHERE p.cate_id = $cate_id";
+            $sql .= " AND p.cate_id = $cate_id";
         }
         $sql .= " GROUP BY p.id";
 
@@ -206,6 +154,13 @@
         }
 
         return pdo_query($sql);
+    }
+
+    // số lượng sp đã bán
+    function product_select_sold($id) {
+        $sql = "SELECT SUM(od.quantity) AS total FROM order_detail od JOIN `order` o ON od.order_id = o.id
+        WHERE product_id = ? AND o.`status` = 3";
+        return pdo_query_one($sql, $id);
     }
 
 

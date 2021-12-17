@@ -77,6 +77,9 @@
         
         $VIEW_PAGE = 'register.php';
     } else if (array_key_exists('register', $_REQUEST)) {
+        if (check_user_logged()) {
+            header('Location: ' . $SITE_URL);
+        }
         $VIEW_PAGE = 'register.php';
     } else if (array_key_exists('btn_forgot', $_REQUEST)) {
         $getUser = user_exits($user);
@@ -200,6 +203,9 @@
 
         $VIEW_PAGE = "login.php";
     } else {
+        if (check_user_logged()) {
+            header('Location: ' . $SITE_URL);
+        }
         $VIEW_PAGE = "login.php";
     }
 

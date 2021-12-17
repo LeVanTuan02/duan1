@@ -3,7 +3,7 @@
     require_once '../../global.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/product.php';
-    require_once '../../dao/attribute.php';
+    require_once '../../dao/size.php';
     require_once '../../dao/order.php';
     require_once '../../dao/order_detail.php';
     require_once '../../dao/voucher.php';
@@ -19,28 +19,23 @@
     if (array_key_exists('add_cart', $_REQUEST)) {
 
         $qnt = $qnt ?? 1;
-        $size = $size ?? '';
-        $productInfo = product_home_select_by_id($id, $size);
+        // thông tin sp
+        $productInfo = product_select_by_id($id);
 
-        // check số lượng
-        // nếu số lượng mua nhiều hơn số lượng hiện có
-        if ($qnt > $productInfo['quantity']) {
-            echo json_encode(array(
-                'success' => false
-            ));
-            die();
+        // thông tin size
+        $sizeInfo = size_select_by_size($size);
+
+        if ($sizeInfo) {
+            $totalPrice = $productInfo['price'] + $sizeInfo['price_increase'];
+        } else {
+            $totalPrice = $productInfo['price'];
         }
-        // else {
-        //     // cập nhật giảm số lượng sp
-        //     $newQnt = $productInfo['quantity'] - $qnt;
-        //     attribute_update_quantity($id, $size, $newQnt);
-        // }
 
         // mặc định sản phẩm chưa tồn tại
         $isProductExits = false;
         // duyệt mảng cart, nếu idsp và size đã tồn tại => cập nhật số lượng
         foreach ($_SESSION['cart'] as $key => $cart) {
-            if ($cart['id'] == $id && $cart['size'] == $productInfo['size']) {
+            if ($cart['id'] == $id && $cart['size'] == $size) {
                 $_SESSION['cart'][$key]['quantity'] += $qnt;
                 $isProductExits = true;
             }
@@ -53,8 +48,8 @@
                 'id' => $productInfo['id'],
                 'product_name' => $productInfo['product_name'],
                 'product_image' => $productInfo['product_image'],
-                'size' => $productInfo['size'],
-                'price' => $productInfo['price'],
+                'size' => $size,
+                'price' => $totalPrice,
                 'quantity' => $qnt
             );
             array_push($_SESSION['cart'], $cartInfo);
@@ -64,67 +59,32 @@
             'success' => true,
         ));
         die();
-
     } else if (array_key_exists('btn_delete', $_REQUEST)) {
         foreach ($_SESSION['cart'] as $key => $item) {
             if ($id_cart == $item['id_cart']) {
                 unset($_SESSION['cart'][$key]);
             }
         }
-        // unset($_SESSION['cart'][$index]);
         header('Location: ' . $SITE_URL . '/cart');
     } else if (array_key_exists('update_cart', $_REQUEST)) {
 
         // jquery ajax $listQuantity [['id' => '', 'size' => '', 'quantity'] => '', ['id' => '', 'size' => '', 'quantity'] => '']
-        $success = true;
-        $message = [];
         foreach ($listQuantity as $cart) {
             foreach ($_SESSION['cart'] as $key => $item) {
                 if ($cart['id'] == $item['id'] && $cart['size'] == $item['size']) {
-                    // lấy số lượng sp
-                    $getQuantity = attribute_get_quantity($cart['id'], $cart['size']);
-                    // nếu số lượng ban đầu khác số lượng sau khi cập nhật
-                    // nếu sl bđ > sl sau cập nhật
-                    // tăng sl sp trong data
-                    // if ($_SESSION['cart'][$key]['quantity'] > $cart['quantity']) {
-                    //     // sl bđ + sl giảm
-                    //     $newQnt = $getQuantity + $_SESSION['cart'][$key]['quantity'] - $cart['quantity'];
-                    //     attribute_update_quantity($cart['id'], $cart['size'], $newQnt);
-                    // } else {
-                    //     if ($cart['quantity'] <= $getQuantity) {
-                    //         // cập nhật số lượng
-                    //         $newQnt = $getQuantity + $_SESSION['cart'][$key]['quantity'] - $cart['quantity'];
-                    //         attribute_update_quantity($cart['id'], $cart['size'], $newQnt);
-                    //     } else {
-                    //         die();
-                    //     }
-                    // }
 
-                    // nếu sp đã hết hàng
-                    if (!$getQuantity || $getQuantity['quantity'] == 0) {
-                        $success = false;
-                        $message[] = $_SESSION['cart'][$key]['product_name'] . ' size ' . $_SESSION['cart'][$key]['size'] . ' đã hết hàng.';
-                    }
-                    // nếu số lượng cập nhật nhiều hơn sp hiện có
-                    else if ($cart['quantity'] > $getQuantity['quantity']) {
-                        $success = false;
-                        $message[] = $_SESSION['cart'][$key]['product_name'] . ' size ' . $_SESSION['cart'][$key]['size'] . ' vượt quá số lượng sản phẩm hiện có.';
+                    if ($cart['quantity'] > 0) {
+                        // cập nhật số lượng trong ss
+                        $_SESSION['cart'][$key]['quantity'] = intval($cart['quantity']);
                     } else {
-                        if (intval($cart['quantity'])) {
-                            // cập nhật số lượng trong ss
-                            $_SESSION['cart'][$key]['quantity'] = intval($cart['quantity']);
-                        } else {
-                            // sl = 0 => xóa khỏi ss
-                            unset($_SESSION['cart'][$key]);
-                        }
+                        // sl = 0 => xóa khỏi ss
+                        unset($_SESSION['cart'][$key]);
                     }
-
                 }
             }
         }
         echo json_encode(array(
-            'success' => $success,
-            'message' => $message,
+            'success' => true
         ));
         die();
     } else if (array_key_exists('render_cart', $_REQUEST)) {
@@ -155,9 +115,9 @@
                     </td>
                     <td>
                         <form action="" class="content__cart-detail-table-qnt">
-                            <button type="button" onclick="quantity.value = Number(quantity.value) - 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
+                            <button type="button" onclick="updateQuantity(event, \'minus\')" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--minus">-</button>
                             <input type="number" min="0" name="quantity" class="content__cart-detail-table-qnt-control" value="' . $cart_item['quantity'] . '">
-                            <button type="button" onclick="quantity.value = Number(quantity.value) + 1" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button>
+                            <button type="button" onclick="updateQuantity(event, \'plus\')" class="content__cart-detail-table-qnt-btn content__cart-detail-table-qnt-btn--plus">+</button>
                         </form>
                     </td>
                     <td>
@@ -280,7 +240,12 @@
                     $totalPriceVoucher += ($total_price * $voucherItem['voucher_number'])/100;
                 }
 
+                // chuỗi id voucher đã sử dụng
                 $voucher .= $voucherItem['id'] . ',';
+
+                // insert id user sử dụng mã voucher
+                voucher_insert_user_used($_SESSION['user']['id'], $voucherItem['id']);
+
             }
             if ($voucher) $voucher = substr($voucher, 0, -1);
 
@@ -290,15 +255,9 @@
             // insert order
             $orderId = order_insert($user_id, $customer_name, $customer_address, $customer_phone, $customer_email, $total_price, $customer_message, 0, $voucher, $created_at, $created_at);
 
-            // insert order_detail và giảm số lượng sp
+            // insert order_detail
             foreach ($_SESSION['cart'] as $item) {
                 order_detail_insert($orderId, $item['id'], $item['size'], $item['quantity'], $item['price']);
-
-                // cập nhật sl sp trong database
-                attribute_update_quantity($item['id'], $item['size'], $item['quantity']);
-
-                // cập nhật lại trạng thái (còn hàng, hết hàng)
-                product_update_status($item['id']);
             }
 
             // gửi email cho khách hàng
@@ -309,6 +268,7 @@
 
             // lưu vào logs
             log_insert($orderId, 0, $user_id, $created_at);
+
             
             // xóa session giỏ hàng
             unset($_SESSION['cart']);
@@ -330,9 +290,13 @@
     } else if (array_key_exists('check_voucher', $_REQUEST)) {
         $voucherInfo = voucher_select_by_code($voucher);
         $currentTime = date('Y-m-d H:i:s');
-        $success = false;;
+        $success = false;
         $message = '';
-        if ($voucherInfo) {
+
+        // nếu chưa đăng nhập
+        if (!isset($_SESSION['user']['id'])) {
+            $message = 'Vui lòng đăng nhập để sử dụng mã giảm giá';
+        } else if ($voucherInfo) {
             if (!$voucherInfo['quantity']) {
                 $message = 'Voucher đã hết lượt sử dụng';
             } else if ($currentTime < $voucherInfo['time_start']) {
@@ -347,7 +311,8 @@
                     return $voucher_item['code'] == strtoupper($voucher);
                 });
 
-                if ($isVoucherExits) {
+                // nếu đã có trong ss hoặc đã sd trước đó
+                if ($isVoucherExits || voucher_check_user_used($_SESSION['user']['id'], strtoupper($voucher))) {
                     $message = 'Bạn đã sử dụng mã này';
                 } else {
                     $success = true;

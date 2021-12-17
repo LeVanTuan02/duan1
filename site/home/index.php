@@ -2,6 +2,7 @@
 
     require_once '../../global.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/favorite.php';
     require_once '../../dao/slide.php';
     require_once '../../dao/category.php';
     require_once '../../dao/contact.php';
@@ -153,8 +154,8 @@
     } else {
         $active = 'index';
 
-        // danh sách menu
-        $listProduct = product_home_select_all(0, 8);
+        // danh sách menu (ko lấy sản phẩm ẩn)
+        $listProduct = product_select_all(0, 8, false);
 
         // danh mục sản phẩm
         $categoryInfo = category_home_select_all();

@@ -52,8 +52,8 @@
                                 <th>Mã hàng</th>
                                 <th>Hàng hóa</th>
                                 <th>Lượt xem</th>
+                                <th>Giá</th>
                                 <th>Ngày tạo</th>
-                                <td>Số lượng</td>
                                 <td>Loại hàng</td>
                                 <td>Rating</td>
                                 <th>Trạng thái</th>
@@ -74,25 +74,27 @@
                                     </div>
 
                                     <div class="content__table-info">
-                                        <span class="content__table-name"><?=$item['product_name'];?></span>
+                                        <a href="<?=$SITE_URL . '/product/?detail&id=' . $item['id'];?>" target="_blank" class="content__table-name"><?=$item['product_name'];?></a>
                                     </div>
                                 </td>
                                 <td>
                                     <?=$item['view'];?>
                                 </td>
                                 <td>
+                                    <?=number_format($item['price']);?> VNĐ
+                                </td>
+                                <td>
                                     <span class="content__table-text-success">
                                         <?=date_format(date_create($item['created_at']), 'd/m/Y');?>
                                     </span>
                                 </td>
-                                <td><?=$item['totalProduct'] ?? 0;?></td>
                                 <td><?=$item['cate_name'];?></td>
                                 <td><?=number_format($item['rating'], 1);?>/5</td>
                                 <td>
                                     <?php if ($item['status']): ?>
-                                    <span class="content__table-stt-active">Còn hàng</span>
+                                    <span class="content__table-stt-active">Hiển thị</span>
                                     <?php else: ?>
-                                    <span class="content__table-stt-locked">Hết hàng</span>
+                                    <span class="content__table-stt-locked">Ẩn</span>
                                     <?php endif; ?>
                                 </td>
                                 <td>

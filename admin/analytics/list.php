@@ -18,17 +18,10 @@
                             <h3 class="content__table-title">Analytics Management</h3>
                             <span class="content__table-text">Analytics management made easy</span>
                         </div>
-
-                        <!-- <form action="" class="content__table-heading-form" method="POST">
-                            <input type="text" class="content__table-heading-form-control" name="keyword" placeholder="Nhập tên hàng hóa">
-                            <button class="content__table-heading-form-btn">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form> -->
                     </div>
 
                     <?php
-                        if (empty($dataAnalytics)) {
+                        if (empty($categoryAnalytics)) {
                             echo '<div class="alert alert-success">Chưa có danh mục nào</div>';
                             die();
                         }
@@ -46,7 +39,7 @@
                         </thead>
 
                         <tbody>
-                            <?php foreach ($dataAnalytics as $item): ?>
+                            <?php foreach ($categoryAnalytics as $item): ?>
                             <tr>
                                 <td>
                                     <?=$item['cate_name'];?>
@@ -70,35 +63,6 @@
                         </tbody>
                     </table>
 
-                    <!-- <ul class="content__table-pagination">
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-first">
-                                <i class="fas fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-pre">
-                                <i class="fas fa-angle-left"></i>
-                            </a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link--active">1</a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link">2</a>
-                        </li>
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-next">
-                                <i class="fas fa-angle-right"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="content__table-pagination-item">
-                            <a href="" class="content__table-pagination-link content__table-pagination-link-last">
-                                <i class="fas fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    </ul> -->
                 </div>
             </div>
         </main>

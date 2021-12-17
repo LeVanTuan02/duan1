@@ -3,6 +3,8 @@
     require_once '../../global.php';
     require_once '../../dao/settings.php';
     require_once '../../dao/product.php';
+    require_once '../../dao/favorite.php';
+    require_once '../../dao/size.php';
     require_once '../../dao/category.php';
     require_once '../../dao/comment.php';
     require_once '../../dao/rating.php';
@@ -34,8 +36,18 @@
         $itemData = product_home_select_by_cate($cate_id, $start, $limit);
         $VIEW_PAGE = "category.php";
     } else if (array_key_exists('detail', $_REQUEST)) {
+        // kiểm tra sp yêu thích
+        $isProductFavorite = false;
+        if (isset($_SESSION['user']['id']) && favorite_exits($_SESSION['user']['id'], $id)) {
+            $isProductFavorite = true;
+        }
         // update view
         product_update_view($id);
+
+        // số đánh giá
+        $productRating = rating_select_by_p_id($id);
+        // số sp đã bán
+        $productSold = product_select_sold($id);
         
         // danh sách bình luận
         $listDataComment = comment_home_select_all_by_pid($id);
@@ -51,8 +63,11 @@
         });
         $listCommentRep = array_reverse($listCommentRep);
 
+        // danh sách size
+        $listSize = size_select_all('size');
+
         // chi tiết sản phẩm
-        $itemData = product_home_select_by_id($id);
+        $itemData = product_select_by_id($id);
         $titlePage = $itemData['product_name'];
 
         // sp cùng loại
@@ -60,17 +75,27 @@
 
         $VIEW_PAGE = "detail.php";
     } else if (array_key_exists('get_price', $_REQUEST)) {
-        // lấy giá, số lượng sp từ size và id sp
-        $productSizeQnt = product_get_price_qnt_from_size($id, $size);
-        if ($productSizeQnt && $productSizeQnt['quantity']) {
+        // lấy giá thêm
+        $sizeInfo = size_select_by_size($size);
+
+        // lấy giá của sp
+        $productInfo = product_select_by_id($id);
+
+        if ($sizeInfo) {
+            // giá sp + giá thêm size
+            $totalPrice = number_format($productInfo['price'] + $sizeInfo['price_increase']);
             echo json_encode(array(
                 'success' => true,
-                'price' => number_format($productSizeQnt['price']),
-                'quantity' => $productSizeQnt['quantity']
+                'totalPrice' => $totalPrice
+            ));
+        } else if ($size == 'S') {
+            echo json_encode(array(
+                'success' => true,
+                'totalPrice' => number_format($productInfo['price']) //trả về giá sp
             ));
         } else {
             echo json_encode(array(
-                'success' => false
+                'success' => false,
             ));
         }
         die();
@@ -236,7 +261,7 @@
         $titlePage = 'Thực đơn';
         $active = 'product';
         // phân trang
-        $totalProduct = count(product_home_select_all());
+        $totalProduct = count(product_select_all('', '', false));
         $limit = 12;
         $totalPage = ceil($totalProduct / $limit);
 
@@ -249,7 +274,7 @@
         }
 
         $start = ($currentPage - 1) * $limit;
-        $item = product_home_select_all($start, $limit);
+        $item = product_select_all($start, $limit, false);
 
         $listCategory = category_select_all();
 
