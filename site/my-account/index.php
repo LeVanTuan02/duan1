@@ -26,7 +26,7 @@
         $currentPage = $page ?? 1;
 
         if ($currentPage <= 0) {
-            header('Location: ' . $ADMIN_URL . '/my-account/?order&page=1');
+            header('Location: ' . $SITE_URL . '/my-account/?cart&page=1');
         } else if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
         }
@@ -206,7 +206,7 @@
         $currentPage = $page ?? 1;
 
         if ($currentPage <= 0) {
-            header('Location: ' . $ADMIN_URL . '/my-account/?booking&page=1');
+            header('Location: ' . $SITE_URL . '/my-account/?booking&page=1');
         } else if ($currentPage > $totalPage) {
             $currentPage = $totalPage;
         }
