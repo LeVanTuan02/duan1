@@ -82,7 +82,7 @@
                             <!-- phân trang -->
                             <ul class="content__table-pagination my-acc__order-pagination">
                                 <li class="content__table-pagination-item">
-                                    <a href="<?=$SITE_URL;?>/my-account/?cart" class="content__table-pagination-link content__table-pagination-link-first">
+                                    <a href="<?=$SITE_URL;?>/my-account/?booking" class="content__table-pagination-link content__table-pagination-link-first">
                                         <i class="fas fa-angle-double-left"></i>
                                     </a>
                                 </li>
@@ -90,7 +90,7 @@
                                     if ($currentPage > 1) {
                                         echo '
                                         <li class="content__table-pagination-item">
-                                            <a href="' . $SITE_URL . '/my-account/?cart&page='. ($currentPage - 1) .'" class="content__table-pagination-link content__table-pagination-link-pre">
+                                            <a href="' . $SITE_URL . '/my-account/?booking&page='. ($currentPage - 1) .'" class="content__table-pagination-link content__table-pagination-link-pre">
                                                 <i class="fas fa-angle-left"></i>
                                             </a>
                                         </li>';
@@ -101,13 +101,13 @@
                                         if ($currentPage == $i) {
                                             echo '
                                             <li class="content__table-pagination-item">
-                                                <a href="'.$SITE_URL . '/my-account/?cart&page='. $i .'" class="content__table-pagination-link content__table-pagination-link--active">' . $i . '</a>
+                                                <a href="'.$SITE_URL . '/my-account/?booking&page='. $i .'" class="content__table-pagination-link content__table-pagination-link--active">' . $i . '</a>
                                             </li>
                                             ';
                                         } else {
                                             echo '
                                             <li class="content__table-pagination-item">
-                                                <a href="'.$SITE_URL . '/my-account/?cart&page='. $i .'" class="content__table-pagination-link">' . $i . '</a>
+                                                <a href="'.$SITE_URL . '/my-account/?booking&page='. $i .'" class="content__table-pagination-link">' . $i . '</a>
                                             </li>
                                             ';
                                         }
@@ -118,7 +118,7 @@
                                     if ($currentPage < $totalPage) {
                                         echo '
                                         <li class="content__table-pagination-item">
-                                            <a href="' . $SITE_URL . '/my-account/?cart&page='. ($currentPage + 1) .'" class="content__table-pagination-link content__table-pagination-link-next">
+                                            <a href="' . $SITE_URL . '/my-account/?booking&page='. ($currentPage + 1) .'" class="content__table-pagination-link content__table-pagination-link-next">
                                                 <i class="fas fa-angle-right"></i>
                                             </a>
                                         </li>';
@@ -127,7 +127,7 @@
                                 
                                 
                                 <li class="content__table-pagination-item">
-                                    <a href="<?=$SITE_URL;?>/my-account/?cart&page=<?=$totalPage;?>" class="content__table-pagination-link content__table-pagination-link-last">
+                                    <a href="<?=$SITE_URL;?>/my-account/?booking&page=<?=$totalPage;?>" class="content__table-pagination-link content__table-pagination-link-last">
                                         <i class="fas fa-angle-double-right"></i>
                                     </a>
                                 </li>
